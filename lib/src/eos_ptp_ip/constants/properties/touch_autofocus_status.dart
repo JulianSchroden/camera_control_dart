@@ -1,5 +1,4 @@
-import '../../../../shared/extensions/list_extensions.dart';
-
+import '../../../common/extensions/list_extensions.dart';
 import '../ptp_property.dart';
 
 enum TouchAutofocusStatus {

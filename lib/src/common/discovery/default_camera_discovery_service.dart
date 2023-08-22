@@ -13,10 +13,9 @@ class DefaultCameraDiscoveryService implements CameraDiscoveryService {
   final UpnpDiscoveryAdapter upnpDiscoveryAdapter;
 
   DefaultCameraDiscoveryService({
-    WifiInfoAdapter? wifiInfoAdapter,
-    UpnpDiscoveryAdapter? upnpDiscoveryAdapter,
-  })  : wifiInfoAdapter = wifiInfoAdapter ?? WifiInfoAdapter(),
-        upnpDiscoveryAdapter = upnpDiscoveryAdapter ?? UpnpDiscoveryAdapter();
+    required this.wifiInfoAdapter,
+    required this.upnpDiscoveryAdapter,
+  });
 
   @override
   Future<WifiInfo> wifiInfo() async {

@@ -1,4 +1,4 @@
-import '../../../shared/extensions/list_extensions.dart';
+import '../../common/extensions/list_extensions.dart';
 import '../../interface/models/control_prop_type.dart';
 import '../extensions/int_as_hex_string_extension.dart';
 import '../models/eos_ptp_int_prop_value.dart';

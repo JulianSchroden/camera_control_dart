@@ -1,6 +1,5 @@
 import 'dart:async';
-
-import 'package:flutter/services.dart';
+import 'dart:typed_data';
 
 import '../common/base_camera.dart';
 import '../interface/models/camera_descriptor.dart';
@@ -115,10 +114,7 @@ class DemoCamera extends BaseCamera {
 
   @override
   Future<LiveViewData> getLiveViewData() async {
-    ByteData byteData =
-        await rootBundle.load('assets/images/dummy_live_view_image.jpg');
-
-    return LiveViewData(imageBytes: byteData.buffer.asUint8List());
+    return LiveViewData(imageBytes: Uint8List(0));
   }
 
   @override

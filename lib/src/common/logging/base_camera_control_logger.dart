@@ -1,12 +1,10 @@
-import 'package:logger/logger.dart';
-
 import '../../interface/logging/camera_control_logger.dart';
-import 'structured_log_printer.dart';
+import '../../interface/logging/logger.dart';
 
 class BaseCameraControlLogger extends CameraControlLogger {
-  final Logger logger;
+  const BaseCameraControlLogger();
 
-  BaseCameraControlLogger() : logger = Logger(printer: StructuredLogPrinter());
+  Logger get logger => _config!.logger!;
 
   @override
   void log<C extends LoggerChannel>(
@@ -16,7 +14,7 @@ class BaseCameraControlLogger extends CameraControlLogger {
     StackTrace? stackTrace,
   ]) {
     if (isChannelEnabled<C>()) {
-      logger.log(level.toImpl(), message, error, stackTrace);
+      logger.log(level, message, error, stackTrace);
     }
   }
 
@@ -27,7 +25,7 @@ class BaseCameraControlLogger extends CameraControlLogger {
     StackTrace? stackTrace,
   ]) {
     if (isChannelEnabled<C>()) {
-      logger.i(message, error, stackTrace);
+      logger.info(message, error, stackTrace);
     }
   }
 
@@ -38,7 +36,7 @@ class BaseCameraControlLogger extends CameraControlLogger {
     StackTrace? stackTrace,
   ]) {
     if (isChannelEnabled<C>()) {
-      logger.w(message, error, stackTrace);
+      logger.warning(message, error, stackTrace);
     }
   }
 
@@ -84,15 +82,4 @@ class BaseCameraControlLogger extends CameraControlLogger {
   }
 
   CameraControlLoggerConfig? get _config => CameraControlLoggerConfig.instance;
-}
-
-extension LogLevelToImplLevelExtension on LogLevel {
-  Level toImpl() {
-    switch (this) {
-      case LogLevel.info:
-        return Level.info;
-      case LogLevel.warning:
-        return Level.warning;
-    }
-  }
 }

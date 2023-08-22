@@ -3,11 +3,11 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:cine_remote/camera_control/common/adapter/raw_datagram_socket_adapter.dart';
-import 'package:cine_remote/camera_control/common/discovery/upnp/upnp_advertisement_message.dart';
-import 'package:cine_remote/camera_control/common/discovery/upnp/upnp_discovery_adapter.dart';
-import 'package:flutter_test/flutter_test.dart';
+import 'package:camera_control_dart/src/common/adapter/raw_datagram_socket_adapter.dart';
+import 'package:camera_control_dart/src/common/discovery/upnp/upnp_advertisement_message.dart';
+import 'package:camera_control_dart/src/common/discovery/upnp/upnp_discovery_adapter.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:test/test.dart';
 
 class MockRawDatagramSocketFactory extends Mock
     implements RawDatagramSocketFactory {}

@@ -1,9 +1,8 @@
 import 'dart:io';
 
-import 'package:cine_remote/camera_control/common/discovery/upnp/upnp_device_description.dart';
-import 'package:cine_remote/camera_control/common/discovery/upnp/upnp_device_description_parser.dart';
-
-import 'package:flutter_test/flutter_test.dart';
+import 'package:camera_control_dart/src/common/discovery/upnp/upnp_device_description.dart';
+import 'package:camera_control_dart/src/common/discovery/upnp/upnp_device_description_parser.dart';
+import 'package:test/test.dart';
 
 void main() {
   const upnpLocation = 'http://192.168.0.120:49152/upnp/CameraDevDesc.xml';

@@ -1,5 +1,3 @@
-import 'package:logging/logging.dart';
-
 import '../../../interface/exceptions/camera_communication_exception.dart';
 import '../../../interface/models/camera_update_event.dart';
 import '../../../interface/models/control_prop_type.dart';
@@ -17,8 +15,6 @@ class GetUpdateAction extends GetAction<GetUpdateResponse> {
 
   @override
   Future<GetUpdateResponse> call() async {
-    final logger = Logger('GetUpdateAction');
-
     final response = await httpAdapter.get(
       ApiEndpointPath.getUpdate,
       {'seq': updateSequnce.toString()},

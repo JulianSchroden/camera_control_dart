@@ -1,11 +1,11 @@
 import 'dart:typed_data';
 
-import 'package:cine_remote/camera_control/eos_ptp_ip/adapter/ptp_response_stream_transformer.dart';
-import 'package:cine_remote/camera_control/eos_ptp_ip/responses/ptp_init_command_response.dart';
-import 'package:cine_remote/camera_control/eos_ptp_ip/responses/ptp_init_event_response.dart';
-import 'package:cine_remote/camera_control/eos_ptp_ip/responses/ptp_operation_response.dart';
-import 'package:cine_remote/camera_control/eos_ptp_ip/responses/ptp_response.dart';
-import 'package:flutter_test/flutter_test.dart';
+import 'package:camera_control_dart/src/eos_ptp_ip/adapter/ptp_response_stream_transformer.dart';
+import 'package:camera_control_dart/src/eos_ptp_ip/responses/ptp_init_command_response.dart';
+import 'package:camera_control_dart/src/eos_ptp_ip/responses/ptp_init_event_response.dart';
+import 'package:camera_control_dart/src/eos_ptp_ip/responses/ptp_operation_response.dart';
+import 'package:camera_control_dart/src/eos_ptp_ip/responses/ptp_response.dart';
+import 'package:test/test.dart';
 
 import '../packet_helper.dart';
 

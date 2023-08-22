@@ -1,5 +1,5 @@
-import 'package:cine_remote/camera_control/eos_ptp_ip/adapter/ptp_packet_builder.dart';
-import 'package:flutter_test/flutter_test.dart';
+import 'package:camera_control_dart/src/eos_ptp_ip/adapter/ptp_packet_builder.dart';
+import 'package:test/test.dart';
 
 void main() {
   test('build should add length autimatically', () {

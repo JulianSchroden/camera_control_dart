@@ -1,3 +1,5 @@
+import 'logger.dart';
+
 class LoggerChannel {
   const LoggerChannel();
 }
@@ -61,16 +63,18 @@ class CameraControlLoggerConfig {
   static CameraControlLoggerConfig? _instance;
   static CameraControlLoggerConfig? get instance => _instance;
 
+  Logger? logger;
   List<LoggerTopic> _enabledTopics = [];
 
   /// Initializes the CameraControlLoggerConfig [instance] and sets the enabled topics.
   ///
   /// Use the [enabledTopics] list to configure the logging output.
   static void init({
+    required Logger logger,
     required List<LoggerTopic> enabledTopics,
-    CameraControlLogger? logger,
   }) {
     _instance = CameraControlLoggerConfig();
+    _instance!.logger = logger;
     _instance!._enabledTopics = [
       ...enabledTopics,
       const UnspecifiedLoggerTopic(),

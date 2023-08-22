@@ -1,4 +1,3 @@
-import '../../../shared/extensions/list_extensions.dart';
 import '../../common/extensions/list_extensions.dart';
 import '../../interface/models/control_prop.dart';
 import '../../interface/models/control_prop_type.dart';

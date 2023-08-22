@@ -1,6 +1,6 @@
-import 'package:cine_remote/camera_control/eos_ptp_ip/adapter/ptp_device_info_parser.dart';
-import 'package:cine_remote/camera_control/eos_ptp_ip/models/ptp_device_info.dart';
-import 'package:flutter_test/flutter_test.dart';
+import 'package:camera_control_dart/src/eos_ptp_ip/adapter/ptp_device_info_parser.dart';
+import 'package:camera_control_dart/src/eos_ptp_ip/models/ptp_device_info.dart';
+import 'package:test/test.dart';
 
 import '../packet_helper.dart';
 part 'ptp_device_info_parser_test.data.dart';

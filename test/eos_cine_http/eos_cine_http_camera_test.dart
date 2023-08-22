@@ -1,8 +1,8 @@
 import 'dart:io';
 
-import 'package:cine_remote/camera_control/eos_cine_http/eos_cine_http_camera.dart';
-import 'package:flutter_test/flutter_test.dart';
+import 'package:camera_control_dart/src/eos_cine_http/eos_cine_http_camera.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:test/test.dart';
 
 import '../camera_control_mocks.dart';
 

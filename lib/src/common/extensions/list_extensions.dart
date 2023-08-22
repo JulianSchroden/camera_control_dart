@@ -6,6 +6,19 @@ extension WhereNotNullExtension<T> on Iterable<T?> {
   Iterable<T> whereNotNull() => where((element) => element != null).cast<T>();
 }
 
+extension FirstWhereOrNullExtension<T> on Iterable<T> {
+  T? firstWhereOrNull(bool Function(T) test) {
+    try {
+      return firstWhere(test);
+    } catch (e) {
+      return null;
+    }
+  }
+}
+
+Iterable flatten(Iterable iterable) =>
+    iterable.expand((e) => e is List ? flatten(e) : [e]);
+
 extension IndexOfSequenceExtension<T> on List<T> {
   int indexOfSequence(List<T> sequence) {
     if (sequence.isEmpty) {
