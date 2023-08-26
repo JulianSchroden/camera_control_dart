@@ -10,7 +10,7 @@ import 'package:camera_control_dart/src/eos_cine_http/models/camera_info.dart';
 import 'package:camera_control_dart/src/eos_cine_http/models/http_adapter_response.dart';
 import 'package:camera_control_dart/src/common/camera_factory.dart';
 import 'package:camera_control_dart/src/common/exceptions/camera_communication_exception.dart';
-import 'package:camera_control_dart/src/common/models/camera_handle.dart';
+import 'package:camera_control_dart/src/common/models/camera_connection_handle.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
@@ -23,7 +23,7 @@ class MockHttpAdapterFactory extends Mock implements HttpAdapterFactory {}
 void main() {
   const okResponseBody = '{"res":"ok"}';
   final authCookie = Cookie('acid', 'e3d4');
-  const cameraHandle = CameraHandle(
+  const cameraHandle = CameraConnectionHandle(
     id: '123',
     model: CameraModels.canonC100II,
     pairingData: EosCineHttpCameraPairingData(),

@@ -24,7 +24,7 @@ export 'src/common/live_view/live_view_data.dart';
 export 'src/common/live_view/touch_autofocus_state.dart';
 export 'src/common/models/camera_control_protocol.dart';
 export 'src/common/models/camera_descriptor.dart';
-export 'src/common/models/camera_handle.dart';
+export 'src/common/models/camera_connection_handle.dart';
 export 'src/common/models/camera_model.dart';
 export 'src/common/models/camera_update_event.dart';
 

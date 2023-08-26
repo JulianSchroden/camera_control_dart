@@ -1,7 +1,7 @@
 import '../common/camera.dart';
 import '../common/camera_factory.dart';
 import '../common/extensions/stream_extensions.dart';
-import '../common/models/camera_handle.dart';
+import '../common/models/camera_connection_handle.dart';
 import 'actions/action_factory.dart';
 import 'adapter/eos_ptp_event_processor.dart';
 import 'adapter/get_eos_events_delegate.dart';
@@ -27,7 +27,7 @@ class EosPtpIpCameraFactory extends CameraFactory<EosPtpIpCameraPairingData> {
   ]);
 
   @override
-  Future<void> pair(CameraHandle handle) async {
+  Future<void> pair(CameraConnectionHandle handle) async {
     final client = await _initClient(
       handle,
       initCommandTimeout: const Duration(minutes: 3),
@@ -36,7 +36,7 @@ class EosPtpIpCameraFactory extends CameraFactory<EosPtpIpCameraPairingData> {
   }
 
   @override
-  Future<Camera> connect(CameraHandle handle) async {
+  Future<Camera> connect(CameraConnectionHandle handle) async {
     final client = await _initClient(
       handle,
       initCommandTimeout: const Duration(seconds: 10),
@@ -71,7 +71,7 @@ class EosPtpIpCameraFactory extends CameraFactory<EosPtpIpCameraPairingData> {
   }
 
   Future<PtpIpClient> _initClient(
-    CameraHandle handle, {
+    CameraConnectionHandle handle, {
     Duration? initCommandTimeout,
   }) async {
     final pairingData = handle.pairingData as EosPtpIpCameraPairingData;

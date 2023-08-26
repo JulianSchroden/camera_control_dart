@@ -1,7 +1,7 @@
 import 'extensions/list_extensions.dart';
 import 'camera.dart';
 import 'models/camera_control_protocol.dart';
-import 'models/camera_handle.dart';
+import 'models/camera_connection_handle.dart';
 import 'models/camera_model.dart';
 import 'models/pairing_data.dart';
 
@@ -45,6 +45,6 @@ class CameraModels {
 abstract class CameraFactory<Pd extends PairingData> {
   const CameraFactory();
 
-  Future<void> pair(CameraHandle handle) async {}
-  Future<Camera> connect(CameraHandle handle);
+  Future<void> pair(CameraConnectionHandle handle) async {}
+  Future<Camera> connect(CameraConnectionHandle handle);
 }
