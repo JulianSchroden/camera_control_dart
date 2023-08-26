@@ -1,10 +1,8 @@
-import 'camera.dart';
-import 'models/live_view_data.dart';
-import 'adapter/polled_data_stream_controller.dart';
+import '../adapter/polled_data_stream_controller.dart';
+import '../camera.dart';
+import 'live_view_data.dart';
 
-abstract class BaseCamera extends Camera {
-  const BaseCamera();
-
+mixin PolledLiveViewAcquisition on Camera {
   @override
   Stream<LiveViewData> liveView({
     Duration pollInterval = const Duration(milliseconds: 200),

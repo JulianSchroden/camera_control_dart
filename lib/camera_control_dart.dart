@@ -48,6 +48,6 @@ export 'src/common/exceptions/camera_connection_exception.dart';
 export 'src/common/exceptions/unsupported_capability_exception.dart';
 
 // live view
-export 'src/common/models/live_view_data.dart';
-export 'src/common/models/touch_autofocus_state.dart';
+export 'src/common/live_view/live_view_data.dart';
+export 'src/common/live_view/touch_autofocus_state.dart';
 export 'src/common/models/properties/autofocus_position.dart';

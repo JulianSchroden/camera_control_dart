@@ -1,4 +1,5 @@
-import '../common/base_camera.dart';
+import '../common/camera.dart';
+import '../common/live_view/polled_live_view_acquisition.dart';
 import '../common/adapter/polled_data_stream_controller.dart';
 import '../common/models/camera_descriptor.dart';
 import '../common/models/camera_update_event.dart';
@@ -9,7 +10,7 @@ import '../common/models/capabilities/movie_record_capability.dart';
 import '../common/models/control_prop.dart';
 import '../common/models/control_prop_type.dart';
 import '../common/models/control_prop_value.dart';
-import '../common/models/live_view_data.dart';
+import '../common/live_view/live_view_data.dart';
 import '../common/models/properties/autofocus_position.dart';
 import '../common/models/properties/camera_mode.dart';
 import '../common/models/properties/exposure_mode.dart';
@@ -18,7 +19,7 @@ import 'communication/action_factory.dart';
 import 'models/camera_info.dart';
 import 'models/eos_cine_prop_value.dart';
 
-class EosCineHttpCamera extends BaseCamera {
+class EosCineHttpCamera extends Camera with PolledLiveViewAcquisition {
   final HttpAdapter httpAdapter;
   final ActionFactory actionFactory;
   PolledDataStreamController<CameraUpdateEvent>? _eventController;

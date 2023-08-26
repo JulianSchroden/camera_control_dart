@@ -1,6 +1,8 @@
 import 'dart:async';
 
-import '../common/base_camera.dart';
+import '../common/camera.dart';
+import '../common/live_view/live_view_data.dart';
+import '../common/live_view/polled_live_view_acquisition.dart';
 import '../common/models/camera_descriptor.dart';
 import '../common/models/camera_update_event.dart';
 import '../common/models/capabilities/control_prop_capability.dart';
@@ -9,14 +11,13 @@ import '../common/models/capabilities/movie_record_capability.dart';
 import '../common/models/control_prop.dart';
 import '../common/models/control_prop_type.dart';
 import '../common/models/control_prop_value.dart';
-import '../common/models/live_view_data.dart';
 import '../common/models/properties/autofocus_position.dart';
 import '../common/models/properties/camera_mode.dart';
 import '../common/models/properties/exposure_mode.dart';
 import 'data/demo_live_view_image.dart';
 import 'models/demo_prop_value.dart';
 
-class DemoCamera extends BaseCamera {
+class DemoCamera extends Camera with PolledLiveViewAcquisition {
   final List<ControlProp> _dummyControlProps = [
     ControlProp(
       type: ControlPropType.iso,

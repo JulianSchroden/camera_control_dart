@@ -1,6 +1,8 @@
 import 'dart:async';
 
-import '../common/base_camera.dart';
+import '../common/live_view/polled_live_view_acquisition.dart';
+
+import '../common/camera.dart';
 import '../common/exceptions/camera_communication_exception.dart';
 import '../common/models/camera_descriptor.dart';
 import '../common/models/camera_update_event.dart';
@@ -10,7 +12,7 @@ import '../common/models/capabilities/live_view_capability.dart';
 import '../common/models/control_prop.dart';
 import '../common/models/control_prop_type.dart';
 import '../common/models/control_prop_value.dart';
-import '../common/models/live_view_data.dart';
+import '../common/live_view/live_view_data.dart';
 import '../common/models/properties/autofocus_position.dart';
 import '../common/models/properties/camera_mode.dart';
 import '../common/models/properties/exposure_mode.dart';
@@ -21,7 +23,7 @@ import 'communication/ptp_transaction_queue.dart';
 import 'constants/properties/live_view_output.dart';
 import 'models/eos_ptp_int_prop_value.dart';
 
-class EosPtpIpCamera extends BaseCamera {
+class EosPtpIpCamera extends Camera with PolledLiveViewAcquisition {
   final PtpTransactionQueue _transactionQueue;
   final ActionFactory _actionFactory;
   final EosPtpEventProcessor _eventProcessor;

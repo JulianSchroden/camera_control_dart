@@ -1,4 +1,4 @@
-import 'properties/autofocus_position.dart';
+import '../models/properties/autofocus_position.dart';
 
 class TouchAutofocusState {
   final AutofocusPosition position;
