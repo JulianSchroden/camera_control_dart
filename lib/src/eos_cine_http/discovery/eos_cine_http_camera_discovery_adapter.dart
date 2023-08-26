@@ -1,4 +1,4 @@
-import '../../common/discovery/wifi_info_adapter.dart';
+import '../../interface/discovery/wifi_info_adapter.dart';
 import '../../interface/camera_factory.dart';
 import '../../interface/discovery/camera_discovery_adapter.dart';
 import '../../interface/discovery/camera_discovery_event.dart';

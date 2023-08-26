@@ -8,3 +8,6 @@ pubspec.lock
 
 # Mac OS
 .DS_STORE
+
+# Build folder
+build/

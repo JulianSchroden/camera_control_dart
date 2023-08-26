@@ -1,4 +1,5 @@
-import 'camera_control_logger.dart';
+import 'log_level.dart';
+import 'logger_channel.dart';
 
 abstract class Logger {
   void log<C extends LoggerChannel>(

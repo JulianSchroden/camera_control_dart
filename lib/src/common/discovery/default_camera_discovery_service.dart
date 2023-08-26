@@ -6,7 +6,7 @@ import '../../interface/discovery/camera_discovery_event.dart';
 import '../../interface/discovery/camera_discovery_service.dart';
 import '../../interface/discovery/wifi_info.dart';
 import 'upnp/upnp_discovery_adapter.dart';
-import 'wifi_info_adapter.dart';
+import '../../interface/discovery/wifi_info_adapter.dart';
 
 class DefaultCameraDiscoveryService implements CameraDiscoveryService {
   final WifiInfoAdapter wifiInfoAdapter;
@@ -14,8 +14,8 @@ class DefaultCameraDiscoveryService implements CameraDiscoveryService {
 
   DefaultCameraDiscoveryService({
     required this.wifiInfoAdapter,
-    required this.upnpDiscoveryAdapter,
-  });
+    UpnpDiscoveryAdapter? upnpDiscoveryAdapter,
+  }) : upnpDiscoveryAdapter = upnpDiscoveryAdapter ?? UpnpDiscoveryAdapter();
 
   @override
   Future<WifiInfo> wifiInfo() async {

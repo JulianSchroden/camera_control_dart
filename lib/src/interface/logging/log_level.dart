@@ -1,0 +1,4 @@
+enum LogLevel {
+  info,
+  warning,
+}

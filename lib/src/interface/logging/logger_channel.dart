@@ -1,0 +1,3 @@
+class LoggerChannel {
+  const LoggerChannel();
+}
