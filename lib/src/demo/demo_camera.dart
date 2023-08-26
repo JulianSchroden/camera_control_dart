@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:typed_data';
 
 import '../common/base_camera.dart';
 import '../interface/models/camera_descriptor.dart';
@@ -14,6 +13,7 @@ import '../interface/models/live_view_data.dart';
 import '../interface/models/properties/autofocus_position.dart';
 import '../interface/models/properties/camera_mode.dart';
 import '../interface/models/properties/exposure_mode.dart';
+import 'data/demo_live_view_image.dart';
 import 'models/demo_prop_value.dart';
 
 class DemoCamera extends BaseCamera {
@@ -114,7 +114,7 @@ class DemoCamera extends BaseCamera {
 
   @override
   Future<LiveViewData> getLiveViewData() async {
-    return LiveViewData(imageBytes: Uint8List(0));
+    return LiveViewData(imageBytes: demoLiveViewImage);
   }
 
   @override
