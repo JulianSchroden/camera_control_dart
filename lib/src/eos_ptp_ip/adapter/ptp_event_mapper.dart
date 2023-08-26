@@ -1,4 +1,4 @@
-import '../../interface/models/camera_update_event.dart';
+import '../../common/models/camera_update_event.dart';
 import '../communication/events/allowed_values_changed.dart';
 import '../communication/events/prop_value_changed.dart';
 import '../communication/events/ptp_event.dart';

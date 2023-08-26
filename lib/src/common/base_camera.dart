@@ -1,6 +1,6 @@
-import '../common/polled_data_stream_controller.dart';
-import '../interface/camera.dart';
-import '../interface/models/live_view_data.dart';
+import 'camera.dart';
+import 'models/live_view_data.dart';
+import 'adapter/polled_data_stream_controller.dart';
 
 abstract class BaseCamera extends Camera {
   const BaseCamera();

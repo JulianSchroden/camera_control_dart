@@ -4,8 +4,8 @@ import 'package:camera_control_dart/src/eos_ptp_ip/communication/events/prop_val
 import 'package:camera_control_dart/src/eos_ptp_ip/communication/events/ptp_event.dart';
 import 'package:camera_control_dart/src/eos_ptp_ip/constants/ptp_property.dart';
 import 'package:camera_control_dart/src/eos_ptp_ip/models/eos_ptp_int_prop_value.dart';
-import 'package:camera_control_dart/src/interface/models/camera_update_event.dart';
-import 'package:camera_control_dart/src/interface/models/control_prop_type.dart';
+import 'package:camera_control_dart/src/common/models/camera_update_event.dart';
+import 'package:camera_control_dart/src/common/models/control_prop_type.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 

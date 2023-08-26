@@ -1,6 +1,6 @@
-import '../interface/camera.dart';
-import '../interface/camera_factory.dart';
-import '../interface/models/camera_handle.dart';
+import '../common/camera.dart';
+import '../common/camera_factory.dart';
+import '../common/models/camera_handle.dart';
 import 'demo_camera.dart';
 
 class DemoCameraFactory extends CameraFactory {

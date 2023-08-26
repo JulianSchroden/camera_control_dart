@@ -1,5 +1,5 @@
 import '../../common/extensions/list_extensions.dart';
-import '../../interface/models/control_prop_type.dart';
+import '../../common/models/control_prop_type.dart';
 import '../extensions/int_as_hex_string_extension.dart';
 import '../models/eos_ptp_int_prop_value.dart';
 import 'properties/live_view_output.dart';

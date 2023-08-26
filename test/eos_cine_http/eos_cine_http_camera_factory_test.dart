@@ -8,9 +8,9 @@ import 'package:camera_control_dart/src/eos_cine_http/eos_cine_http_camera_facto
 import 'package:camera_control_dart/src/eos_cine_http/eos_cine_http_camera_pairing_data.dart';
 import 'package:camera_control_dart/src/eos_cine_http/models/camera_info.dart';
 import 'package:camera_control_dart/src/eos_cine_http/models/http_adapter_response.dart';
-import 'package:camera_control_dart/src/interface/camera_factory.dart';
-import 'package:camera_control_dart/src/interface/exceptions/camera_communication_exception.dart';
-import 'package:camera_control_dart/src/interface/models/camera_handle.dart';
+import 'package:camera_control_dart/src/common/camera_factory.dart';
+import 'package:camera_control_dart/src/common/exceptions/camera_communication_exception.dart';
+import 'package:camera_control_dart/src/common/models/camera_handle.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 

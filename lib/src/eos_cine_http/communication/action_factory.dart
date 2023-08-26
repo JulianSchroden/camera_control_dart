@@ -1,4 +1,4 @@
-import '../../interface/models/control_prop_type.dart';
+import '../../common/models/control_prop_type.dart';
 import '../adapter/http_adapter.dart';
 import '../models/eos_cine_prop_value.dart';
 import 'actions/get_info_action.dart';

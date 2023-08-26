@@ -4,7 +4,7 @@ import 'dart:typed_data';
 
 import '../../../common/adapter/date_time_adapter.dart';
 import '../../../common/extensions/list_extensions.dart';
-import '../../../interface/models/live_view_data.dart';
+import '../../../common/models/live_view_data.dart';
 import '../../constants/api_endpoint_path.dart';
 import '../get_acion.dart';
 

@@ -1,7 +1,7 @@
-import '../../interface/exceptions/camera_communication_exception.dart';
-import '../../interface/models/live_view_data.dart';
-import '../../interface/models/properties/autofocus_position.dart';
-import '../../interface/models/touch_autofocus_state.dart';
+import '../../common/exceptions/camera_communication_exception.dart';
+import '../../common/models/live_view_data.dart';
+import '../../common/models/properties/autofocus_position.dart';
+import '../../common/models/touch_autofocus_state.dart';
 import '../adapter/eos_live_view_data_parser.dart';
 import '../cache/ptp_property_cache.dart';
 import '../cache/ptp_property_cache_extensions.dart';

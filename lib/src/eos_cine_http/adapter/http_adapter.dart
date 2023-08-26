@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
-import '../../interface/exceptions/camera_communication_exception.dart';
+import '../../common/exceptions/camera_communication_exception.dart';
 import '../extensions/client_response_extensions.dart';
 import '../models/http_adapter_response.dart';
 

@@ -1,7 +1,7 @@
-import '../../../interface/exceptions/camera_communication_exception.dart';
-import '../../../interface/models/camera_update_event.dart';
-import '../../../interface/models/control_prop_type.dart';
-import '../../../interface/models/properties/auto_focus_mode.dart';
+import '../../../common/exceptions/camera_communication_exception.dart';
+import '../../../common/models/camera_update_event.dart';
+import '../../../common/models/control_prop_type.dart';
+import '../../../common/models/properties/auto_focus_mode.dart';
 import '../../constants/api_endpoint_path.dart';
 import '../../extensions/control_prop_type_extensions.dart';
 import '../../models/eos_cine_prop_value.dart';

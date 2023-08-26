@@ -1,4 +1,4 @@
-import '../../interface/models/camera_update_event.dart';
+import '../../common/models/camera_update_event.dart';
 
 class GetUpdateResponse {
   final List<CameraUpdateEvent> cameraEvents;

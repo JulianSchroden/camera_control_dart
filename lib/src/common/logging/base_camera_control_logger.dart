@@ -1,9 +1,9 @@
-import '../../interface/logging/camera_control_logger.dart';
-import '../../interface/logging/camera_control_logger_config.dart';
-import '../../interface/logging/log_level.dart';
-import '../../interface/logging/logger.dart';
-import '../../interface/logging/logger_channel.dart';
-import '../../interface/logging/logger_topic.dart';
+import 'camera_control_logger.dart';
+import 'camera_control_logger_config.dart';
+import 'log_level.dart';
+import 'logger.dart';
+import 'logger_channel.dart';
+import 'logger_topic.dart';
 
 class BaseCameraControlLogger extends CameraControlLogger {
   const BaseCameraControlLogger();

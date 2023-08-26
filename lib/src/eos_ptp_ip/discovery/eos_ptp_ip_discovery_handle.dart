@@ -1,4 +1,4 @@
-import '../../interface/discovery/discovery_handle.dart';
+import '../../common/discovery/discovery_handle.dart';
 
 class EosPtpIpDiscoveryHandle extends DiscoveryHandle {
   final String address;

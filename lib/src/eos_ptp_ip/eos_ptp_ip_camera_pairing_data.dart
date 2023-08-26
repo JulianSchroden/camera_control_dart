@@ -1,6 +1,6 @@
 import 'dart:typed_data';
 
-import '../interface/models/pairing_data.dart';
+import '../common/models/pairing_data.dart';
 
 class EosPtpIpCameraPairingData extends PairingData {
   final Uint8List guid;

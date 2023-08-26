@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import '../../interface/exceptions/camera_communication_exception.dart';
+import '../../common/exceptions/camera_communication_exception.dart';
 import '../communication/operations/ptp_operation_factory.dart';
 import '../communication/ptp_transaction_queue.dart';
 import '../extensions/int_as_hex_string_extension.dart';

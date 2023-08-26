@@ -1,4 +1,4 @@
-import '../../interface/models/properties/autofocus_position.dart';
+import '../../common/models/properties/autofocus_position.dart';
 import '../communication/ptp_transaction_queue.dart';
 import '../constants/capture_phase.dart';
 import '../models/eos_autofocus_position.dart';

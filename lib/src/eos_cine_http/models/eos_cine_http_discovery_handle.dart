@@ -1,4 +1,4 @@
-import '../../interface/discovery/discovery_handle.dart';
+import '../../common/discovery/discovery_handle.dart';
 import '../eos_cine_http_camera_pairing_data.dart';
 
 class EosCineHttpDiscoveryHandle extends DiscoveryHandle {

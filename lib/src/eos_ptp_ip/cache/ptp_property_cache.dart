@@ -1,7 +1,7 @@
 import '../../common/extensions/list_extensions.dart';
-import '../../interface/models/control_prop.dart';
-import '../../interface/models/control_prop_type.dart';
-import '../../interface/models/control_prop_value.dart';
+import '../../common/models/control_prop.dart';
+import '../../common/models/control_prop_type.dart';
+import '../../common/models/control_prop_value.dart';
 import '../communication/events/allowed_values_changed.dart';
 import '../communication/events/prop_value_changed.dart';
 import '../communication/events/ptp_event.dart';

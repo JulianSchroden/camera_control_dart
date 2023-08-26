@@ -1,4 +1,4 @@
-import '../../../interface/exceptions/camera_communication_exception.dart';
+import '../../../common/exceptions/camera_communication_exception.dart';
 import '../../constants/api_endpoint_path.dart';
 import '../../models/camera_info.dart';
 import '../get_acion.dart';

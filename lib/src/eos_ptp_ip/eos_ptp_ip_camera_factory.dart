@@ -1,7 +1,7 @@
+import '../common/camera.dart';
+import '../common/camera_factory.dart';
 import '../common/extensions/stream_extensions.dart';
-import '../interface/camera.dart';
-import '../interface/camera_factory.dart';
-import '../interface/models/camera_handle.dart';
+import '../common/models/camera_handle.dart';
 import 'actions/action_factory.dart';
 import 'adapter/eos_ptp_event_processor.dart';
 import 'adapter/get_eos_events_delegate.dart';

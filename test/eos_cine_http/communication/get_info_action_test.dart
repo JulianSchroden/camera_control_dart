@@ -4,7 +4,7 @@ import 'package:camera_control_dart/src/eos_cine_http/communication/actions/get_
 import 'package:camera_control_dart/src/eos_cine_http/constants/api_endpoint_path.dart';
 import 'package:camera_control_dart/src/eos_cine_http/models/camera_info.dart';
 import 'package:camera_control_dart/src/eos_cine_http/models/http_adapter_response.dart';
-import 'package:camera_control_dart/src/interface/exceptions/camera_communication_exception.dart';
+import 'package:camera_control_dart/src/common/exceptions/camera_communication_exception.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 

@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:typed_data';
 
-import '../../interface/exceptions/camera_communication_exception.dart';
+import '../../common/exceptions/camera_communication_exception.dart';
 import '../logging/eos_ptp_ip_logger.dart';
 import '../models/ptp_packet.dart';
 import '../responses/ptp_response.dart';

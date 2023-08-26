@@ -1,5 +1,5 @@
-import '../../interface/models/control_prop_type.dart';
-import '../../interface/models/properties/autofocus_position.dart';
+import '../../common/models/control_prop_type.dart';
+import '../../common/models/properties/autofocus_position.dart';
 import '../actions/get_events_action.dart';
 import '../adapter/eos_ptp_event_processor.dart';
 import '../cache/ptp_property_cache.dart';

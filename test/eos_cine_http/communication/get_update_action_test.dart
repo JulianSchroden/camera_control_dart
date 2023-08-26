@@ -4,10 +4,10 @@ import 'package:camera_control_dart/src/eos_cine_http/communication/actions/get_
 import 'package:camera_control_dart/src/eos_cine_http/constants/api_endpoint_path.dart';
 import 'package:camera_control_dart/src/eos_cine_http/models/eos_cine_prop_value.dart';
 import 'package:camera_control_dart/src/eos_cine_http/models/http_adapter_response.dart';
-import 'package:camera_control_dart/src/interface/exceptions/camera_communication_exception.dart';
-import 'package:camera_control_dart/src/interface/models/camera_update_event.dart';
-import 'package:camera_control_dart/src/interface/models/control_prop_type.dart';
-import 'package:camera_control_dart/src/interface/models/properties/auto_focus_mode.dart';
+import 'package:camera_control_dart/src/common/exceptions/camera_communication_exception.dart';
+import 'package:camera_control_dart/src/common/models/camera_update_event.dart';
+import 'package:camera_control_dart/src/common/models/control_prop_type.dart';
+import 'package:camera_control_dart/src/common/models/properties/auto_focus_mode.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 

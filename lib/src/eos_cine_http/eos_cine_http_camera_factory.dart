@@ -1,9 +1,9 @@
 import 'dart:io';
 
-import '../interface/camera.dart';
-import '../interface/camera_factory.dart';
-import '../interface/exceptions/camera_communication_exception.dart';
-import '../interface/models/camera_handle.dart';
+import '../common/camera.dart';
+import '../common/camera_factory.dart';
+import '../common/exceptions/camera_communication_exception.dart';
+import '../common/models/camera_handle.dart';
 import 'adapter/http_adapter_factory.dart';
 import 'adapter/http_client_factory.dart';
 import 'communication/action_factory.dart';

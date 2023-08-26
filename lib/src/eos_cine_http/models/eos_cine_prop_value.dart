@@ -1,4 +1,4 @@
-import '../../interface/models/control_prop_value.dart';
+import '../../common/models/control_prop_value.dart';
 
 class EosCinePropValue extends ControlPropValue {
   final String nativeValue;

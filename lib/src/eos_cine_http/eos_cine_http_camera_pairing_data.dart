@@ -1,4 +1,4 @@
-import '../interface/models/pairing_data.dart';
+import '../common/models/pairing_data.dart';
 import 'constants/eos_cine_ip_config.dart';
 
 class EosCineHttpCameraPairingData extends PairingData {

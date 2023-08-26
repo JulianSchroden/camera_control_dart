@@ -1,7 +1,7 @@
-import '../../interface/discovery/wifi_info_adapter.dart';
-import '../../interface/camera_factory.dart';
-import '../../interface/discovery/camera_discovery_adapter.dart';
-import '../../interface/discovery/camera_discovery_event.dart';
+import '../../common/camera_factory.dart';
+import '../../common/discovery/camera_discovery_adapter.dart';
+import '../../common/discovery/camera_discovery_event.dart';
+import '../../common/discovery/wifi_info_adapter.dart';
 import '../constants/eos_cine_ip_config.dart';
 import '../models/eos_cine_http_discovery_handle.dart';
 

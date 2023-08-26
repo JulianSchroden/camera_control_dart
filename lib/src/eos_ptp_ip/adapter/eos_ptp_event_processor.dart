@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import '../../common/polled_data_stream_controller.dart';
-import '../../interface/exceptions/camera_communication_exception.dart';
-import '../../interface/models/camera_update_event.dart';
+import '../../common/exceptions/camera_communication_exception.dart';
+import '../../common/models/camera_update_event.dart';
+import '../../common/adapter/polled_data_stream_controller.dart';
 import '../cache/ptp_property_cache.dart';
 import '../communication/events/prop_value_changed.dart';
 import '../communication/events/ptp_event.dart';

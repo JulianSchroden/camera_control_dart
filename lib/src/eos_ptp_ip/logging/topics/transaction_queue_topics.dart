@@ -1,7 +1,7 @@
 import '../../../common/logging/base_camera_control_logger.dart';
-import '../../../interface/logging/log_level.dart';
-import '../../../interface/logging/logger_channel.dart';
-import '../../../interface/logging/logger_topic.dart';
+import '../../../common/logging/log_level.dart';
+import '../../../common/logging/logger_channel.dart';
+import '../../../common/logging/logger_topic.dart';
 import '../../extensions/dump_bytes_extensions.dart';
 import '../../extensions/int_as_hex_string_extension.dart';
 import '../../models/ptp_packet.dart';
