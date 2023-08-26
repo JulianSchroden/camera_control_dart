@@ -4,6 +4,7 @@ import '../exceptions/unsupported_capability_exception.dart';
 import 'capabilities/camera_capability.dart';
 import 'properties/camera_mode.dart';
 
+/// Describes the current camera mode and its capabilities.
 class CameraDescriptor extends Equatable {
   final CameraMode mode;
   final List<CameraCapability> capabilities;
