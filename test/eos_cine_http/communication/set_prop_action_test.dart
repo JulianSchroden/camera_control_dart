@@ -5,7 +5,7 @@ import 'package:camera_control_dart/src/eos_cine_http/constants/api_endpoint_pat
 import 'package:camera_control_dart/src/eos_cine_http/models/eos_cine_prop_value.dart';
 import 'package:camera_control_dart/src/eos_cine_http/models/http_adapter_response.dart';
 import 'package:camera_control_dart/src/common/exceptions/unsupported_prop_exception.dart';
-import 'package:camera_control_dart/src/common/models/control_prop_type.dart';
+import 'package:camera_control_dart/src/common/property_control/control_prop_type.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 

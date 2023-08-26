@@ -1,10 +1,10 @@
 import 'live_view/live_view_data.dart';
 import 'models/camera_descriptor.dart';
 import 'models/camera_update_event.dart';
-import 'models/control_prop.dart';
-import 'models/control_prop_type.dart';
-import 'models/control_prop_value.dart';
 import 'models/properties/autofocus_position.dart';
+import 'property_control/control_prop.dart';
+import 'property_control/control_prop_type.dart';
+import 'property_control/control_prop_value.dart';
 
 abstract class Camera {
   const Camera();

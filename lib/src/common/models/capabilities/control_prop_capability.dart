@@ -1,4 +1,4 @@
-import '../control_prop_type.dart';
+import '../../property_control/control_prop_type.dart';
 import 'camera_capability.dart';
 
 class ControlPropCapability extends CameraCapability {

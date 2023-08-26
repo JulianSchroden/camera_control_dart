@@ -1,5 +1,5 @@
-import '../../../common/models/control_prop_type.dart';
-import '../../../common/models/control_prop_value.dart';
+import '../../../common/property_control/control_prop_type.dart';
+import '../../../common/property_control/control_prop_value.dart';
 import 'ptp_event.dart';
 
 class AllowedValuesChanged extends PtpEvent {

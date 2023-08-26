@@ -6,7 +6,7 @@ import 'package:camera_control_dart/src/eos_cine_http/models/eos_cine_prop_value
 import 'package:camera_control_dart/src/eos_cine_http/models/http_adapter_response.dart';
 import 'package:camera_control_dart/src/common/exceptions/camera_communication_exception.dart';
 import 'package:camera_control_dart/src/common/models/camera_update_event.dart';
-import 'package:camera_control_dart/src/common/models/control_prop_type.dart';
+import 'package:camera_control_dart/src/common/property_control/control_prop_type.dart';
 import 'package:camera_control_dart/src/common/models/properties/auto_focus_mode.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';

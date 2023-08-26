@@ -1,6 +1,6 @@
 import 'dart:typed_data';
 
-import '../../common/models/control_prop_value.dart';
+import '../../common/property_control/control_prop_value.dart';
 import '../communication/events/allowed_values_changed.dart';
 import '../communication/events/prop_value_changed.dart';
 import '../communication/events/ptp_event.dart';

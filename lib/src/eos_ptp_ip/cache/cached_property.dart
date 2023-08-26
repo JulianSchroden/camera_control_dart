@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../common/models/control_prop_type.dart';
-import '../../common/models/control_prop_value.dart';
+import '../../common/property_control/control_prop_type.dart';
+import '../../common/property_control/control_prop_value.dart';
 
 part 'cached_property.freezed.dart';
 

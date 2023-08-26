@@ -1,5 +1,5 @@
 import '../../../common/exceptions/unsupported_prop_exception.dart';
-import '../../../common/models/control_prop_type.dart';
+import '../../../common/property_control/control_prop_type.dart';
 import '../../constants/api_endpoint_path.dart';
 import '../../extensions/control_prop_type_extensions.dart';
 import '../../models/eos_cine_prop_value.dart';

@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import 'control_prop_type.dart';
-import 'control_prop_value.dart';
+import '../property_control/control_prop_type.dart';
+import '../property_control/control_prop_value.dart';
 import 'properties/auto_focus_mode.dart';
 
 part 'camera_update_event.freezed.dart';

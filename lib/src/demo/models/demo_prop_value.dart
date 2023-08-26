@@ -1,4 +1,4 @@
-import '../../common/models/control_prop_value.dart';
+import '../../common/property_control/control_prop_value.dart';
 
 class DemoPropValue extends ControlPropValue {
   final String demoValue;

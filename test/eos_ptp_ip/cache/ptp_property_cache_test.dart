@@ -3,8 +3,8 @@ import 'package:camera_control_dart/src/eos_ptp_ip/communication/events/allowed_
 import 'package:camera_control_dart/src/eos_ptp_ip/communication/events/prop_value_changed.dart';
 import 'package:camera_control_dart/src/eos_ptp_ip/constants/ptp_property.dart';
 import 'package:camera_control_dart/src/eos_ptp_ip/models/eos_ptp_int_prop_value.dart';
-import 'package:camera_control_dart/src/common/models/control_prop.dart';
-import 'package:camera_control_dart/src/common/models/control_prop_type.dart';
+import 'package:camera_control_dart/src/common/property_control/control_prop.dart';
+import 'package:camera_control_dart/src/common/property_control/control_prop_type.dart';
 import 'package:test/test.dart';
 
 part 'ptp_property_cache_test.data.dart';

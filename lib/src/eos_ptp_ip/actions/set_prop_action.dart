@@ -1,4 +1,4 @@
-import '../../common/models/control_prop_type.dart';
+import '../../common/property_control/control_prop_type.dart';
 import '../communication/ptp_transaction_queue.dart';
 import '../constants/ptp_property.dart';
 import '../extensions/int_as_hex_string_extension.dart';

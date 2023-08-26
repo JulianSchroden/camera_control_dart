@@ -1,21 +1,20 @@
 import 'dart:async';
 
-import '../common/live_view/polled_live_view_acquisition.dart';
-
 import '../common/camera.dart';
 import '../common/exceptions/camera_communication_exception.dart';
+import '../common/live_view/live_view_data.dart';
+import '../common/live_view/polled_live_view_acquisition.dart';
 import '../common/models/camera_descriptor.dart';
 import '../common/models/camera_update_event.dart';
 import '../common/models/capabilities/control_prop_capability.dart';
 import '../common/models/capabilities/image_capture_capability.dart';
 import '../common/models/capabilities/live_view_capability.dart';
-import '../common/models/control_prop.dart';
-import '../common/models/control_prop_type.dart';
-import '../common/models/control_prop_value.dart';
-import '../common/live_view/live_view_data.dart';
 import '../common/models/properties/autofocus_position.dart';
 import '../common/models/properties/camera_mode.dart';
 import '../common/models/properties/exposure_mode.dart';
+import '../common/property_control/control_prop.dart';
+import '../common/property_control/control_prop_type.dart';
+import '../common/property_control/control_prop_value.dart';
 import 'actions/action_factory.dart';
 import 'adapter/eos_ptp_event_processor.dart';
 import 'cache/ptp_property_cache_extensions.dart';
