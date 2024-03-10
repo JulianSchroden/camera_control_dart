@@ -10,8 +10,19 @@ camera_control_dart allows you to remote control supported Canon EOS cameras wir
 
 ## Getting started
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+As of right now, `camera_control_dart` is not published on [pub.dev](). Therefore, you may either depend on it by referencing this GitHub repository or by cloning the repository alongside your project and referencing it using its relative path.
+
+```yaml
+dependencies:
+  camera_control_dart:
+    # Option A: Referencing the package using its GitHub repository
+    git:
+      url: https://github.com/JulianSchroden/camera_control_dart.git
+      ref: v0.0.2
+    # Option B: Referencing a local copy of the repository
+    path: ../camera_control_dart/
+
+```
 
 ## Usage
 
