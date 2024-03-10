@@ -40,6 +40,6 @@ export 'src/common/property_control/control_prop_type.dart';
 export 'src/common/property_control/control_prop_value.dart';
 export 'src/demo/demo_camera_pairing_data.dart';
 export 'src/eos_cine_http/eos_cine_http_camera_pairing_data.dart';
-export 'src/eos_cine_http/models/eos_cine_http_discovery_handle.dart';
+export 'src/eos_cine_http/discovery/eos_cine_http_discovery_handle.dart';
 export 'src/eos_ptp_ip/discovery/eos_ptp_ip_discovery_handle.dart';
 export 'src/eos_ptp_ip/eos_ptp_ip_camera_pairing_data.dart';
