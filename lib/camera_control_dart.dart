@@ -4,6 +4,7 @@ library;
 
 export 'src/camera_control.dart';
 export 'src/common/camera.dart';
+export 'src/camera_models.dart';
 
 export 'src/common/discovery/camera_discovery_event.dart';
 export 'src/common/discovery/discovery_handle.dart';

@@ -1,4 +1,4 @@
-import '../../common/camera_factory.dart';
+import '../../camera_models.dart';
 import '../../common/discovery/camera_discovery_adapter.dart';
 import '../../common/discovery/camera_discovery_event.dart';
 import '../../common/discovery/wifi_info_adapter.dart';

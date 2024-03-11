@@ -1,6 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:camera_control_dart/src/camera_models.dart';
+import 'package:camera_control_dart/src/common/exceptions/camera_communication_exception.dart';
+import 'package:camera_control_dart/src/common/models/camera_connection_handle.dart';
 import 'package:camera_control_dart/src/eos_cine_http/adapter/http_adapter_factory.dart';
 import 'package:camera_control_dart/src/eos_cine_http/adapter/http_client_factory.dart';
 import 'package:camera_control_dart/src/eos_cine_http/eos_cine_http_camera.dart';
@@ -8,9 +11,6 @@ import 'package:camera_control_dart/src/eos_cine_http/eos_cine_http_camera_facto
 import 'package:camera_control_dart/src/eos_cine_http/eos_cine_http_camera_pairing_data.dart';
 import 'package:camera_control_dart/src/eos_cine_http/models/camera_info.dart';
 import 'package:camera_control_dart/src/eos_cine_http/models/http_adapter_response.dart';
-import 'package:camera_control_dart/src/common/camera_factory.dart';
-import 'package:camera_control_dart/src/common/exceptions/camera_communication_exception.dart';
-import 'package:camera_control_dart/src/common/models/camera_connection_handle.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
@@ -25,7 +25,7 @@ void main() {
   final authCookie = Cookie('acid', 'e3d4');
   const cameraHandle = CameraConnectionHandle(
     id: '123',
-    model: CameraModels.canonC100II,
+    model: CameraModels.canon70D,
     pairingData: EosCineHttpCameraPairingData(),
   );
 
