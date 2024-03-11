@@ -1,9 +1,5 @@
+import '../../camera_control_dart.dart';
 import 'extensions/list_extensions.dart';
-import 'camera.dart';
-import 'models/camera_control_protocol.dart';
-import 'models/camera_connection_handle.dart';
-import 'models/camera_model.dart';
-import 'models/pairing_data.dart';
 
 abstract class CameraId {
   CameraId._();
