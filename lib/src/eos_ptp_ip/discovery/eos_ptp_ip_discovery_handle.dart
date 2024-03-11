@@ -8,4 +8,10 @@ class EosPtpIpDiscoveryHandle extends DiscoveryHandle {
     required super.id,
     required super.model,
   });
+
+  @override
+  List<Object?> get props => [
+        ...super.props,
+        address,
+      ];
 }
