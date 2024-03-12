@@ -1,4 +1,6 @@
-import '../../camera_control_dart.dart';
+import 'camera.dart';
+import 'models/camera_connection_handle.dart';
+import 'models/pairing_data.dart';
 
 abstract class CameraFactory<Pd extends PairingData> {
   const CameraFactory();
