@@ -15,6 +15,35 @@ class UnspecifiedLoggerTopic extends LoggerTopic<UnspecifiedChannel> {
   const UnspecifiedLoggerTopic({super.level = LogLevel.info});
 }
 
+class NeverLoggingLogger implements Logger {
+  /// Logger implementation, which swallows any call.
+  ///
+  /// Use NeverLoggingLogger to ensure camera_control_dart does not print any output.
+  const NeverLoggingLogger();
+
+  @override
+  void info<C extends LoggerChannel>(
+    message, [
+    error,
+    StackTrace? stackTrace,
+  ]) {}
+
+  @override
+  void log<C extends LoggerChannel>(
+    LogLevel level,
+    message, [
+    error,
+    StackTrace? stackTrace,
+  ]) {}
+
+  @override
+  void warning<C extends LoggerChannel>(
+    message, [
+    error,
+    StackTrace? stackTrace,
+  ]) {}
+}
+
 /// The global config for the [CameraControlLogger].
 ///
 /// This config is used to enable specific logging topics for debugging purposes.
@@ -22,7 +51,7 @@ class CameraControlLoggerConfig {
   static CameraControlLoggerConfig? _instance;
   static CameraControlLoggerConfig? get instance => _instance;
 
-  Logger? logger;
+  Logger logger = const NeverLoggingLogger();
   List<LoggerTopic> _enabledTopics = [];
 
   /// Initializes the CameraControlLoggerConfig [instance] and sets the enabled topics.
