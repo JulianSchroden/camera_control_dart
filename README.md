@@ -109,6 +109,18 @@ await cameraControl.pair(cameraHandle)
 
 When the `pair` method completes without throwing, the camera pairing process is successful.
 
+## Connecting to a Camera
+Call `connect` and provide a [CameraConnectionHandle](/lib/src/common/models/camera_connection_handle.dart#L7) to establish a connection to a camera. For camera models that do not require a pairing procedure, map the properties of a [DiscoveryHandle](/lib/src/common/discovery/discovery_handle.dart#L6) to a [CameraConnectionHandle](/lib/src/common/models/camera_connection_handle.dart#L7).
+Otherwise, look at the [Paring section](#pairing) for more info.
+```dart
+try {
+  final camera = await cameraControl.connect(cameraHandle);
+} catch (e) {
+  // Failed to connect to camera
+}
+```
+When establishing a connection succeeds, the Future completes with a camera instance; otherwise, it completes with an error.
+
 TODO: Include short and useful examples for package users. Add longer examples
 to `/example` folder. 
 
