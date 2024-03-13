@@ -58,10 +58,26 @@ While reverse-engineering camera protocols, I had to rely heavily on debugging u
 - [EosPtpRawEventLoggerTopic](/lib/src/eos_ptp_ip/logging/topics/eos_event_topics.dart#L14): Raw event data logs of the GetEventData (0x9116) operation.
 - [EosPtpPropertyChangedLoggerTopic](/lib/src/eos_ptp_ip/logging/topics/eos_event_topics.dart#L29): Property changed event logs.
 - [EosPtpTransactionQueueTopic](/lib/src/eos_ptp_ip/logging/topics/transaction_queue_topics.dart#L14): PTP/IP transaction queue logs.
-- [EosPtpIpDiscoveryTopic](/lib/src/eos_ptp_ip/logging/topics/eos_ptp_ip_discovery_topic.dart#10): UPNP alive and bye-bye advertisements logs.
+- [EosPtpIpDiscoveryTopic](/lib/src/eos_ptp_ip/logging/topics/eos_ptp_ip_discovery_topic.dart#L10): UPNP alive and bye-bye advertisements logs.
 
+## Discovery
+Use the `discover` method to listen for [CameraUpdateEvents](/lib/src/common/discovery/camera_discovery_event.dart#L5). Whenever a camera is detected, a `alive` event is emitted. On the contrary, a `byebye` event is emitted when a camera disappears. Note that the Stream returned by `discover` does not filter out duplicates.
 
+```dart
+final discoveryStreamSubscription =
+    cameraControl.discover().listen((discoveryEvent) {
+  // TODO: process discovery events
+});
 ```
+### Alive Event
+The [CameraDiscoveryEventAlive](/lib/src/common/discovery/camera_discovery_event.dart#L24) contains a [DiscoveryHandle](/lib/src/common/discovery/discovery_handle.dart#L6) that contains the following properties:
+- `id`: Identifier to reference the specific camera.
+- `model`: A [CameraModel](/lib/src/common/models/camera_model.dart#L5) instance containing a model-specific `id`, `name`, and the underlying `protocol`.
+- `pairingData`: Optional [PairingData](/lib/src/common/models/pairing_data.dart#L3) instance. Only present when the camera model does not require the user to enter pairing data.
+
+### Byebye Event
+The [CameraDiscoveryEventByeBye](/lib/src/common/discovery/camera_discovery_event.dart#L41) only contains the `id` property and notifies that the camera is no longer available.
+
 
 ## Usage
 
