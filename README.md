@@ -70,7 +70,7 @@ final discoveryStreamSubscription =
 });
 ```
 ### Alive Event
-The [CameraDiscoveryEventAlive](/lib/src/common/discovery/camera_discovery_event.dart#L24) contains a [DiscoveryHandle](/lib/src/common/discovery/discovery_handle.dart#L6) that contains the following properties:
+The [CameraDiscoveryEventAlive](/lib/src/common/discovery/camera_discovery_event.dart#L24) contains a [DiscoveryHandle](/lib/src/common/discovery/discovery_handle.dart#L6) with the following properties:
 - `id`: Identifier to reference the specific camera.
 - `model`: A [CameraModel](/lib/src/common/models/camera_model.dart#L5) instance containing a model-specific `id`, `name`, and the underlying `protocol`.
 - `pairingData`: Optional [PairingData](/lib/src/common/models/pairing_data.dart#L3) instance. Only present when the camera model does not require the user to enter pairing data.
@@ -78,8 +78,36 @@ The [CameraDiscoveryEventAlive](/lib/src/common/discovery/camera_discovery_event
 ### Byebye Event
 The [CameraDiscoveryEventByeBye](/lib/src/common/discovery/camera_discovery_event.dart#L41) only contains the `id` property and notifies that the camera is no longer available.
 
+## Pairing
+Pairing is only required when connecting to a Canon EOS PTP/IP camera and only when connecting for the first time.
+1. Navigate to your camera's `Wi-Fi function` menu.
+2. Choose `Remote control (EOS Utility)`.
+3. Create a new setup and follow the instructions until the message `Start paring devices` is displayed.
+4. At this point, ensure your camera control application listens to discovery events.
+5. On your camera, confirm the start of the pairing procedure with `OK`. The `discover` Stream should emit a `alive` event.
+6. Using the [DiscoveryHandle](/lib/src/common/discovery/discovery_handle.dart#L6) of the `alive` event and the [EosPtpIpCameraPairingData](/lib/src/eos_ptp_ip/eos_ptp_ip_camera_pairing_data.dart#L5) entered by the user, construct a [CameraConnectionHandle](/lib/src/common/models/camera_connection_handle.dart#L7) and call `cameraControl.pair(cameraHandle)`.
+7. Confirm the pairing procedure on the camera's screen.
+8. Store the `PairingData` used for pairing with the camera for future connections.
+9. Turn off the camera, wait a few seconds, and turn it back on. After the camera sends another `alive` message, you can connect using the stored `PairingData`.
 
-## Usage
+
+```dart
+final cameraHandle = CameraConnectionHandle(
+  id: discoveryHandle.id,
+  model: discoveryHandle.model,
+  pairingData: EosPtpIpCameraPairingData(
+    address: discoveryHandle.address,
+    guid: Uint8List.fromList(List.generate(16, (index) => index)),
+    clientName: 'myClient',
+  ),
+);
+
+await cameraControl.pair(cameraHandle)
+
+// TODO: store pairingData for future connections.
+```
+
+When the `pair` method completes without throwing, the camera pairing process is successful.
 
 TODO: Include short and useful examples for package users. Add longer examples
 to `/example` folder. 
