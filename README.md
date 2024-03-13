@@ -29,27 +29,36 @@ dependencies:
 `camera_control_dart` provides a builder-like initialization to configure the library to your project needs. The library does not create a singleton instance, so it is your responsibility to manage the `CameraControl` instance.
 
 ```dart
-    final cameraControl = CameraControl.init()
-        .withDiscovery((discoverySetup) => discoverySetup
-            .withDemo()
-            .withEosPtpIp()
-            .withEosCineHttp(WifiInfoAdapterImpl()))
-        .withLogging(
-      logger: CameraControlLoggerImpl(),
-      enabledTopics: [
-        const EosPtpTransactionQueueTopic(),
-        const EosPtpIpDiscoveryTopic(),
-      ],
-    ).create();
+final cameraControl = CameraControl.init()
+  .withDiscovery((discoverySetup) => discoverySetup
+      .withDemo()
+      .withEosPtpIp()
+      .withEosCineHttp(WifiInfoAdapterImpl()))
+  .withLogging(
+    logger: CameraControlLoggerImpl(),
+    enabledTopics: [
+      const EosPtpTransactionQueueTopic(),
+      const EosPtpIpDiscoveryTopic(),
+    ]
+  ).create();
 ```
 
 ### Camera Discovery Configuration
-Within the configuration, you specify which camera types you want to discover. 
+Camera discovery is the process of scanning for nearby cameras. Within the configuration, you specify which camera types you want to discover.
 
-If you do not own any supported camera, you can still play around with `camera_control_dart` by utilizing its demo implementation. To do so, make sure to call `withDemo` on the `discoverySetup`.
+- Use `withEosPtpIp()` to enable the discovery of PTP/IP Cameras by listening for UPNP advertisements.
+- Use `withEosCineHttp()` to check whether your phone is connected to the access point of a Canon C100 II. Since I wanted to keep the library in pure dart, `withEosCineHttp` requires you to pass in an implementation of the [WifiInfoAdapter](/lib/src/common/discovery/wifi_info_adapter.dart) interface. Check out my [cine_remote](https://github.com/JulianSchroden/cine_remote) project for a [flutter implementation](https://github.com/JulianSchroden/cine_remote/blob/5daac7a1131d1d8e49e5bcadc15562596ddb0ee0/lib/adapter/wifi_info_adapter.dart).
+- Use `withDemo()` if you do not own any supported camera to play around with the library using its demo implementation.
 
 ### Logger Configuration
-While reverse engineering camera protocols during the development of the library, I had to rely heavily on debugging using logs since breakpoints pause the execution too long, causing cameras to disconnect. Therefore, I added a logging infrastructure that is configurable by specifying the topics you are interested in. For example, to see logs from the PTP/IP transaction queue, add `EosPtpTransactionQueueTopic` to the list of `enabledTopics`.
+While reverse-engineering camera protocols, I had to rely heavily on debugging using logs since breakpoints pause the execution too long, causing cameras to disconnect. Therefore, I added a configurable logging infrastructure that allows you to specify the topics you are interested in.
+
+#### Available Topics:
+- [UnspecifiedLoggerTopic](/lib/src/common/logging/camera_control_logger_config.dart#L10): Fallback topic to ensure logs that do not specify a `LoggerChannel` are logged.
+- [EosPtpRawEventLoggerTopic](/lib/src/eos_ptp_ip/logging/topics/eos_event_topics.dart#L14): Raw event data logs of the GetEventData (0x9116) operation.
+- [EosPtpPropertyChangedLoggerTopic](/lib/src/eos_ptp_ip/logging/topics/eos_event_topics.dart#L29): Property changed event logs.
+- [EosPtpTransactionQueueTopic](/lib/src/eos_ptp_ip/logging/topics/transaction_queue_topics.dart#L14): PTP/IP transaction queue logs.
+- [EosPtpIpDiscoveryTopic](/lib/src/eos_ptp_ip/logging/topics/eos_ptp_ip_discovery_topic.dart#10): UPNP alive and bye-bye advertisements logs.
 
 
 ```
