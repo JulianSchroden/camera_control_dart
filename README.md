@@ -61,7 +61,7 @@ While reverse-engineering camera protocols, I had to rely heavily on debugging u
 - [EosPtpIpDiscoveryTopic](/lib/src/eos_ptp_ip/logging/topics/eos_ptp_ip_discovery_topic.dart#L10): UPNP alive and bye-bye advertisements logs.
 
 ## Discovery
-Use the `discover` method to listen for [CameraUpdateEvents](/lib/src/common/discovery/camera_discovery_event.dart#L5). Whenever a camera is detected, a `alive` event is emitted. On the contrary, a `byebye` event is emitted when a camera disappears. Note that the Stream returned by `discover` does not filter out duplicates.
+Use the `discover` method to listen for [CameraDiscoveryEvent](/lib/src/common/discovery/camera_discovery_event.dart#L5). Whenever a camera is detected, a `alive` event is emitted. On the contrary, a `byebye` event is emitted when a camera disappears. Note that the Stream returned by `discover` does not filter out duplicates.
 
 ```dart
 final discoveryStreamSubscription =
@@ -121,15 +121,54 @@ try {
 ```
 When establishing a connection succeeds, the Future completes with a camera instance; otherwise, it completes with an error.
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
+## Camera Control
+With a camera connected, you can start controlling it using the methods exposed by the [Camera](/lib/src/common/camera.dart#L9) interface.
 
+### Start and Stop Movie recordings
 ```dart
-const like = 'sample';
+final descriptor = await camera.getDescriptor();
+if(!descriptor.hasCapability<MovieRecordCapility>()) {
+  // the camera does not support recording movies
+  return;
+}
+
+await camera.triggerRecord();
+await Future.delayed(const Duration(seconds: 5));
+await camera.triggerRecord();
+```
+
+### Capturing Images
+```dart
+final descriptor = await camera.getDescriptor();
+if(!descriptor.hasCapability<ControlPropCapability>()) {
+  // the camera does not support capturing images
+  return;
+}
+
+await camera.captureImage();
+```
+
+### Controlling Properties
+```dart
+final descriptor = await camera.getDescriptor();
+if (!descriptor.hasCapability<ControlPropCapability>()) {
+  // TODO: notify user
+  return;
+}
+
+// Get a list of all supported ControlPropTypes 
+final propCapability = descriptor.getCapability<ControlPropCapability>();
+final supportedPropTypes = propCapability.supportedProps;
+
+// Get the ControlProp by ControlpropType
+final apertureProp = await camera.getProp(ControlPropType.aperture);
+if (apertureProp == null) {
+  return;
+}
+
+// Set the aperture to one of its allowed values
+camera.setProp(apertureProp.type, apertureProp.allowedValues.first);
 ```
 
 ## Additional information
 
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
