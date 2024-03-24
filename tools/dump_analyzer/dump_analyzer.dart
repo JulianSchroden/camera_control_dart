@@ -3,7 +3,9 @@ import 'dart:io';
 import 'package:camera_control_dart/src/eos_ptp_ip/extensions/dump_bytes_extensions.dart';
 
 import 'data_layers/ethernet/ether_type.dart';
-import 'data_layers/ethernet/ethernet_frame_mapping.dart';
+import 'data_layers/ethernet/map_ethernet_frame.dart';
+
+import 'data_layers/ip4v/map_ipv4_frame.dart';
 import 'pcapng/blocks/enhanced_packet_block.dart';
 import 'pcapng/parse_pcapng_blocks.dart';
 
@@ -13,16 +15,15 @@ void main() async {
   final fileData = await file.readAsBytes();
   final blocks = parsePcapngBlocks(fileData);
 
-  final ethernetFrames = blocks
+  final ipv4Frames = blocks
       .whereType<EnhancedPacketBlock>()
       .map((packetBlock) => mapEthernetFrame(packetBlock))
       .where((ethernetFrame) => ethernetFrame.etherType == EhterType.ipv4.value)
+      .map((frame) => mapIpv4Frame(frame.payload))
       .toList();
 
   print('######');
-  final block39 =
-      ethernetFrames.firstWhere((element) => element.frameNumber == 39);
-  print(block39.payload.dumpAsHex());
+  print(ipv4Frames.first.payload.dumpAsHex());
 }
 
 
@@ -54,4 +55,25 @@ i: 38
 ]
 
 ]
+*/
+
+/*
+
+
+[
+   45 00 00 b5 9e 7f 00 00  04 11 b4 e1 c0 a8 b2 34
+   ef ff ff fa ed 18 07 6c  00 a1 1d e2 4e 4f 54 49
+   46 59 20 2a 20 48 54 54  50 2f 31 2e 31 0d 0a 48
+   6f 73 74 3a 20 32 33 39  2e 32 35 35 2e 32 35 35
+   2e 32 35 30 3a 31 39 30  30 0d 0a 4e 54 3a 20 75
+   70 6e 70 3a 72 6f 6f 74  64 65 76 69 63 65 0d 0a
+   4e 54 53 3a 20 73 73 64  70 3a 62 79 65 62 79 65
+   0d 0a 55 53 4e 3a 20 75  75 69 64 3a 30 30 30 30
+   30 30 30 30 2d 30 30 30  30 2d 30 30 30 30 2d 30
+   30 30 31 2d 46 38 41 32  36 44 41 45 35 30 36 38
+   3a 3a 75 70 6e 70 3a 72  6f 6f 74 64 65 76 69 63
+   65 0d 0a 0d 0a 
+]
+0x8004500: 0xb59e7f
+
 */

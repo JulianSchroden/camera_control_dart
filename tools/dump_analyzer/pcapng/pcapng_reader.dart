@@ -14,9 +14,15 @@ class ByteDataReader {
     return ByteDataReader(ByteData.view(bytes.buffer), endian);
   }
 
-  int getUint64() {
-    final result = _data.getUint64(_offset, _endian);
-    _offset += 8;
+  int getUint8() {
+    final result = _data.getUint8(_offset);
+    _offset += 1;
+    return result;
+  }
+
+  int getUint16() {
+    final result = _data.getUint16(_offset, _endian);
+    _offset += 2;
     return result;
   }
 
@@ -26,9 +32,9 @@ class ByteDataReader {
     return result;
   }
 
-  int getUint16() {
-    final result = _data.getUint16(_offset, _endian);
-    _offset += 2;
+  int getUint64() {
+    final result = _data.getUint64(_offset, _endian);
+    _offset += 8;
     return result;
   }
 
