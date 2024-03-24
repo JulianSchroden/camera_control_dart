@@ -8,12 +8,19 @@ import '../pcapng_block_types.dart';
 import '../pcapng_reader.dart';
 
 class EnhancedPacketBlock extends PcapngBlockData {
+  final int frameNumber;
   final DateTime timeStamp;
   final Uint8List payload;
 
-  EnhancedPacketBlock(super.totalLength, this.timeStamp, this.payload);
+  EnhancedPacketBlock(
+    this.frameNumber,
+    super.totalLength,
+    this.timeStamp,
+    this.payload,
+  );
 
-  factory EnhancedPacketBlock.fromBytes(PcapngReader blockReader) {
+  factory EnhancedPacketBlock.fromBytes(
+      int frameNumber, PcapngReader blockReader) {
     final totalLength = blockReader.getUint32();
     final interfaceId = blockReader.getUint32();
 
@@ -24,9 +31,10 @@ class EnhancedPacketBlock extends PcapngBlockData {
 
     final capturedPacketLength = blockReader.getUint32();
     blockReader.getUint32(); // skip originalPacketLength
-    final payload = blockReader.getBytes(capturedPacketLength);
+    final payload =
+        Uint8List.fromList(blockReader.getBytes(capturedPacketLength));
 
-    return EnhancedPacketBlock(totalLength, timeStamp, payload);
+    return EnhancedPacketBlock(frameNumber, totalLength, timeStamp, payload);
   }
 
   @override

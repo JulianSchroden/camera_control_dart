@@ -1,64 +1,30 @@
 import 'dart:io';
-import 'dart:typed_data';
 
-import 'package:camera_control_dart/src/common/extensions/list_extensions.dart';
 import 'package:camera_control_dart/src/eos_ptp_ip/extensions/dump_bytes_extensions.dart';
 
+import 'data_layers/ethernet/ether_type.dart';
+import 'data_layers/ethernet/ethernet_frame_mapping.dart';
 import 'pcapng/blocks/enhanced_packet_block.dart';
-import 'pcapng/blocks/section_header_block.dart';
-import 'pcapng/pcapng_block_data.dart';
-import 'pcapng/pcapng_block_types.dart';
-import 'pcapng/pcapng_reader.dart';
-
-// https://datatracker.ietf.org/doc/html/draft-ietf-opsawg-pcapng#name-section-header-block
-// https://github.com/rshk/python-pcapng/blob/master/pcapng/scanner.py
-// https://github.com/rshk/python-pcapng/blob/33e722f6d5cc41154fda56d8dff62e2970078fd5/pcapng/structs.py#L129
-
-List<PcapngBlockData> parseBlocks(Uint8List fileData) {
-  final reader = PcapngReader.fromBytes(fileData);
-  final List<PcapngBlockData> parsedBlocks = [];
-
-  while (reader.hasUnreadBlock) {
-    final blockReader = reader.readBlock();
-
-    final rawType = blockReader.getUint32();
-    final type = PcapngBlockType.values
-        .firstWhereOrNull((type) => type.value == rawType);
-
-    switch (type) {
-      case PcapngBlockType.sectionHeader:
-        {
-          parsedBlocks.add(SectionHeaderBlock.fromBytes(blockReader));
-        }
-      case PcapngBlockType.enhancedPacketBlock:
-        {
-          parsedBlocks.add(EnhancedPacketBlock.fromBytes(blockReader));
-        }
-      default:
-        {
-          final blockTotalLength = blockReader.getUint32();
-          final bytestoSkip = blockTotalLength - 8;
-          blockReader.skipBytes(bytestoSkip);
-          print("type is $type and length is $blockTotalLength");
-        }
-    }
-  }
-
-  return parsedBlocks;
-}
+import 'pcapng/parse_pcapng_blocks.dart';
 
 void main() async {
   final file = File('test/_test_data/Connect_Set_Aputure_To_f5.pcapng');
 
   final fileData = await file.readAsBytes();
-  final blocks = parseBlocks(fileData);
+  final blocks = parsePcapngBlocks(fileData);
 
-  final packetBlocks = blocks.whereType<EnhancedPacketBlock>().toList();
+  final ethernetFrames = blocks
+      .whereType<EnhancedPacketBlock>()
+      .map((packetBlock) => mapEthernetFrame(packetBlock))
+      .where((ethernetFrame) => ethernetFrame.etherType == EhterType.ipv4.value)
+      .toList();
 
   print('######');
-  final block39 = packetBlocks[39];
+  final block39 =
+      ethernetFrames.firstWhere((element) => element.frameNumber == 39);
   print(block39.payload.dumpAsHex());
 }
+
 
 
 /*
