@@ -15,8 +15,8 @@ extension DumpHexDataExtension on Uint8List {
     var line = 0;
     final indent = ' ' * indentationCount;
     final startOfDump = withLineNumbers
-        ? '\n↓↓↓↓ [\n${_formatLineNumber(line)}$indent'
-        : '\n[\n$indent';
+        ? '↓↓↓↓ [\n${_formatLineNumber(line)}$indent'
+        : '[\n$indent';
     final buffer = StringBuffer(startOfDump);
 
     var counter = 1;
