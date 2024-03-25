@@ -1,15 +1,13 @@
-import 'dart:typed_data';
-
+import '../network_layer_frame.dart';
 import 'ipv4_address.dart';
 
-class Ipv4Frame {
+class Ipv4Frame extends NetworkLayerFrame {
   final int version;
   final int headerLength;
   final int totalLength;
   final int protocol;
   final Ipv4Address destinationAddress;
   final Ipv4Address sourceAddress;
-  final Uint8List payload;
 
   Ipv4Frame({
     required this.version,
@@ -18,6 +16,5 @@ class Ipv4Frame {
     required this.protocol,
     required this.sourceAddress,
     required this.destinationAddress,
-    required this.payload,
   });
 }

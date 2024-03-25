@@ -1,11 +1,8 @@
-import 'dart:typed_data';
-
-import '../../pcapng/pcapng_reader.dart';
+import '../../../pcapng/pcapng_reader.dart';
 import 'ipv4_address.dart';
 import 'ipv4_frame.dart';
 
-Ipv4Frame mapIpv4Frame(Uint8List payload) {
-  final dataReader = ByteDataReader.fromBytes(payload);
+Ipv4Frame mapIpv4Frame(ByteDataReader dataReader) {
   final versionAndHeaderByte = dataReader.getUint8();
   final version = versionAndHeaderByte >> 4;
   final headerLength = (versionAndHeaderByte & 0xF) * 4;
@@ -18,8 +15,6 @@ Ipv4Frame mapIpv4Frame(Uint8List payload) {
   final sourceAddress = Ipv4Address(dataReader.getUint32());
   final destinationAddress = Ipv4Address(dataReader.getUint32());
 
-  final content = dataReader.getRemainingBytes();
-
   return Ipv4Frame(
     version: version,
     headerLength: headerLength,
@@ -27,6 +22,5 @@ Ipv4Frame mapIpv4Frame(Uint8List payload) {
     protocol: protocol,
     sourceAddress: sourceAddress,
     destinationAddress: destinationAddress,
-    payload: content,
   );
 }

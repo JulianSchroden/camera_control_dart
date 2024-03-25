@@ -2,12 +2,16 @@ import 'dart:io';
 
 import 'package:camera_control_dart/src/eos_ptp_ip/extensions/dump_bytes_extensions.dart';
 
-import 'data_layers/ethernet/ether_type.dart';
-import 'data_layers/ethernet/map_ethernet_frame.dart';
+import 'data_layers/application/application_layer_frame.dart';
+import 'data_layers/map_packet.dart';
 
-import 'data_layers/ip4v/map_ipv4_frame.dart';
+import 'data_layers/network/ip4v/ipv4_frame.dart';
+import 'data_layers/packet.dart';
+import 'data_layers/transport/tcp/tcp_frame.dart';
 import 'pcapng/blocks/enhanced_packet_block.dart';
 import 'pcapng/parse_pcapng_blocks.dart';
+
+const int ptpIpPort = 15740;
 
 void main() async {
   final file = File('test/_test_data/Connect_Set_Aputure_To_f5.pcapng');
@@ -15,15 +19,38 @@ void main() async {
   final fileData = await file.readAsBytes();
   final blocks = parsePcapngBlocks(fileData);
 
-  final ipv4Frames = blocks
+  final packets = blocks
       .whereType<EnhancedPacketBlock>()
-      .map((packetBlock) => mapEthernetFrame(packetBlock))
-      .where((ethernetFrame) => ethernetFrame.etherType == EhterType.ipv4.value)
-      .map((frame) => mapIpv4Frame(frame.payload))
-      .toList();
+      .map((packetBlock) => packetBlock.mapPacket())
+      .where((packet) {
+    if (packet
+        case Packet(
+          :final frameNumber,
+          networkLayerFrame: Ipv4Frame(
+            :final sourceAddress,
+            :final destinationAddress
+          ),
+          transportLayerFrame: TcpFrame(
+            :final sourcePort,
+            :final destinationPort
+          ),
+          applicationLayerFrame: ApplicationLayerFrame(:final payload)
+        )
+        when (sourcePort == ptpIpPort || destinationPort == ptpIpPort) &&
+            payload.isNotEmpty) {
+      print(
+          '$frameNumber: Packet from $sourceAddress:$sourcePort to $destinationAddress:$destinationPort with payload(${payload.length})');
+      print(payload.dumpAsHex());
+
+      return true;
+    }
+    return false;
+  }).toList();
 
   print('######');
-  print(ipv4Frames.first.payload.dumpAsHex());
+  final packet38 = packets.firstWhere((element) => element.frameNumber == 38);
+  print(packet38.transportLayerFrame);
+  print(packet38.applicationLayerFrame!.payload.dumpAsHex());
 }
 
 
