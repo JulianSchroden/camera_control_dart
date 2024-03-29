@@ -32,6 +32,10 @@ class ByteDataReader {
     return result;
   }
 
+  int peekUint32() {
+    return _data.getUint32(_offset, _endian);
+  }
+
   int getUint64() {
     final result = _data.getUint64(_offset, _endian);
     _offset += 8;
@@ -54,9 +58,29 @@ class ByteDataReader {
   int get length => _data.lengthInBytes;
 
   int get remainingBytes => length - _offset;
+  int get consumedBytes => _offset;
 
   void skipBytes(int bytesToSkip) {
     _offset += bytesToSkip;
+  }
+}
+
+extension ReadPtpPacketExtension on ByteDataReader {
+  bool get hasValidPtpSegment {
+    if (remainingBytes < 8) {
+      return false;
+    }
+
+    final segmentLength = peekUint32();
+    return segmentLength > 0 && segmentLength <= remainingBytes;
+  }
+
+  bool get hasNoValidPtpSegment => !hasValidPtpSegment;
+
+  ByteDataReader readPtpSegment() {
+    final segmentLength = peekUint32();
+    return ByteDataReader.fromBytes(
+        Uint8List.fromList(getBytes(segmentLength)), Endian.little);
   }
 }
 

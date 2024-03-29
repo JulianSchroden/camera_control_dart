@@ -87,8 +87,9 @@ extension _MutablePacketMappingExtension on _MutablePacket {
           ipv4Frame.headerLength -
           tcpFrame.headerLength;
 
-      applicationLayerFrame =
-          ApplicationLayerFrame(payload: reader.getBytes(payloadLength));
+      applicationLayerFrame = ApplicationLayerFrame(
+        payload: reader.getBytes(payloadLength),
+      );
     }
   }
 }

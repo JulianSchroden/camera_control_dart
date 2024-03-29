@@ -40,7 +40,6 @@ List<PcapngBlockData> parsePcapngBlocks(Uint8List fileData) {
           final blockTotalLength = blockReader.getUint32();
           final bytestoSkip = blockTotalLength - 8;
           blockReader.skipBytes(bytestoSkip);
-          print("type is $type and length is $blockTotalLength");
         }
     }
   }

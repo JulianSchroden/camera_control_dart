@@ -1,6 +1,9 @@
 import 'dart:io';
+import 'dart:typed_data';
 
+import 'package:camera_control_dart/src/eos_ptp_ip/constants/ptp_package_type.dart';
 import 'package:camera_control_dart/src/eos_ptp_ip/extensions/dump_bytes_extensions.dart';
+import 'package:camera_control_dart/src/eos_ptp_ip/extensions/int_as_hex_string_extension.dart';
 
 import 'data_layers/application/application_layer_frame.dart';
 import 'data_layers/map_packet.dart';
@@ -10,8 +13,233 @@ import 'data_layers/packet.dart';
 import 'data_layers/transport/tcp/tcp_frame.dart';
 import 'pcapng/blocks/enhanced_packet_block.dart';
 import 'pcapng/parse_pcapng_blocks.dart';
+import 'pcapng/pcapng_reader.dart';
 
 const int ptpIpPort = 15740;
+
+bool isPtpIpPacket(Packet packet) {
+  if (packet
+      case Packet(
+        networkLayerFrame: Ipv4Frame(),
+        transportLayerFrame: TcpFrame(
+          :final sourcePort,
+          :final destinationPort
+        ),
+        applicationLayerFrame: ApplicationLayerFrame()
+      ) when (sourcePort == ptpIpPort || destinationPort == ptpIpPort)) {
+    return true;
+  }
+  return false;
+}
+
+class PtpPacket {
+  final int length;
+  final int packetType;
+  final int transactionId;
+
+  const PtpPacket({
+    required this.length,
+    required this.packetType,
+    required this.transactionId,
+  });
+
+  @override
+  String toString() {
+    return 'PtpPacket(length: $length, type: $packetType)';
+  }
+}
+
+class PtpOperationRequest extends PtpPacket {
+  final int operationCode;
+  final int dataMode;
+
+  final Uint8List payload;
+
+  const PtpOperationRequest({
+    required super.length,
+    required super.packetType,
+    required super.transactionId,
+    required this.operationCode,
+    required this.dataMode,
+    required this.payload,
+  });
+
+  @override
+  String toString() {
+    return 'PtpOperationRequest(operationCode: ${operationCode.asHex()}, length: $length, dataMode: $dataMode, transactionId: $transactionId, payload: ${payload.dumpAsHex()})';
+  }
+}
+
+class PtpOperationResponse extends PtpPacket {
+  final int operationCode;
+
+  const PtpOperationResponse({
+    required super.length,
+    required super.packetType,
+    required super.transactionId,
+    required this.operationCode,
+  });
+
+  @override
+  String toString() {
+    return 'PtpOperationResponse(operationCode: ${operationCode.asHex()}, length: $length, transactionId: $transactionId)';
+  }
+}
+
+class PtpStartDataPacket extends PtpPacket {
+  final int dataLength;
+
+  const PtpStartDataPacket({
+    required super.length,
+    required super.packetType,
+    required super.transactionId,
+    required this.dataLength,
+  });
+
+  @override
+  String toString() {
+    return 'PtpStartDataPacket(length: $length, transactionId: $transactionId, dataLength: $dataLength)';
+  }
+}
+
+class PtpEndDataPacket extends PtpPacket {
+  final Uint8List payload;
+
+  const PtpEndDataPacket({
+    required super.length,
+    required super.packetType,
+    required super.transactionId,
+    required this.payload,
+  });
+
+  @override
+  String toString() {
+    return 'PtpEndDataPacket(length: $length, transactionId: $transactionId, payload: ${payload.dumpAsHex()})';
+  }
+}
+
+class PtpMappingResponse {
+  final int consumedBytes;
+  final PtpPacket? packet;
+
+  PtpMappingResponse({
+    required this.consumedBytes,
+    this.packet,
+  });
+}
+
+PtpMappingResponse mapPtpPacket(Uint8List data, int frameNumber) {
+  final dataReader = ByteDataReader.fromBytes(data, Endian.little);
+  if (dataReader.hasNoValidPtpSegment) {
+    return PtpMappingResponse(consumedBytes: 0);
+  }
+
+  final segmentReader = dataReader.readPtpSegment();
+  final packetLength = segmentReader.getUint32();
+  final packetType = segmentReader.getUint32();
+
+  switch (packetType) {
+    case PtpPacketType.operationRequest:
+      {
+        final dataMode = segmentReader.getUint32();
+        final operationCode = segmentReader.getUint16();
+        final transactionId = segmentReader.getUint32();
+        final payload = segmentReader.getRemainingBytes();
+        final request = PtpOperationRequest(
+          length: packetLength,
+          packetType: packetType,
+          operationCode: operationCode,
+          dataMode: dataMode,
+          transactionId: transactionId,
+          payload: payload,
+        );
+
+        return PtpMappingResponse(
+          consumedBytes: dataReader.consumedBytes,
+          packet: request,
+        );
+      }
+    case PtpPacketType.operationResponse:
+      {
+        final operationCode = segmentReader.getUint16();
+        final transactionId = segmentReader.getUint32();
+
+        final packet = PtpOperationResponse(
+          length: packetLength,
+          packetType: packetType,
+          operationCode: operationCode,
+          transactionId: transactionId,
+        );
+
+        return PtpMappingResponse(
+          consumedBytes: dataReader.consumedBytes,
+          packet: packet,
+        );
+      }
+    case PtpPacketType.startDataPacket:
+      {
+        final transactionId = segmentReader.getUint32();
+        final dataLength = segmentReader.getUint64();
+
+        final dataStartPacket = PtpStartDataPacket(
+          length: packetLength,
+          packetType: packetType,
+          transactionId: transactionId,
+          dataLength: dataLength,
+        );
+        return PtpMappingResponse(
+          consumedBytes: dataReader.consumedBytes,
+          packet: dataStartPacket,
+        );
+      }
+    case PtpPacketType.endDataPacket:
+      {
+        final transactionId = segmentReader.getUint32();
+        final payload = segmentReader.getRemainingBytes();
+
+        final endDataPacket = PtpEndDataPacket(
+          length: packetLength,
+          packetType: packetType,
+          transactionId: transactionId,
+          payload: payload,
+        );
+
+        return PtpMappingResponse(
+          consumedBytes: dataReader.consumedBytes,
+          packet: endDataPacket,
+        );
+      }
+  }
+
+  return PtpMappingResponse(consumedBytes: dataReader.consumedBytes);
+}
+
+Map<int, PtpPacket> mapPtpPackets(List<Packet> packets) {
+  final bytesBuilder = BytesBuilder();
+  final Map<int, PtpPacket> mappedPackets = {};
+  for (final packet in packets) {
+    if (packet
+        case Packet(
+          :final frameNumber,
+          applicationLayerFrame: ApplicationLayerFrame(:final payload)
+        ) when payload.isNotEmpty) {
+      bytesBuilder.add(payload);
+      final byteBuffer = Uint8List.fromList(bytesBuilder.takeBytes());
+
+      final mappingResult = mapPtpPacket(byteBuffer, frameNumber);
+      if (mappingResult case PtpMappingResponse(:final PtpPacket packet)) {
+        mappedPackets[frameNumber] = packet;
+      }
+
+      if (byteBuffer.length > mappingResult.consumedBytes) {
+        final remainingBytes = byteBuffer.sublist(mappingResult.consumedBytes);
+        bytesBuilder.add(remainingBytes);
+      }
+    }
+  }
+
+  return mappedPackets;
+}
 
 void main() async {
   final file = File('test/_test_data/Connect_Set_Aputure_To_f5.pcapng');
@@ -19,38 +247,48 @@ void main() async {
   final fileData = await file.readAsBytes();
   final blocks = parsePcapngBlocks(fileData);
 
-  final packets = blocks
+  final rawPtpIpPackets = blocks
       .whereType<EnhancedPacketBlock>()
       .map((packetBlock) => packetBlock.mapPacket())
-      .where((packet) {
-    if (packet
-        case Packet(
-          :final frameNumber,
-          networkLayerFrame: Ipv4Frame(
-            :final sourceAddress,
-            :final destinationAddress
-          ),
-          transportLayerFrame: TcpFrame(
-            :final sourcePort,
-            :final destinationPort
-          ),
-          applicationLayerFrame: ApplicationLayerFrame(:final payload)
-        )
-        when (sourcePort == ptpIpPort || destinationPort == ptpIpPort) &&
-            payload.isNotEmpty) {
-      print(
-          '$frameNumber: Packet from $sourceAddress:$sourcePort to $destinationAddress:$destinationPort with payload(${payload.length})');
-      print(payload.dumpAsHex());
+      .where((packet) => isPtpIpPacket(packet))
+      .toList();
 
+  final List<int> ignoredTransactionIds = [];
+  final mappedPackets = mapPtpPackets(rawPtpIpPackets);
+
+  mappedPackets.removeWhere((frameNumber, packet) {
+    if (packet case PtpOperationRequest(operationCode: 0x9116)) {
+      ignoredTransactionIds.add(packet.transactionId);
       return true;
     }
-    return false;
-  }).toList();
 
-  print('######');
-  final packet38 = packets.firstWhere((element) => element.frameNumber == 38);
-  print(packet38.transportLayerFrame);
-  print(packet38.applicationLayerFrame!.payload.dumpAsHex());
+    if (packet case PtpOperationResponse()) {
+      return true;
+    }
+
+    return ignoredTransactionIds.contains(packet.transactionId);
+  });
+
+  for (final MapEntry(key: frameNumber, value: packet)
+      in mappedPackets.entries) {
+    if (packet is PtpOperationRequest) {
+      print('');
+    }
+
+    print('$frameNumber: $packet');
+  }
+
+  final usedOperationCodes = mappedPackets.values
+      .whereType<PtpOperationRequest>()
+      .map((request) => request.operationCode)
+      .toSet()
+      .toList()
+    ..sort();
+
+  print('used operation codes:');
+  for (final operationCode in usedOperationCodes) {
+    print(operationCode.asHex());
+  }
 }
 
 
