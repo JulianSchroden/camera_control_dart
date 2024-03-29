@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'dart:typed_data';
+import 'dart:mirrors';
 
+import 'package:camera_control_dart/src/eos_ptp_ip/constants/ptp_operation_code.dart';
 import 'package:camera_control_dart/src/eos_ptp_ip/constants/ptp_package_type.dart';
 import 'package:camera_control_dart/src/eos_ptp_ip/extensions/dump_bytes_extensions.dart';
 import 'package:camera_control_dart/src/eos_ptp_ip/extensions/int_as_hex_string_extension.dart';
@@ -241,6 +243,22 @@ Map<int, PtpPacket> mapPtpPackets(List<Packet> packets) {
   return mappedPackets;
 }
 
+Map<int, String> getKnownOperationCodes() {
+  final operationCodeMirror = reflectClass(PtpOperationCode);
+
+  return Map.fromEntries(
+    operationCodeMirror.staticMembers.keys.map<MapEntry<int, String>>(
+      (fieldSymbol) {
+        final int operationCode =
+            operationCodeMirror.getField(fieldSymbol).reflectee;
+        final operationName = MirrorSystem.getName(fieldSymbol);
+
+        return MapEntry(operationCode, operationName);
+      },
+    ),
+  );
+}
+
 void main() async {
   final file = File('test/_test_data/Connect_Set_Aputure_To_f5.pcapng');
 
@@ -280,14 +298,21 @@ void main() async {
 
   final usedOperationCodes = mappedPackets.values
       .whereType<PtpOperationRequest>()
-      .map((request) => request.operationCode)
-      .toSet()
-      .toList()
-    ..sort();
+      .map((request) => (request.operationCode, request.payload))
+      //.toSet()
+      .toList();
+  //..sort();
 
   print('used operation codes:');
-  for (final operationCode in usedOperationCodes) {
-    print(operationCode.asHex());
+  final knownOperations = getKnownOperationCodes();
+  for (final (operationCode, payload) in usedOperationCodes) {
+    if (knownOperations.containsKey(operationCode)) {
+      print(
+          '${operationCode.asHex()}: ${knownOperations[operationCode]} ${payload.dumpAsHex()}');
+    } else {
+      print(
+          '${operationCode.asHex()}: Unknown Operation, ${payload.dumpAsHex()}');
+    }
   }
 }
 
