@@ -150,7 +150,7 @@ void main() {
       segmentReader.getUint16();
       final result = segmentReader.getRemainingBytes();
 
-      expect(segmentReader.consumedBytes, 8);
+      expect(segmentReader.consumedBytes, 12);
 
       expect(result.length, 6);
       expect(
