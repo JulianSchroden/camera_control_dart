@@ -1,4 +1,3 @@
-import '../../../pcapng/blocks/enhanced_packet_block.dart';
 import '../../../pcapng/pcapng_reader.dart';
 import 'ethernet_frame.dart';
 
