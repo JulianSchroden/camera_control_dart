@@ -35,6 +35,10 @@ class EosPtpIpCameraDiscoveryAdapter extends CameraDiscoveryAdapter {
 
             final model = CameraModels.findByName(deviceDescription.modelName);
             if (model == null) {
+              logger.logUnsupportedCameraAlive(
+                deviceDescription.uniqueDeviceName,
+                deviceDescription.modelName,
+              );
               return;
             }
 

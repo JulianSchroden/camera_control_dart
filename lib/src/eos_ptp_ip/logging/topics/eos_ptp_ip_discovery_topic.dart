@@ -18,6 +18,13 @@ mixin EosPtpIpDiscoveryLogger on BaseCameraControlLogger {
     });
   }
 
+  void logUnsupportedCameraAlive(String uniqueDeviceName, String modelName) {
+    whenTopicEnabled<EosPtpIpDiscoveryTopic>((topic) {
+      log(topic.level,
+          'Camera alive but not yet supported. modelName: $modelName, uniqueDeviceName: $uniqueDeviceName');
+    });
+  }
+
   void logCameraByeBye(String uniqueDeviceName) {
     whenTopicEnabled<EosPtpIpDiscoveryTopic>((topic) {
       log(topic.level, 'Camera byeBye: $uniqueDeviceName');
