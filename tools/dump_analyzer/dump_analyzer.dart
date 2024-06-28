@@ -13,6 +13,7 @@ import 'data_layers/map_packet.dart';
 import 'data_layers/network/ip4v/ipv4_frame.dart';
 import 'data_layers/packet.dart';
 import 'data_layers/transport/tcp/tcp_frame.dart';
+import 'output/file_output_writer.dart';
 import 'pcapng/blocks/enhanced_packet_block.dart';
 import 'pcapng/parse_pcapng_blocks.dart';
 import 'pcapng/pcapng_reader.dart';
@@ -261,6 +262,7 @@ Map<int, String> getKnownOperationCodes() {
 
 void main() async {
   final file = File('test/_test_data/Connect_Set_Aputure_To_f5.pcapng');
+  final output = FileOutputWriter(fileName: 'tools/output.txt');
 
   final fileData = await file.readAsBytes();
   final blocks = parsePcapngBlocks(fileData);
@@ -290,10 +292,10 @@ void main() async {
   for (final MapEntry(key: frameNumber, value: packet)
       in mappedPackets.entries) {
     if (packet is PtpOperationRequest) {
-      print('');
+      output.write('');
     }
 
-    print('$frameNumber: $packet');
+    output.write('$frameNumber: $packet');
   }
 
   final usedOperationCodes = mappedPackets.values
@@ -303,14 +305,14 @@ void main() async {
       .toList();
   //..sort();
 
-  print('used operation codes:');
+  output.write('used operation codes:');
   final knownOperations = getKnownOperationCodes();
   for (final (operationCode, payload) in usedOperationCodes) {
     if (knownOperations.containsKey(operationCode)) {
-      print(
+      output.write(
           '${operationCode.asHex()}: ${knownOperations[operationCode]} ${payload.dumpAsHex()}');
     } else {
-      print(
+      output.write(
           '${operationCode.asHex()}: Unknown Operation, ${payload.dumpAsHex()}');
     }
   }
