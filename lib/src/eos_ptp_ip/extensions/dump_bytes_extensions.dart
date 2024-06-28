@@ -8,6 +8,10 @@ extension DumpHexDataExtension on Uint8List {
     bool withLineNumbers = false,
     int indentationCount = 3,
   }) {
+    if (isEmpty) {
+      return '[]';
+    }
+
     final hexValues =
         map((value) => value.asHex(withPrefix: asValidList, padLeft: 2))
             .toList();
