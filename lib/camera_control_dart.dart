@@ -23,6 +23,7 @@ export 'src/common/models/capabilities/camera_capability.dart';
 export 'src/common/models/capabilities/control_prop_capability.dart';
 export 'src/common/models/capabilities/image_capture_capability.dart';
 export 'src/common/models/capabilities/live_view_capability.dart';
+export 'src/common/models/capabilities/movie_record_capability.dart';
 
 // property control
 export 'src/common/property_control/control_prop.dart';
