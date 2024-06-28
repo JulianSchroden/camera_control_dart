@@ -27,18 +27,19 @@ class PtpPacketReader {
   }
 
   PtpPacketReader readSegment() {
-    final segmentLength = getUint32();
-    final segmentDataLength = segmentLength - 4;
+    final segmentLength = _bytes.getUint32(_offset, Endian.little);
 
-    if (segmentDataLength > unconsumedBytes) {
+    if (segmentLength > unconsumedBytes) {
       throw RangeError(
-          'Cannot process segment: Segment length $segmentDataLength exceeds unconsumedBytes $unconsumedBytes');
+          'Cannot process segment: Segment length $segmentLength exceeds unconsumedBytes $unconsumedBytes');
     }
 
-    final segmentBytes = _bytes.buffer.asByteData(_offset, segmentDataLength);
-    skipBytes(segmentDataLength);
+    final segmentBytes = _bytes.buffer.asByteData(_offset, segmentLength);
+    skipBytes(segmentLength);
 
-    return PtpPacketReader(segmentBytes);
+    final alreadyProcessedLengthBytes = 4;
+    return PtpPacketReader(segmentBytes)
+      ..skipBytes(alreadyProcessedLengthBytes);
   }
 
   BigInt getUint64() {
