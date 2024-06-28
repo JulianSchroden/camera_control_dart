@@ -1,3 +1,6 @@
+import '../../camera_models.dart';
+import '../../common/models/camera_connection_handle.dart';
+import '../../common/models/camera_model.dart';
 import '../communication/ptp_transaction_queue.dart';
 import '../constants/capture_destination.dart';
 import '../constants/event_mode.dart';
@@ -7,7 +10,9 @@ import '../extensions/to_byte_extensions.dart';
 import 'action.dart';
 
 class InitSessionAction extends Action<void> {
-  InitSessionAction([super.operationFactory]);
+  final CameraConnectionHandle connectionHandle;
+
+  InitSessionAction(this.connectionHandle, [super.operationFactory]);
 
   @override
   Future<void> run(PtpTransactionQueue transactionQueue) async {
@@ -21,14 +26,14 @@ class InitSessionAction extends Action<void> {
   }
 
   Future<void> _openSession(PtpTransactionQueue transactionQueue) async {
-    final openSession = operationFactory.createOpenSession(sessionId: 0x1);
+    final openSession = operationFactory.createOpenSession(sessionId: 0x41);
     final response = await transactionQueue.handle(openSession);
     verifyOperationResponse(response, 'openSession');
   }
 
   Future<void> _enableRemoteMode(PtpTransactionQueue transactionQueue) async {
-    final setRemoteMode =
-        operationFactory.createSetRemoteMode(RemoteMode.enabled);
+    final remoteMode = _remoteModeByModel(connectionHandle.model);
+    final setRemoteMode = operationFactory.createSetRemoteMode(remoteMode);
     final response = await transactionQueue.handle(setRemoteMode);
     verifyOperationResponse(response, 'setRemoteMode');
   }
@@ -49,5 +54,13 @@ class InitSessionAction extends Action<void> {
     );
     final response = await transactionQueue.handle(setCaptureDestination);
     verifyOperationResponse(response, 'setCaptureDestination');
+  }
+
+  RemoteMode _remoteModeByModel(CameraModel model) {
+    if (model.identifier == CameraModels.canonR7.identifier) {
+      return RemoteMode.enabledOnR;
+    }
+
+    return RemoteMode.enabled;
   }
 }

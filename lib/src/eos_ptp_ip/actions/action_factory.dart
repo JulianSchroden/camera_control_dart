@@ -1,3 +1,4 @@
+import '../../common/models/camera_connection_handle.dart';
 import '../../common/models/properties/autofocus_position.dart';
 import '../../common/property_control/control_prop_type.dart';
 import '../actions/get_events_action.dart';
@@ -20,7 +21,10 @@ class ActionFactory {
 
   GetDeviceInfoAction createGetDeviceInfoAction() => GetDeviceInfoAction();
 
-  InitSessionAction createInitSessionAction() => InitSessionAction();
+  InitSessionAction createInitSessionAction(
+    CameraConnectionHandle connectionHandle,
+  ) =>
+      InitSessionAction(connectionHandle);
 
   DeinitSessionAction createDeinitSessionAction() => DeinitSessionAction();
 

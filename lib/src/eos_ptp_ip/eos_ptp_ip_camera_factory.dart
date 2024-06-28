@@ -43,7 +43,7 @@ class EosPtpIpCameraFactory extends CameraFactory<EosPtpIpCameraPairingData> {
     );
     final transactionQueue = PtpTransactionQueue(client);
 
-    final initSession = _actionFactory.createInitSessionAction();
+    final initSession = _actionFactory.createInitSessionAction(handle);
     await initSession.run(transactionQueue);
 
     logger.info('Requesting initial event data');
