@@ -51,6 +51,10 @@ class PtpEventDataParser {
     logger.logPropertyChangedEvent(
         propertyCode, packetReader.peekRemainingBytes());
 
+    if (packetReader.unconsumedBytes != 4) {
+      return null;
+    }
+
     final propertyValue = packetReader.getUint32();
     final mappedValue = mapPtpValue(propertyCode, propertyValue);
     final propType = mapPropCodeToType(propertyCode);
@@ -69,6 +73,10 @@ class PtpEventDataParser {
     final totalAllowedValues = packetReader.getUint32();
     final allowedValues = <ControlPropValue>[];
     for (int i = 0; i < totalAllowedValues; i++) {
+      if (packetReader.unconsumedBytes < 4) {
+        break;
+      }
+
       final value = packetReader.getUint32();
       final propValue = mapPtpValue(propertyCode, value);
       allowedValues.add(propValue);
