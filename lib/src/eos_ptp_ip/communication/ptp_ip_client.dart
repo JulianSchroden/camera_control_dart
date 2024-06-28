@@ -16,7 +16,7 @@ class PtpIpClient {
   PtpIpClient(
     this._commandChannel,
     this._eventChannel, {
-    this.commandChannelTimeout = const Duration(seconds: 2),
+    this.commandChannelTimeout = const Duration(seconds: 5),
   });
 
   Future<void> disconnect() async {
