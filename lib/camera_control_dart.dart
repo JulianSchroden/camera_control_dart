@@ -47,7 +47,7 @@ export 'src/common/exceptions/unsupported_capability_exception.dart';
 
 // logging
 export 'src/common/logging/log_level.dart';
-export 'src/common/logging/logger.dart';
+export 'src/common/logging/camera_control_logger.dart';
 export 'src/common/logging/logger_channel.dart';
 export 'src/common/logging/logger_topic.dart';
 

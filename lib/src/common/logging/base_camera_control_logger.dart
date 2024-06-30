@@ -1,14 +1,13 @@
 import 'camera_control_logger.dart';
 import 'camera_control_logger_config.dart';
 import 'log_level.dart';
-import 'logger.dart';
 import 'logger_channel.dart';
 import 'logger_topic.dart';
 
 class BaseCameraControlLogger extends CameraControlLogger {
   const BaseCameraControlLogger();
 
-  Logger get logger => _config!.logger!;
+  CameraControlLogger get logger => _config!.logger;
 
   @override
   void log<C extends LoggerChannel>(

@@ -22,10 +22,4 @@ abstract class CameraControlLogger {
     dynamic error,
     StackTrace? stackTrace,
   ]);
-
-  T? getTopic<T>();
-  bool isTopicEnabled<T>();
-  void whenTopicEnabled<T>(void Function(T topic) callback);
-
-  bool isChannelEnabled<C extends LoggerChannel>();
 }

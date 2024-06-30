@@ -1,5 +1,5 @@
+import 'camera_control_logger.dart';
 import 'log_level.dart';
-import 'logger.dart';
 import 'logger_channel.dart';
 import 'logger_topic.dart';
 
@@ -15,7 +15,7 @@ class UnspecifiedLoggerTopic extends LoggerTopic<UnspecifiedChannel> {
   const UnspecifiedLoggerTopic({super.level = LogLevel.info});
 }
 
-class NeverLoggingLogger implements Logger {
+class NeverLoggingLogger implements CameraControlLogger {
   /// Logger implementation, which swallows any call.
   ///
   /// Use NeverLoggingLogger to ensure camera_control_dart does not print any output.
@@ -51,14 +51,14 @@ class CameraControlLoggerConfig {
   static CameraControlLoggerConfig? _instance;
   static CameraControlLoggerConfig? get instance => _instance;
 
-  Logger logger = const NeverLoggingLogger();
+  CameraControlLogger logger = const NeverLoggingLogger();
   List<LoggerTopic> _enabledTopics = [];
 
   /// Initializes the CameraControlLoggerConfig [instance] and sets the enabled topics.
   ///
   /// Use the [enabledTopics] list to configure the logging output.
   static void init({
-    required Logger logger,
+    required CameraControlLogger logger,
     required List<LoggerTopic> enabledTopics,
   }) {
     _instance = CameraControlLoggerConfig();

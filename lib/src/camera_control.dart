@@ -3,8 +3,8 @@ import 'common/camera_factory.dart';
 import 'common/discovery/camera_discovery.dart';
 import 'common/discovery/camera_discovery_configurator.dart';
 import 'common/discovery/camera_discovery_event.dart';
+import 'common/logging/camera_control_logger.dart';
 import 'common/logging/camera_control_logger_config.dart';
-import 'common/logging/logger.dart';
 import 'common/logging/logger_topic.dart';
 import 'common/models/camera_connection_handle.dart';
 import 'common/models/camera_control_protocol.dart';
@@ -56,7 +56,7 @@ class CameraControlConfigurator {
   }
 
   CameraControlConfigurator withLogging({
-    required Logger logger,
+    required CameraControlLogger logger,
     required List<LoggerTopic> enabledTopics,
   }) {
     CameraControlLoggerConfig.init(
