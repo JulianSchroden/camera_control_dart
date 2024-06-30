@@ -19,7 +19,7 @@ Map<int, PtpPacket> mapPtpPackets(List<Packet> packets) {
       bytesBuilder.add(payload);
       final byteBuffer = Uint8List.fromList(bytesBuilder.takeBytes());
 
-      final mappingResult = mapPtpPacket(byteBuffer, frameNumber);
+      final mappingResult = _mapPtpPacket(byteBuffer, frameNumber);
       if (mappingResult case _PtpMappingResponse(:final PtpPacket packet)) {
         mappedPackets[frameNumber] = packet;
       }
@@ -44,7 +44,7 @@ class _PtpMappingResponse {
   });
 }
 
-_PtpMappingResponse mapPtpPacket(Uint8List data, int frameNumber) {
+_PtpMappingResponse _mapPtpPacket(Uint8List data, int frameNumber) {
   final dataReader = ByteDataReader.fromBytes(data, Endian.little);
   if (dataReader.hasNoValidPtpSegment) {
     return _PtpMappingResponse(consumedBytes: 0);
