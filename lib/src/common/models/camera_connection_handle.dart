@@ -17,4 +17,9 @@ class CameraConnectionHandle extends Equatable {
 
   @override
   List<Object?> get props => [model];
+
+  @override
+  String toString() {
+    return 'CameraConnectionHandle(id: $id, model: $model)';
+  }
 }
