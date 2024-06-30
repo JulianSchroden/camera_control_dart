@@ -43,7 +43,6 @@ class BaseCameraControlLogger extends CameraControlLogger {
     }
   }
 
-  @override
   T? getTopic<T>() {
     try {
       final topic = _config?.enabledTopics.firstWhere((topic) => topic is T);
@@ -54,7 +53,6 @@ class BaseCameraControlLogger extends CameraControlLogger {
     }
   }
 
-  @override
   bool isTopicEnabled<T>() {
     try {
       final topic = _config?.enabledTopics.firstWhere((topic) => topic is T);
@@ -64,7 +62,6 @@ class BaseCameraControlLogger extends CameraControlLogger {
     }
   }
 
-  @override
   void whenTopicEnabled<T>(void Function(T topic) callback) {
     final topic = getTopic<T>();
     if (topic != null) {
@@ -72,7 +69,6 @@ class BaseCameraControlLogger extends CameraControlLogger {
     }
   }
 
-  @override
   bool isChannelEnabled<C extends LoggerChannel>() {
     try {
       final topicOfChannel = _config?.enabledTopics.firstWhere(
