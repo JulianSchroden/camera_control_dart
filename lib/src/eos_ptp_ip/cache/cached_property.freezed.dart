@@ -12,7 +12,7 @@ part of 'cached_property.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$CachedProperty {
@@ -80,11 +80,11 @@ class _$CachedPropertyCopyWithImpl<$Res, $Val extends CachedProperty>
 }
 
 /// @nodoc
-abstract class _$$_CachedPropertyCopyWith<$Res>
+abstract class _$$CachedPropertyImplCopyWith<$Res>
     implements $CachedPropertyCopyWith<$Res> {
-  factory _$$_CachedPropertyCopyWith(
-          _$_CachedProperty value, $Res Function(_$_CachedProperty) then) =
-      __$$_CachedPropertyCopyWithImpl<$Res>;
+  factory _$$CachedPropertyImplCopyWith(_$CachedPropertyImpl value,
+          $Res Function(_$CachedPropertyImpl) then) =
+      __$$CachedPropertyImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -95,11 +95,11 @@ abstract class _$$_CachedPropertyCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_CachedPropertyCopyWithImpl<$Res>
-    extends _$CachedPropertyCopyWithImpl<$Res, _$_CachedProperty>
-    implements _$$_CachedPropertyCopyWith<$Res> {
-  __$$_CachedPropertyCopyWithImpl(
-      _$_CachedProperty _value, $Res Function(_$_CachedProperty) _then)
+class __$$CachedPropertyImplCopyWithImpl<$Res>
+    extends _$CachedPropertyCopyWithImpl<$Res, _$CachedPropertyImpl>
+    implements _$$CachedPropertyImplCopyWith<$Res> {
+  __$$CachedPropertyImplCopyWithImpl(
+      _$CachedPropertyImpl _value, $Res Function(_$CachedPropertyImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -110,7 +110,7 @@ class __$$_CachedPropertyCopyWithImpl<$Res>
     Object? currentValue = freezed,
     Object? allowedValues = freezed,
   }) {
-    return _then(_$_CachedProperty(
+    return _then(_$CachedPropertyImpl(
       propCode: null == propCode
           ? _value.propCode
           : propCode // ignore: cast_nullable_to_non_nullable
@@ -133,8 +133,8 @@ class __$$_CachedPropertyCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_CachedProperty extends _CachedProperty {
-  const _$_CachedProperty(
+class _$CachedPropertyImpl extends _CachedProperty {
+  const _$CachedPropertyImpl(
       {required this.propCode,
       this.type,
       this.currentValue,
@@ -164,10 +164,10 @@ class _$_CachedProperty extends _CachedProperty {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_CachedProperty &&
+            other is _$CachedPropertyImpl &&
             (identical(other.propCode, propCode) ||
                 other.propCode == propCode) &&
             (identical(other.type, type) || other.type == type) &&
@@ -184,8 +184,9 @@ class _$_CachedProperty extends _CachedProperty {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_CachedPropertyCopyWith<_$_CachedProperty> get copyWith =>
-      __$$_CachedPropertyCopyWithImpl<_$_CachedProperty>(this, _$identity);
+  _$$CachedPropertyImplCopyWith<_$CachedPropertyImpl> get copyWith =>
+      __$$CachedPropertyImplCopyWithImpl<_$CachedPropertyImpl>(
+          this, _$identity);
 }
 
 abstract class _CachedProperty extends CachedProperty {
@@ -193,7 +194,7 @@ abstract class _CachedProperty extends CachedProperty {
       {required final int propCode,
       final ControlPropType? type,
       final ControlPropValue? currentValue,
-      final List<ControlPropValue>? allowedValues}) = _$_CachedProperty;
+      final List<ControlPropValue>? allowedValues}) = _$CachedPropertyImpl;
   const _CachedProperty._() : super._();
 
   @override
@@ -206,6 +207,6 @@ abstract class _CachedProperty extends CachedProperty {
   List<ControlPropValue>? get allowedValues;
   @override
   @JsonKey(ignore: true)
-  _$$_CachedPropertyCopyWith<_$_CachedProperty> get copyWith =>
+  _$$CachedPropertyImplCopyWith<_$CachedPropertyImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

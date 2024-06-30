@@ -12,7 +12,7 @@ part of 'control_prop.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$ControlProp {
@@ -80,11 +80,11 @@ class _$ControlPropCopyWithImpl<$Res, $Val extends ControlProp>
 }
 
 /// @nodoc
-abstract class _$$_ControlPropCopyWith<$Res>
+abstract class _$$ControlPropImplCopyWith<$Res>
     implements $ControlPropCopyWith<$Res> {
-  factory _$$_ControlPropCopyWith(
-          _$_ControlProp value, $Res Function(_$_ControlProp) then) =
-      __$$_ControlPropCopyWithImpl<$Res>;
+  factory _$$ControlPropImplCopyWith(
+          _$ControlPropImpl value, $Res Function(_$ControlPropImpl) then) =
+      __$$ControlPropImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -95,11 +95,11 @@ abstract class _$$_ControlPropCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_ControlPropCopyWithImpl<$Res>
-    extends _$ControlPropCopyWithImpl<$Res, _$_ControlProp>
-    implements _$$_ControlPropCopyWith<$Res> {
-  __$$_ControlPropCopyWithImpl(
-      _$_ControlProp _value, $Res Function(_$_ControlProp) _then)
+class __$$ControlPropImplCopyWithImpl<$Res>
+    extends _$ControlPropCopyWithImpl<$Res, _$ControlPropImpl>
+    implements _$$ControlPropImplCopyWith<$Res> {
+  __$$ControlPropImplCopyWithImpl(
+      _$ControlPropImpl _value, $Res Function(_$ControlPropImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -110,7 +110,7 @@ class __$$_ControlPropCopyWithImpl<$Res>
     Object? allowedValues = null,
     Object? pendingSince = freezed,
   }) {
-    return _then(_$_ControlProp(
+    return _then(_$ControlPropImpl(
       type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
@@ -133,8 +133,8 @@ class __$$_ControlPropCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_ControlProp extends _ControlProp {
-  const _$_ControlProp(
+class _$ControlPropImpl extends _ControlProp {
+  const _$ControlPropImpl(
       {required this.type,
       required this.currentValue,
       required final List<ControlPropValue> allowedValues,
@@ -163,10 +163,10 @@ class _$_ControlProp extends _ControlProp {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_ControlProp &&
+            other is _$ControlPropImpl &&
             (identical(other.type, type) || other.type == type) &&
             (identical(other.currentValue, currentValue) ||
                 other.currentValue == currentValue) &&
@@ -183,8 +183,8 @@ class _$_ControlProp extends _ControlProp {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ControlPropCopyWith<_$_ControlProp> get copyWith =>
-      __$$_ControlPropCopyWithImpl<_$_ControlProp>(this, _$identity);
+  _$$ControlPropImplCopyWith<_$ControlPropImpl> get copyWith =>
+      __$$ControlPropImplCopyWithImpl<_$ControlPropImpl>(this, _$identity);
 }
 
 abstract class _ControlProp extends ControlProp {
@@ -192,7 +192,7 @@ abstract class _ControlProp extends ControlProp {
       {required final ControlPropType type,
       required final ControlPropValue currentValue,
       required final List<ControlPropValue> allowedValues,
-      final DateTime? pendingSince}) = _$_ControlProp;
+      final DateTime? pendingSince}) = _$ControlPropImpl;
   const _ControlProp._() : super._();
 
   @override
@@ -205,6 +205,6 @@ abstract class _ControlProp extends ControlProp {
   DateTime? get pendingSince;
   @override
   @JsonKey(ignore: true)
-  _$$_ControlPropCopyWith<_$_ControlProp> get copyWith =>
+  _$$ControlPropImplCopyWith<_$ControlPropImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -12,7 +12,7 @@ part of 'http_adapter_response.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$HttpAdapterResponse {
@@ -69,22 +69,22 @@ class _$HttpAdapterResponseCopyWithImpl<$Res, $Val extends HttpAdapterResponse>
 }
 
 /// @nodoc
-abstract class _$$_HttpAdapterResponseCopyWith<$Res>
+abstract class _$$HttpAdapterResponseImplCopyWith<$Res>
     implements $HttpAdapterResponseCopyWith<$Res> {
-  factory _$$_HttpAdapterResponseCopyWith(_$_HttpAdapterResponse value,
-          $Res Function(_$_HttpAdapterResponse) then) =
-      __$$_HttpAdapterResponseCopyWithImpl<$Res>;
+  factory _$$HttpAdapterResponseImplCopyWith(_$HttpAdapterResponseImpl value,
+          $Res Function(_$HttpAdapterResponseImpl) then) =
+      __$$HttpAdapterResponseImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({int statusCode, dynamic jsonBody, List<Cookie> cookies});
 }
 
 /// @nodoc
-class __$$_HttpAdapterResponseCopyWithImpl<$Res>
-    extends _$HttpAdapterResponseCopyWithImpl<$Res, _$_HttpAdapterResponse>
-    implements _$$_HttpAdapterResponseCopyWith<$Res> {
-  __$$_HttpAdapterResponseCopyWithImpl(_$_HttpAdapterResponse _value,
-      $Res Function(_$_HttpAdapterResponse) _then)
+class __$$HttpAdapterResponseImplCopyWithImpl<$Res>
+    extends _$HttpAdapterResponseCopyWithImpl<$Res, _$HttpAdapterResponseImpl>
+    implements _$$HttpAdapterResponseImplCopyWith<$Res> {
+  __$$HttpAdapterResponseImplCopyWithImpl(_$HttpAdapterResponseImpl _value,
+      $Res Function(_$HttpAdapterResponseImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -94,7 +94,7 @@ class __$$_HttpAdapterResponseCopyWithImpl<$Res>
     Object? jsonBody = freezed,
     Object? cookies = null,
   }) {
-    return _then(_$_HttpAdapterResponse(
+    return _then(_$HttpAdapterResponseImpl(
       statusCode: null == statusCode
           ? _value.statusCode
           : statusCode // ignore: cast_nullable_to_non_nullable
@@ -113,8 +113,8 @@ class __$$_HttpAdapterResponseCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_HttpAdapterResponse extends _HttpAdapterResponse {
-  const _$_HttpAdapterResponse(
+class _$HttpAdapterResponseImpl extends _HttpAdapterResponse {
+  const _$HttpAdapterResponseImpl(
       {required this.statusCode,
       required this.jsonBody,
       required final List<Cookie> cookies})
@@ -139,10 +139,10 @@ class _$_HttpAdapterResponse extends _HttpAdapterResponse {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_HttpAdapterResponse &&
+            other is _$HttpAdapterResponseImpl &&
             (identical(other.statusCode, statusCode) ||
                 other.statusCode == statusCode) &&
             const DeepCollectionEquality().equals(other.jsonBody, jsonBody) &&
@@ -159,8 +159,8 @@ class _$_HttpAdapterResponse extends _HttpAdapterResponse {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_HttpAdapterResponseCopyWith<_$_HttpAdapterResponse> get copyWith =>
-      __$$_HttpAdapterResponseCopyWithImpl<_$_HttpAdapterResponse>(
+  _$$HttpAdapterResponseImplCopyWith<_$HttpAdapterResponseImpl> get copyWith =>
+      __$$HttpAdapterResponseImplCopyWithImpl<_$HttpAdapterResponseImpl>(
           this, _$identity);
 }
 
@@ -168,7 +168,7 @@ abstract class _HttpAdapterResponse extends HttpAdapterResponse {
   const factory _HttpAdapterResponse(
       {required final int statusCode,
       required final dynamic jsonBody,
-      required final List<Cookie> cookies}) = _$_HttpAdapterResponse;
+      required final List<Cookie> cookies}) = _$HttpAdapterResponseImpl;
   const _HttpAdapterResponse._() : super._();
 
   @override
@@ -179,6 +179,6 @@ abstract class _HttpAdapterResponse extends HttpAdapterResponse {
   List<Cookie> get cookies;
   @override
   @JsonKey(ignore: true)
-  _$$_HttpAdapterResponseCopyWith<_$_HttpAdapterResponse> get copyWith =>
+  _$$HttpAdapterResponseImplCopyWith<_$HttpAdapterResponseImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

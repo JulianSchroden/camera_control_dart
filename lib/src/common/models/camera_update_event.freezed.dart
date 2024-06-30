@@ -12,7 +12,7 @@ part of 'camera_update_event.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$CameraUpdateEvent {
@@ -104,20 +104,20 @@ class _$CameraUpdateEventCopyWithImpl<$Res, $Val extends CameraUpdateEvent>
 }
 
 /// @nodoc
-abstract class _$$_PropValueChangedCopyWith<$Res> {
-  factory _$$_PropValueChangedCopyWith(
-          _$_PropValueChanged value, $Res Function(_$_PropValueChanged) then) =
-      __$$_PropValueChangedCopyWithImpl<$Res>;
+abstract class _$$PropValueChangedImplCopyWith<$Res> {
+  factory _$$PropValueChangedImplCopyWith(_$PropValueChangedImpl value,
+          $Res Function(_$PropValueChangedImpl) then) =
+      __$$PropValueChangedImplCopyWithImpl<$Res>;
   @useResult
   $Res call({ControlPropType propType, ControlPropValue value});
 }
 
 /// @nodoc
-class __$$_PropValueChangedCopyWithImpl<$Res>
-    extends _$CameraUpdateEventCopyWithImpl<$Res, _$_PropValueChanged>
-    implements _$$_PropValueChangedCopyWith<$Res> {
-  __$$_PropValueChangedCopyWithImpl(
-      _$_PropValueChanged _value, $Res Function(_$_PropValueChanged) _then)
+class __$$PropValueChangedImplCopyWithImpl<$Res>
+    extends _$CameraUpdateEventCopyWithImpl<$Res, _$PropValueChangedImpl>
+    implements _$$PropValueChangedImplCopyWith<$Res> {
+  __$$PropValueChangedImplCopyWithImpl(_$PropValueChangedImpl _value,
+      $Res Function(_$PropValueChangedImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -126,7 +126,7 @@ class __$$_PropValueChangedCopyWithImpl<$Res>
     Object? propType = null,
     Object? value = null,
   }) {
-    return _then(_$_PropValueChanged(
+    return _then(_$PropValueChangedImpl(
       null == propType
           ? _value.propType
           : propType // ignore: cast_nullable_to_non_nullable
@@ -141,8 +141,8 @@ class __$$_PropValueChangedCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_PropValueChanged implements _PropValueChanged {
-  const _$_PropValueChanged(this.propType, this.value);
+class _$PropValueChangedImpl implements _PropValueChanged {
+  const _$PropValueChangedImpl(this.propType, this.value);
 
   @override
   final ControlPropType propType;
@@ -155,10 +155,10 @@ class _$_PropValueChanged implements _PropValueChanged {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_PropValueChanged &&
+            other is _$PropValueChangedImpl &&
             (identical(other.propType, propType) ||
                 other.propType == propType) &&
             (identical(other.value, value) || other.value == value));
@@ -170,8 +170,9 @@ class _$_PropValueChanged implements _PropValueChanged {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_PropValueChangedCopyWith<_$_PropValueChanged> get copyWith =>
-      __$$_PropValueChangedCopyWithImpl<_$_PropValueChanged>(this, _$identity);
+  _$$PropValueChangedImplCopyWith<_$PropValueChangedImpl> get copyWith =>
+      __$$PropValueChangedImplCopyWithImpl<_$PropValueChangedImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -268,31 +269,33 @@ class _$_PropValueChanged implements _PropValueChanged {
 abstract class _PropValueChanged implements CameraUpdateEvent {
   const factory _PropValueChanged(
           final ControlPropType propType, final ControlPropValue value) =
-      _$_PropValueChanged;
+      _$PropValueChangedImpl;
 
   ControlPropType get propType;
   ControlPropValue get value;
   @JsonKey(ignore: true)
-  _$$_PropValueChangedCopyWith<_$_PropValueChanged> get copyWith =>
+  _$$PropValueChangedImplCopyWith<_$PropValueChangedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_PropAllowedValuesChangedCopyWith<$Res> {
-  factory _$$_PropAllowedValuesChangedCopyWith(
-          _$_PropAllowedValuesChanged value,
-          $Res Function(_$_PropAllowedValuesChanged) then) =
-      __$$_PropAllowedValuesChangedCopyWithImpl<$Res>;
+abstract class _$$PropAllowedValuesChangedImplCopyWith<$Res> {
+  factory _$$PropAllowedValuesChangedImplCopyWith(
+          _$PropAllowedValuesChangedImpl value,
+          $Res Function(_$PropAllowedValuesChangedImpl) then) =
+      __$$PropAllowedValuesChangedImplCopyWithImpl<$Res>;
   @useResult
   $Res call({ControlPropType propType, List<ControlPropValue> allowedValues});
 }
 
 /// @nodoc
-class __$$_PropAllowedValuesChangedCopyWithImpl<$Res>
-    extends _$CameraUpdateEventCopyWithImpl<$Res, _$_PropAllowedValuesChanged>
-    implements _$$_PropAllowedValuesChangedCopyWith<$Res> {
-  __$$_PropAllowedValuesChangedCopyWithImpl(_$_PropAllowedValuesChanged _value,
-      $Res Function(_$_PropAllowedValuesChanged) _then)
+class __$$PropAllowedValuesChangedImplCopyWithImpl<$Res>
+    extends _$CameraUpdateEventCopyWithImpl<$Res,
+        _$PropAllowedValuesChangedImpl>
+    implements _$$PropAllowedValuesChangedImplCopyWith<$Res> {
+  __$$PropAllowedValuesChangedImplCopyWithImpl(
+      _$PropAllowedValuesChangedImpl _value,
+      $Res Function(_$PropAllowedValuesChangedImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -301,7 +304,7 @@ class __$$_PropAllowedValuesChangedCopyWithImpl<$Res>
     Object? propType = null,
     Object? allowedValues = null,
   }) {
-    return _then(_$_PropAllowedValuesChanged(
+    return _then(_$PropAllowedValuesChangedImpl(
       null == propType
           ? _value.propType
           : propType // ignore: cast_nullable_to_non_nullable
@@ -316,8 +319,8 @@ class __$$_PropAllowedValuesChangedCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_PropAllowedValuesChanged implements _PropAllowedValuesChanged {
-  const _$_PropAllowedValuesChanged(
+class _$PropAllowedValuesChangedImpl implements _PropAllowedValuesChanged {
+  const _$PropAllowedValuesChangedImpl(
       this.propType, final List<ControlPropValue> allowedValues)
       : _allowedValues = allowedValues;
 
@@ -337,10 +340,10 @@ class _$_PropAllowedValuesChanged implements _PropAllowedValuesChanged {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_PropAllowedValuesChanged &&
+            other is _$PropAllowedValuesChangedImpl &&
             (identical(other.propType, propType) ||
                 other.propType == propType) &&
             const DeepCollectionEquality()
@@ -354,9 +357,9 @@ class _$_PropAllowedValuesChanged implements _PropAllowedValuesChanged {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_PropAllowedValuesChangedCopyWith<_$_PropAllowedValuesChanged>
-      get copyWith => __$$_PropAllowedValuesChangedCopyWithImpl<
-          _$_PropAllowedValuesChanged>(this, _$identity);
+  _$$PropAllowedValuesChangedImplCopyWith<_$PropAllowedValuesChangedImpl>
+      get copyWith => __$$PropAllowedValuesChangedImplCopyWithImpl<
+          _$PropAllowedValuesChangedImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -452,30 +455,31 @@ class _$_PropAllowedValuesChanged implements _PropAllowedValuesChanged {
 
 abstract class _PropAllowedValuesChanged implements CameraUpdateEvent {
   const factory _PropAllowedValuesChanged(final ControlPropType propType,
-      final List<ControlPropValue> allowedValues) = _$_PropAllowedValuesChanged;
+          final List<ControlPropValue> allowedValues) =
+      _$PropAllowedValuesChangedImpl;
 
   ControlPropType get propType;
   List<ControlPropValue> get allowedValues;
   @JsonKey(ignore: true)
-  _$$_PropAllowedValuesChangedCopyWith<_$_PropAllowedValuesChanged>
+  _$$PropAllowedValuesChangedImplCopyWith<_$PropAllowedValuesChangedImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_RecordStateUpdateCopyWith<$Res> {
-  factory _$$_RecordStateUpdateCopyWith(_$_RecordStateUpdate value,
-          $Res Function(_$_RecordStateUpdate) then) =
-      __$$_RecordStateUpdateCopyWithImpl<$Res>;
+abstract class _$$RecordStateUpdateImplCopyWith<$Res> {
+  factory _$$RecordStateUpdateImplCopyWith(_$RecordStateUpdateImpl value,
+          $Res Function(_$RecordStateUpdateImpl) then) =
+      __$$RecordStateUpdateImplCopyWithImpl<$Res>;
   @useResult
   $Res call({bool isRecording});
 }
 
 /// @nodoc
-class __$$_RecordStateUpdateCopyWithImpl<$Res>
-    extends _$CameraUpdateEventCopyWithImpl<$Res, _$_RecordStateUpdate>
-    implements _$$_RecordStateUpdateCopyWith<$Res> {
-  __$$_RecordStateUpdateCopyWithImpl(
-      _$_RecordStateUpdate _value, $Res Function(_$_RecordStateUpdate) _then)
+class __$$RecordStateUpdateImplCopyWithImpl<$Res>
+    extends _$CameraUpdateEventCopyWithImpl<$Res, _$RecordStateUpdateImpl>
+    implements _$$RecordStateUpdateImplCopyWith<$Res> {
+  __$$RecordStateUpdateImplCopyWithImpl(_$RecordStateUpdateImpl _value,
+      $Res Function(_$RecordStateUpdateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -483,7 +487,7 @@ class __$$_RecordStateUpdateCopyWithImpl<$Res>
   $Res call({
     Object? isRecording = null,
   }) {
-    return _then(_$_RecordStateUpdate(
+    return _then(_$RecordStateUpdateImpl(
       null == isRecording
           ? _value.isRecording
           : isRecording // ignore: cast_nullable_to_non_nullable
@@ -494,8 +498,8 @@ class __$$_RecordStateUpdateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_RecordStateUpdate implements _RecordStateUpdate {
-  const _$_RecordStateUpdate(this.isRecording);
+class _$RecordStateUpdateImpl implements _RecordStateUpdate {
+  const _$RecordStateUpdateImpl(this.isRecording);
 
   @override
   final bool isRecording;
@@ -506,10 +510,10 @@ class _$_RecordStateUpdate implements _RecordStateUpdate {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_RecordStateUpdate &&
+            other is _$RecordStateUpdateImpl &&
             (identical(other.isRecording, isRecording) ||
                 other.isRecording == isRecording));
   }
@@ -520,8 +524,8 @@ class _$_RecordStateUpdate implements _RecordStateUpdate {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_RecordStateUpdateCopyWith<_$_RecordStateUpdate> get copyWith =>
-      __$$_RecordStateUpdateCopyWithImpl<_$_RecordStateUpdate>(
+  _$$RecordStateUpdateImplCopyWith<_$RecordStateUpdateImpl> get copyWith =>
+      __$$RecordStateUpdateImplCopyWithImpl<_$RecordStateUpdateImpl>(
           this, _$identity);
 
   @override
@@ -618,29 +622,29 @@ class _$_RecordStateUpdate implements _RecordStateUpdate {
 
 abstract class _RecordStateUpdate implements CameraUpdateEvent {
   const factory _RecordStateUpdate(final bool isRecording) =
-      _$_RecordStateUpdate;
+      _$RecordStateUpdateImpl;
 
   bool get isRecording;
   @JsonKey(ignore: true)
-  _$$_RecordStateUpdateCopyWith<_$_RecordStateUpdate> get copyWith =>
+  _$$RecordStateUpdateImplCopyWith<_$RecordStateUpdateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_FocusModeUpdateCopyWith<$Res> {
-  factory _$$_FocusModeUpdateCopyWith(
-          _$_FocusModeUpdate value, $Res Function(_$_FocusModeUpdate) then) =
-      __$$_FocusModeUpdateCopyWithImpl<$Res>;
+abstract class _$$FocusModeUpdateImplCopyWith<$Res> {
+  factory _$$FocusModeUpdateImplCopyWith(_$FocusModeUpdateImpl value,
+          $Res Function(_$FocusModeUpdateImpl) then) =
+      __$$FocusModeUpdateImplCopyWithImpl<$Res>;
   @useResult
   $Res call({AutoFocusMode focusMode});
 }
 
 /// @nodoc
-class __$$_FocusModeUpdateCopyWithImpl<$Res>
-    extends _$CameraUpdateEventCopyWithImpl<$Res, _$_FocusModeUpdate>
-    implements _$$_FocusModeUpdateCopyWith<$Res> {
-  __$$_FocusModeUpdateCopyWithImpl(
-      _$_FocusModeUpdate _value, $Res Function(_$_FocusModeUpdate) _then)
+class __$$FocusModeUpdateImplCopyWithImpl<$Res>
+    extends _$CameraUpdateEventCopyWithImpl<$Res, _$FocusModeUpdateImpl>
+    implements _$$FocusModeUpdateImplCopyWith<$Res> {
+  __$$FocusModeUpdateImplCopyWithImpl(
+      _$FocusModeUpdateImpl _value, $Res Function(_$FocusModeUpdateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -648,7 +652,7 @@ class __$$_FocusModeUpdateCopyWithImpl<$Res>
   $Res call({
     Object? focusMode = null,
   }) {
-    return _then(_$_FocusModeUpdate(
+    return _then(_$FocusModeUpdateImpl(
       null == focusMode
           ? _value.focusMode
           : focusMode // ignore: cast_nullable_to_non_nullable
@@ -659,8 +663,8 @@ class __$$_FocusModeUpdateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_FocusModeUpdate implements _FocusModeUpdate {
-  const _$_FocusModeUpdate(this.focusMode);
+class _$FocusModeUpdateImpl implements _FocusModeUpdate {
+  const _$FocusModeUpdateImpl(this.focusMode);
 
   @override
   final AutoFocusMode focusMode;
@@ -671,10 +675,10 @@ class _$_FocusModeUpdate implements _FocusModeUpdate {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_FocusModeUpdate &&
+            other is _$FocusModeUpdateImpl &&
             (identical(other.focusMode, focusMode) ||
                 other.focusMode == focusMode));
   }
@@ -685,8 +689,9 @@ class _$_FocusModeUpdate implements _FocusModeUpdate {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_FocusModeUpdateCopyWith<_$_FocusModeUpdate> get copyWith =>
-      __$$_FocusModeUpdateCopyWithImpl<_$_FocusModeUpdate>(this, _$identity);
+  _$$FocusModeUpdateImplCopyWith<_$FocusModeUpdateImpl> get copyWith =>
+      __$$FocusModeUpdateImplCopyWithImpl<_$FocusModeUpdateImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -782,29 +787,29 @@ class _$_FocusModeUpdate implements _FocusModeUpdate {
 
 abstract class _FocusModeUpdate implements CameraUpdateEvent {
   const factory _FocusModeUpdate(final AutoFocusMode focusMode) =
-      _$_FocusModeUpdate;
+      _$FocusModeUpdateImpl;
 
   AutoFocusMode get focusMode;
   @JsonKey(ignore: true)
-  _$$_FocusModeUpdateCopyWith<_$_FocusModeUpdate> get copyWith =>
+  _$$FocusModeUpdateImplCopyWith<_$FocusModeUpdateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_NdFilterUpdateCopyWith<$Res> {
-  factory _$$_NdFilterUpdateCopyWith(
-          _$_NdFilterUpdate value, $Res Function(_$_NdFilterUpdate) then) =
-      __$$_NdFilterUpdateCopyWithImpl<$Res>;
+abstract class _$$NdFilterUpdateImplCopyWith<$Res> {
+  factory _$$NdFilterUpdateImplCopyWith(_$NdFilterUpdateImpl value,
+          $Res Function(_$NdFilterUpdateImpl) then) =
+      __$$NdFilterUpdateImplCopyWithImpl<$Res>;
   @useResult
   $Res call({int ndValue});
 }
 
 /// @nodoc
-class __$$_NdFilterUpdateCopyWithImpl<$Res>
-    extends _$CameraUpdateEventCopyWithImpl<$Res, _$_NdFilterUpdate>
-    implements _$$_NdFilterUpdateCopyWith<$Res> {
-  __$$_NdFilterUpdateCopyWithImpl(
-      _$_NdFilterUpdate _value, $Res Function(_$_NdFilterUpdate) _then)
+class __$$NdFilterUpdateImplCopyWithImpl<$Res>
+    extends _$CameraUpdateEventCopyWithImpl<$Res, _$NdFilterUpdateImpl>
+    implements _$$NdFilterUpdateImplCopyWith<$Res> {
+  __$$NdFilterUpdateImplCopyWithImpl(
+      _$NdFilterUpdateImpl _value, $Res Function(_$NdFilterUpdateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -812,7 +817,7 @@ class __$$_NdFilterUpdateCopyWithImpl<$Res>
   $Res call({
     Object? ndValue = null,
   }) {
-    return _then(_$_NdFilterUpdate(
+    return _then(_$NdFilterUpdateImpl(
       null == ndValue
           ? _value.ndValue
           : ndValue // ignore: cast_nullable_to_non_nullable
@@ -823,8 +828,8 @@ class __$$_NdFilterUpdateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_NdFilterUpdate implements _NdFilterUpdate {
-  const _$_NdFilterUpdate(this.ndValue);
+class _$NdFilterUpdateImpl implements _NdFilterUpdate {
+  const _$NdFilterUpdateImpl(this.ndValue);
 
   @override
   final int ndValue;
@@ -835,10 +840,10 @@ class _$_NdFilterUpdate implements _NdFilterUpdate {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_NdFilterUpdate &&
+            other is _$NdFilterUpdateImpl &&
             (identical(other.ndValue, ndValue) || other.ndValue == ndValue));
   }
 
@@ -848,8 +853,9 @@ class _$_NdFilterUpdate implements _NdFilterUpdate {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_NdFilterUpdateCopyWith<_$_NdFilterUpdate> get copyWith =>
-      __$$_NdFilterUpdateCopyWithImpl<_$_NdFilterUpdate>(this, _$identity);
+  _$$NdFilterUpdateImplCopyWith<_$NdFilterUpdateImpl> get copyWith =>
+      __$$NdFilterUpdateImplCopyWithImpl<_$NdFilterUpdateImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -944,10 +950,10 @@ class _$_NdFilterUpdate implements _NdFilterUpdate {
 }
 
 abstract class _NdFilterUpdate implements CameraUpdateEvent {
-  const factory _NdFilterUpdate(final int ndValue) = _$_NdFilterUpdate;
+  const factory _NdFilterUpdate(final int ndValue) = _$NdFilterUpdateImpl;
 
   int get ndValue;
   @JsonKey(ignore: true)
-  _$$_NdFilterUpdateCopyWith<_$_NdFilterUpdate> get copyWith =>
+  _$$NdFilterUpdateImplCopyWith<_$NdFilterUpdateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

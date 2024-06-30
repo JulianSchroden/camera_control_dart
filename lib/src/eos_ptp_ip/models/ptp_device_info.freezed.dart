@@ -12,7 +12,7 @@ part of 'ptp_device_info.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$PtpDeviceInfo {
@@ -149,11 +149,11 @@ class _$PtpDeviceInfoCopyWithImpl<$Res, $Val extends PtpDeviceInfo>
 }
 
 /// @nodoc
-abstract class _$$_PtpDeviceInfoCopyWith<$Res>
+abstract class _$$PtpDeviceInfoImplCopyWith<$Res>
     implements $PtpDeviceInfoCopyWith<$Res> {
-  factory _$$_PtpDeviceInfoCopyWith(
-          _$_PtpDeviceInfo value, $Res Function(_$_PtpDeviceInfo) then) =
-      __$$_PtpDeviceInfoCopyWithImpl<$Res>;
+  factory _$$PtpDeviceInfoImplCopyWith(
+          _$PtpDeviceInfoImpl value, $Res Function(_$PtpDeviceInfoImpl) then) =
+      __$$PtpDeviceInfoImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -174,11 +174,11 @@ abstract class _$$_PtpDeviceInfoCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_PtpDeviceInfoCopyWithImpl<$Res>
-    extends _$PtpDeviceInfoCopyWithImpl<$Res, _$_PtpDeviceInfo>
-    implements _$$_PtpDeviceInfoCopyWith<$Res> {
-  __$$_PtpDeviceInfoCopyWithImpl(
-      _$_PtpDeviceInfo _value, $Res Function(_$_PtpDeviceInfo) _then)
+class __$$PtpDeviceInfoImplCopyWithImpl<$Res>
+    extends _$PtpDeviceInfoCopyWithImpl<$Res, _$PtpDeviceInfoImpl>
+    implements _$$PtpDeviceInfoImplCopyWith<$Res> {
+  __$$PtpDeviceInfoImplCopyWithImpl(
+      _$PtpDeviceInfoImpl _value, $Res Function(_$PtpDeviceInfoImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -199,7 +199,7 @@ class __$$_PtpDeviceInfoCopyWithImpl<$Res>
     Object? deviceVersion = null,
     Object? serialNumber = null,
   }) {
-    return _then(_$_PtpDeviceInfo(
+    return _then(_$PtpDeviceInfoImpl(
       standardVersion: null == standardVersion
           ? _value.standardVersion
           : standardVersion // ignore: cast_nullable_to_non_nullable
@@ -262,8 +262,8 @@ class __$$_PtpDeviceInfoCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_PtpDeviceInfo implements _PtpDeviceInfo {
-  const _$_PtpDeviceInfo(
+class _$PtpDeviceInfoImpl implements _PtpDeviceInfo {
+  const _$PtpDeviceInfoImpl(
       {required this.standardVersion,
       required this.vendorExtensionId,
       required this.vendorExtensionVersion,
@@ -349,10 +349,10 @@ class _$_PtpDeviceInfo implements _PtpDeviceInfo {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_PtpDeviceInfo &&
+            other is _$PtpDeviceInfoImpl &&
             (identical(other.standardVersion, standardVersion) ||
                 other.standardVersion == standardVersion) &&
             (identical(other.vendorExtensionId, vendorExtensionId) ||
@@ -404,8 +404,8 @@ class _$_PtpDeviceInfo implements _PtpDeviceInfo {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_PtpDeviceInfoCopyWith<_$_PtpDeviceInfo> get copyWith =>
-      __$$_PtpDeviceInfoCopyWithImpl<_$_PtpDeviceInfo>(this, _$identity);
+  _$$PtpDeviceInfoImplCopyWith<_$PtpDeviceInfoImpl> get copyWith =>
+      __$$PtpDeviceInfoImplCopyWithImpl<_$PtpDeviceInfoImpl>(this, _$identity);
 }
 
 abstract class _PtpDeviceInfo implements PtpDeviceInfo {
@@ -423,7 +423,7 @@ abstract class _PtpDeviceInfo implements PtpDeviceInfo {
       required final String manufacturer,
       required final String model,
       required final String deviceVersion,
-      required final String serialNumber}) = _$_PtpDeviceInfo;
+      required final String serialNumber}) = _$PtpDeviceInfoImpl;
 
   @override
   int get standardVersion;
@@ -455,6 +455,6 @@ abstract class _PtpDeviceInfo implements PtpDeviceInfo {
   String get serialNumber;
   @override
   @JsonKey(ignore: true)
-  _$$_PtpDeviceInfoCopyWith<_$_PtpDeviceInfo> get copyWith =>
+  _$$PtpDeviceInfoImplCopyWith<_$PtpDeviceInfoImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

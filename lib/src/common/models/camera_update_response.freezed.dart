@@ -12,7 +12,7 @@ part of 'camera_update_response.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$CameraUpdateResponse {
@@ -59,22 +59,22 @@ class _$CameraUpdateResponseCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$_CameraUpdateResponseCopyWith<$Res>
+abstract class _$$CameraUpdateResponseImplCopyWith<$Res>
     implements $CameraUpdateResponseCopyWith<$Res> {
-  factory _$$_CameraUpdateResponseCopyWith(_$_CameraUpdateResponse value,
-          $Res Function(_$_CameraUpdateResponse) then) =
-      __$$_CameraUpdateResponseCopyWithImpl<$Res>;
+  factory _$$CameraUpdateResponseImplCopyWith(_$CameraUpdateResponseImpl value,
+          $Res Function(_$CameraUpdateResponseImpl) then) =
+      __$$CameraUpdateResponseImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({List<CameraUpdateEvent> cameraEvents});
 }
 
 /// @nodoc
-class __$$_CameraUpdateResponseCopyWithImpl<$Res>
-    extends _$CameraUpdateResponseCopyWithImpl<$Res, _$_CameraUpdateResponse>
-    implements _$$_CameraUpdateResponseCopyWith<$Res> {
-  __$$_CameraUpdateResponseCopyWithImpl(_$_CameraUpdateResponse _value,
-      $Res Function(_$_CameraUpdateResponse) _then)
+class __$$CameraUpdateResponseImplCopyWithImpl<$Res>
+    extends _$CameraUpdateResponseCopyWithImpl<$Res, _$CameraUpdateResponseImpl>
+    implements _$$CameraUpdateResponseImplCopyWith<$Res> {
+  __$$CameraUpdateResponseImplCopyWithImpl(_$CameraUpdateResponseImpl _value,
+      $Res Function(_$CameraUpdateResponseImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -82,7 +82,7 @@ class __$$_CameraUpdateResponseCopyWithImpl<$Res>
   $Res call({
     Object? cameraEvents = null,
   }) {
-    return _then(_$_CameraUpdateResponse(
+    return _then(_$CameraUpdateResponseImpl(
       cameraEvents: null == cameraEvents
           ? _value._cameraEvents
           : cameraEvents // ignore: cast_nullable_to_non_nullable
@@ -93,8 +93,8 @@ class __$$_CameraUpdateResponseCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_CameraUpdateResponse implements _CameraUpdateResponse {
-  const _$_CameraUpdateResponse(
+class _$CameraUpdateResponseImpl implements _CameraUpdateResponse {
+  const _$CameraUpdateResponseImpl(
       {required final List<CameraUpdateEvent> cameraEvents})
       : _cameraEvents = cameraEvents;
 
@@ -112,10 +112,10 @@ class _$_CameraUpdateResponse implements _CameraUpdateResponse {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_CameraUpdateResponse &&
+            other is _$CameraUpdateResponseImpl &&
             const DeepCollectionEquality()
                 .equals(other._cameraEvents, _cameraEvents));
   }
@@ -127,20 +127,21 @@ class _$_CameraUpdateResponse implements _CameraUpdateResponse {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_CameraUpdateResponseCopyWith<_$_CameraUpdateResponse> get copyWith =>
-      __$$_CameraUpdateResponseCopyWithImpl<_$_CameraUpdateResponse>(
-          this, _$identity);
+  _$$CameraUpdateResponseImplCopyWith<_$CameraUpdateResponseImpl>
+      get copyWith =>
+          __$$CameraUpdateResponseImplCopyWithImpl<_$CameraUpdateResponseImpl>(
+              this, _$identity);
 }
 
 abstract class _CameraUpdateResponse implements CameraUpdateResponse {
   const factory _CameraUpdateResponse(
           {required final List<CameraUpdateEvent> cameraEvents}) =
-      _$_CameraUpdateResponse;
+      _$CameraUpdateResponseImpl;
 
   @override
   List<CameraUpdateEvent> get cameraEvents;
   @override
   @JsonKey(ignore: true)
-  _$$_CameraUpdateResponseCopyWith<_$_CameraUpdateResponse> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$CameraUpdateResponseImplCopyWith<_$CameraUpdateResponseImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
