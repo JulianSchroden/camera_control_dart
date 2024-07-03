@@ -1,5 +1,3 @@
-import 'package:logging/logging.dart';
-
 import '../../constants/api_endpoint_path.dart';
 import '../get_acion.dart';
 
@@ -8,8 +6,6 @@ class ToggleAfLockAction extends GetAction<void> {
 
   @override
   Future<void> call() async {
-    final logger = Logger('ToggleAfLockAction');
-
     final response = await httpAdapter.get(
       ApiEndpointPath.driveLens,
       {'af': 'togglelock'},
