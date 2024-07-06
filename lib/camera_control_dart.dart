@@ -11,6 +11,10 @@ export 'src/common/discovery/camera_discovery_event.dart';
 export 'src/common/discovery/discovery_handle.dart';
 export 'src/common/discovery/wifi_info_adapter.dart';
 
+// json converters
+export 'src/common/adapter/json_converter/camera_model_converter.dart';
+export 'src/common/adapter/json_converter/pairing_data_converter.dart';
+
 // connection
 export 'src/common/models/camera_connection_handle.dart';
 export 'src/common/models/pairing_data.dart';

@@ -10,6 +10,7 @@ dependencies:
   equatable: ^2.0.5
   freezed_annotation: ^2.4.1
   http: ^1.2.1
+  json_annotation: ^4.9.0
   rxdart: ^0.28.0
   xml: ^6.5.0
 
