@@ -60,8 +60,11 @@ class PtpPropertyCache {
     );
   }
 
-  ControlPropValue? getValueByPropCode(int propCode) {
-    return _cachedProps[propCode]?.currentValue;
+  P? getValueByPropCode<P extends ControlPropValue>(
+    int propCode,
+  ) {
+    final value = _cachedProps[propCode]?.currentValue;
+    return value is P ? value : null;
   }
 
   List<ControlProp> listAll() {
