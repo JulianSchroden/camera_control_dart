@@ -15,6 +15,7 @@ import 'init_session_action.dart';
 import 'set_live_view_output_action.dart';
 import 'set_prop_action.dart';
 import 'set_touch_af_position_action.dart';
+import 'trigger_record_action.dart';
 
 class ActionFactory {
   const ActionFactory();
@@ -58,4 +59,7 @@ class ActionFactory {
         sensorInfo,
         focusDuration,
       );
+
+  TriggerRecordAction createTriggerRecordAction(bool shouldRecord) =>
+      TriggerRecordAction(shouldRecord);
 }

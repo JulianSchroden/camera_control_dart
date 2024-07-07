@@ -74,7 +74,12 @@ class EosPtpIpCamera extends Camera with PolledLiveViewAcquisition {
   }
 
   @override
-  Future<void> triggerRecord() async {}
+  Future<void> triggerRecord() async {
+    final isRecording = _eventProcessor.propertyCache.isRecording;
+    final triggerRecord =
+        _actionFactory.createTriggerRecordAction(!isRecording);
+    await triggerRecord.run(_transactionQueue);
+  }
 
   @override
   Future<void> toggleAfLock() async {}

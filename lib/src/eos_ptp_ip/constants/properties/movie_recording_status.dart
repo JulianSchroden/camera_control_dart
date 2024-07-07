@@ -1,7 +1,7 @@
 import '../ptp_property.dart';
 
 enum MovieRecordingStatus implements EosValue {
-  notRecording(0x03),
+  notRecording(0x00),
   recording(0x04);
 
   @override
