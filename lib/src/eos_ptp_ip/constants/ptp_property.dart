@@ -4,6 +4,7 @@ import '../extensions/int_as_hex_string_extension.dart';
 import '../models/eos_ptp_int_prop_value.dart';
 import 'properties/live_view_mode.dart';
 import 'properties/live_view_output.dart';
+import 'properties/movie_recording_status.dart';
 import 'ptp_exposure_mode.dart';
 
 abstract class EosValue {
@@ -35,6 +36,7 @@ abstract class PtpPropertyCode {
   static const int captureDestination = 0xd11c;
   static const int liveViewOutput = 0xd1b0;
   static const int liveViewMode = 0xd1b1;
+  static const int movieRecordingStatus = 0xd1b8;
 
   static const int liveViewSensorResolution = 0x91530e;
 }
@@ -80,6 +82,7 @@ const Map<int, List<EosValue>> knownPropValuesMap = {
   PtpPropertyCode.liveViewOutput: LiveViewOutput.values,
   PtpPropertyCode.exposureMode: PtpExposureMode.values,
   PtpPropertyCode.liveViewMode: LiveViewMode.values,
+  PtpPropertyCode.movieRecordingStatus: MovieRecordingStatus.values,
 };
 
 const List<EosValue> ptpApertureValues = [
