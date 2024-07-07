@@ -1,26 +1,21 @@
 import '../../../common/extensions/list_extensions.dart';
 import '../ptp_property.dart';
 
-enum TouchAutofocusStatus {
-  faceTracking,
-  tracking,
-  focusFound,
-  focusNotFound,
+enum TouchAutofocusStatus implements EosValue {
+  faceTracking(0x20),
+  tracking(0x30),
+  focusFound(0x31),
+  focusNotFound(0x32);
+
+  const TouchAutofocusStatus(this.native);
+
+  @override
+  final int native;
+
+  @override
+  String get common => name;
 }
 
-const List<EosEnumValue<TouchAutofocusStatus>> touchAutofocusValues = [
-  EosEnumValue(0x20, TouchAutofocusStatus.faceTracking),
-  EosEnumValue(0x30, TouchAutofocusStatus.tracking),
-  EosEnumValue(0x31, TouchAutofocusStatus.focusFound),
-  EosEnumValue(0x32, TouchAutofocusStatus.focusFound), // notFound?
-];
-
-extension TouchAutofocusStatusToValueExtension on TouchAutofocusStatus {
-  int get value => touchAutofocusValues
-      .firstWhere((mappedValue) => this == mappedValue.enumEntry)
-      .native;
-}
-
-TouchAutofocusStatus? mapTouchAutofocusStatus(int value) => touchAutofocusValues
-    .firstWhereOrNull((mappedValue) => value == mappedValue.native)
-    ?.enumEntry;
+TouchAutofocusStatus? mapTouchAutofocusStatus(int value) =>
+    TouchAutofocusStatus.values
+        .firstWhereOrNull((enumEntry) => value == enumEntry.native);

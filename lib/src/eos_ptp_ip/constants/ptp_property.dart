@@ -2,7 +2,9 @@ import '../../common/extensions/list_extensions.dart';
 import '../../common/property_control/control_prop_type.dart';
 import '../extensions/int_as_hex_string_extension.dart';
 import '../models/eos_ptp_int_prop_value.dart';
+import 'properties/live_view_mode.dart';
 import 'properties/live_view_output.dart';
+import 'ptp_exposure_mode.dart';
 
 abstract class EosValue {
   int get native;
@@ -21,28 +23,18 @@ class EosNumberValue extends EosValue {
   const EosNumberValue(this.native, this.common);
 }
 
-class EosEnumValue<E extends Enum> extends EosValue {
-  final E enumEntry;
-
-  @override
-  final int native;
-
-  @override
-  String get common => enumEntry.name;
-
-  const EosEnumValue(this.native, this.enumEntry);
-}
-
 abstract class PtpPropertyCode {
   const PtpPropertyCode._();
 
   static const int aperture = 0xd101;
   static const int shutterSpeed = 0xd102;
   static const int iso = 0xd103;
+  static const int exposureMode = 0xd105;
   static const int whiteBalance = 0xd10a;
 
   static const int captureDestination = 0xd11c;
   static const int liveViewOutput = 0xd1b0;
+  static const int liveViewMode = 0xd1b1;
 
   static const int liveViewSensorResolution = 0x91530e;
 }
@@ -85,7 +77,9 @@ const Map<int, List<EosValue>> knownPropValuesMap = {
   PtpPropertyCode.aperture: ptpApertureValues,
   PtpPropertyCode.shutterSpeed: ptpShutterSpeedValues,
   PtpPropertyCode.iso: ptpIsoValues,
-  PtpPropertyCode.liveViewOutput: liveViewOutputValues,
+  PtpPropertyCode.liveViewOutput: LiveViewOutput.values,
+  PtpPropertyCode.exposureMode: PtpExposureMode.values,
+  PtpPropertyCode.liveViewMode: LiveViewMode.values,
 };
 
 const List<EosValue> ptpApertureValues = [

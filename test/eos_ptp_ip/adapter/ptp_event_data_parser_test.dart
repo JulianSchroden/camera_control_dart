@@ -51,7 +51,7 @@ void main() {
               null,
               EosPtpIntPropValue(
                 LiveViewOutput.cameraAndHost.name,
-                LiveViewOutput.cameraAndHost.value,
+                LiveViewOutput.cameraAndHost.native,
               ),
             )
           ],

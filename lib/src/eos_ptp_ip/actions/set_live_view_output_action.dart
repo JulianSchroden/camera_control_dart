@@ -18,14 +18,14 @@ class SetLiveViewOutputAction extends Action<void> {
   Future<void> run(PtpTransactionQueue transactionQueue) async {
     final setLiveViewOutput = operationFactory.createSetPropValue(
       PtpPropertyCode.liveViewOutput,
-      liveViewOutput.value.asUint32Bytes(),
+      liveViewOutput.native.asUint32Bytes(),
     );
     final response = await transactionQueue.handle(setLiveViewOutput);
     verifyOperationResponse(response, 'setLiveViewOutput($liveViewOutput)');
 
     await eventProcessor.waitForPropValueChanged(
       PtpPropertyCode.liveViewOutput,
-      liveViewOutput.value,
+      liveViewOutput.native,
     );
   }
 }

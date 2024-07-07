@@ -1,21 +1,16 @@
 import '../ptp_property.dart';
 
-enum LiveViewOutput {
-  none,
-  camera,
-  host,
-  cameraAndHost,
-}
+enum LiveViewOutput implements EosValue {
+  none(0x0),
+  camera(0x1),
+  host(0x2),
+  cameraAndHost(0x3);
 
-const List<EosEnumValue> liveViewOutputValues = [
-  EosEnumValue(0x0, LiveViewOutput.none),
-  EosEnumValue(0x1, LiveViewOutput.camera),
-  EosEnumValue(0x2, LiveViewOutput.host),
-  EosEnumValue(0x3, LiveViewOutput.cameraAndHost),
-];
+  const LiveViewOutput(this.native);
 
-extension LiveViewOutoutToValueExtension on LiveViewOutput {
-  int get value => liveViewOutputValues
-      .firstWhere((mappedValue) => this == mappedValue.enumEntry)
-      .native;
+  @override
+  final int native;
+
+  @override
+  String get common => name;
 }
