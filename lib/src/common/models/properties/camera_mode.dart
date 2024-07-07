@@ -1,12 +1,17 @@
+import 'package:equatable/equatable.dart';
+
 import 'exposure_mode.dart';
 
-class CameraMode {
+sealed class CameraMode extends Equatable {
   final ExposureMode exposureMode;
 
   const CameraMode(this.exposureMode);
 
   const factory CameraMode.photo(ExposureMode exposureMode) = PhotoMode;
   const factory CameraMode.video(ExposureMode exposureMode) = VideoMode;
+
+  @override
+  List<Object?> get props => [exposureMode];
 }
 
 class PhotoMode extends CameraMode {
