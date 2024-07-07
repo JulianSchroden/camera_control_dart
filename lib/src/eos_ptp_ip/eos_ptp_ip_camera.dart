@@ -6,17 +6,13 @@ import '../common/live_view/live_view_data.dart';
 import '../common/live_view/polled_live_view_acquisition.dart';
 import '../common/models/camera_descriptor.dart';
 import '../common/models/camera_update_event.dart';
-import '../common/models/capabilities/control_prop_capability.dart';
-import '../common/models/capabilities/image_capture_capability.dart';
-import '../common/models/capabilities/live_view_capability.dart';
 import '../common/models/properties/autofocus_position.dart';
-import '../common/models/properties/camera_mode.dart';
-import '../common/models/properties/exposure_mode.dart';
 import '../common/property_control/control_prop.dart';
 import '../common/property_control/control_prop_type.dart';
 import '../common/property_control/control_prop_value.dart';
 import 'actions/action_factory.dart';
 import 'adapter/eos_ptp_event_processor.dart';
+import 'adapter/ptp_descriptor_mapper.dart';
 import 'cache/ptp_property_cache_extensions.dart';
 import 'communication/ptp_transaction_queue.dart';
 import 'constants/properties/live_view_output.dart';
@@ -47,19 +43,8 @@ class EosPtpIpCamera extends Camera with PolledLiveViewAcquisition {
 
   @override
   Future<CameraDescriptor> getDescriptor() async {
-    return CameraDescriptor(
-      mode: const CameraMode.photo(ExposureMode.manual),
-      capabilities: [
-        ControlPropCapability(
-          supportedProps: _eventProcessor.propertyCache.supportedProps(),
-        ),
-        const LiveViewCapability(
-          aspectRatio: 3 / 2,
-          supportsTouchAutofocus: true,
-        ),
-        const ImageCaptureCapability(),
-      ],
-    );
+    final descriptorMapper = PtpDescriptorMapper(_eventProcessor.propertyCache);
+    return descriptorMapper.mapDescriptor();
   }
 
   @override
