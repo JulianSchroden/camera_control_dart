@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'dart:mirrors';
 
+import 'package:camera_control_dart/src/eos_ptp_ip/adapter/ptp_event_data_parser.dart';
+import 'package:camera_control_dart/src/eos_ptp_ip/communication/events/prop_value_changed.dart';
 import 'package:camera_control_dart/src/eos_ptp_ip/constants/ptp_operation_code.dart';
 import 'package:camera_control_dart/src/eos_ptp_ip/extensions/dump_bytes_extensions.dart';
 import 'package:camera_control_dart/src/eos_ptp_ip/extensions/int_as_hex_string_extension.dart';
@@ -16,6 +18,7 @@ import 'pcapng/blocks/enhanced_packet_block.dart';
 import 'pcapng/parse_pcapng_blocks.dart';
 import 'ptp/map_ptp_packets.dart';
 import 'ptp/map_ptp_transaction.dart';
+import 'ptp/prop_value_changeset.dart';
 import 'ptp/ptp_transaction.dart';
 
 const int ptpIpPort = 15740;
@@ -99,6 +102,41 @@ void main() async {
   for (final transaction in transactions) {
     output.write(transaction.formatToString(transaction, knownOperations));
   }
+
+  List<PropValueChanged> parsePropChangedEvents(
+    List<PtpTransaction> transactions, {
+    required int transactionId,
+  }) {
+    final getEventTransaction = transactions.firstWhere(
+        (transaction) => transaction.transactionId == transactionId);
+    final parser = PtpEventDataParser();
+    return parser
+        .parseEvents(getEventTransaction.dataPayload)
+        .whereType<PropValueChanged>()
+        .toList();
+  }
+
+  const transactionIdAfterEnablingMovieMode = 165;
+  final propChangedEventsAfterEnablingMovieMode = parsePropChangedEvents(
+      transactions,
+      transactionId: transactionIdAfterEnablingMovieMode);
+  output.write(
+      '\nEvents of transaction $transactionIdAfterEnablingMovieMode, count: ${propChangedEventsAfterEnablingMovieMode.length}');
+  output.write(propChangedEventsAfterEnablingMovieMode.join('\n'));
+
+  const transactionIdAfterDisablingMovieMode = 182;
+  final propChangedEventsAfterDisablingMovieMode = parsePropChangedEvents(
+      transactions,
+      transactionId: transactionIdAfterDisablingMovieMode);
+  output.write(
+      '\nEvents of transaction $transactionIdAfterDisablingMovieMode, count: ${propChangedEventsAfterDisablingMovieMode.length}');
+  output.write(propChangedEventsAfterDisablingMovieMode.join('\n'));
+
+  final changeSet = mapChangeset(propChangedEventsAfterEnablingMovieMode,
+      propChangedEventsAfterDisablingMovieMode);
+
+  output.write('\nChangeset:');
+  output.write(changeSet.join('\n'));
 }
 
 /*
