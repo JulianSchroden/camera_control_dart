@@ -1,5 +1,6 @@
 import '../../../common/property_control/control_prop_type.dart';
 import '../../../common/property_control/control_prop_value.dart';
+import '../../extensions/int_as_hex_string_extension.dart';
 import 'ptp_event.dart';
 
 class PropValueChanged extends PtpEvent {
@@ -11,4 +12,9 @@ class PropValueChanged extends PtpEvent {
 
   @override
   List<Object?> get props => [propType, propValue];
+
+  @override
+  String toString() {
+    return 'PropValueChanged(propCode: ${propCode.asHex()}, propType: $propType, propValue: $propValue)';
+  }
 }
