@@ -14,7 +14,7 @@ import '../models/eos_ptp_int_prop_value.dart';
 class PtpDescriptorMapper {
   final PtpPropertyCache _propertyCache;
 
-  PtpDescriptorMapper(this._propertyCache);
+  const PtpDescriptorMapper(this._propertyCache);
 
   int getCachedPropertyValue(int propCode) {
     final cachedValue = _propertyCache.getValueByPropCode(propCode);

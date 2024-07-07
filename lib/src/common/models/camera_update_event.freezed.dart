@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$CameraUpdateEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(CameraDescriptor descriptor) descriptorChanged,
     required TResult Function(ControlPropType propType, ControlPropValue value)
         propValueChanged,
     required TResult Function(
@@ -30,6 +31,7 @@ mixin _$CameraUpdateEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(CameraDescriptor descriptor)? descriptorChanged,
     TResult? Function(ControlPropType propType, ControlPropValue value)?
         propValueChanged,
     TResult? Function(
@@ -42,6 +44,7 @@ mixin _$CameraUpdateEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(CameraDescriptor descriptor)? descriptorChanged,
     TResult Function(ControlPropType propType, ControlPropValue value)?
         propValueChanged,
     TResult Function(
@@ -55,6 +58,7 @@ mixin _$CameraUpdateEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_DescriptorChanged value) descriptorChanged,
     required TResult Function(_PropValueChanged value) propValueChanged,
     required TResult Function(_PropAllowedValuesChanged value)
         propAllowedValuesChanged,
@@ -65,6 +69,7 @@ mixin _$CameraUpdateEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_DescriptorChanged value)? descriptorChanged,
     TResult? Function(_PropValueChanged value)? propValueChanged,
     TResult? Function(_PropAllowedValuesChanged value)?
         propAllowedValuesChanged,
@@ -75,6 +80,7 @@ mixin _$CameraUpdateEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_DescriptorChanged value)? descriptorChanged,
     TResult Function(_PropValueChanged value)? propValueChanged,
     TResult Function(_PropAllowedValuesChanged value)? propAllowedValuesChanged,
     TResult Function(_RecordStateUpdate value)? recordState,
@@ -101,6 +107,177 @@ class _$CameraUpdateEventCopyWithImpl<$Res, $Val extends CameraUpdateEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+}
+
+/// @nodoc
+abstract class _$$DescriptorChangedImplCopyWith<$Res> {
+  factory _$$DescriptorChangedImplCopyWith(_$DescriptorChangedImpl value,
+          $Res Function(_$DescriptorChangedImpl) then) =
+      __$$DescriptorChangedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({CameraDescriptor descriptor});
+}
+
+/// @nodoc
+class __$$DescriptorChangedImplCopyWithImpl<$Res>
+    extends _$CameraUpdateEventCopyWithImpl<$Res, _$DescriptorChangedImpl>
+    implements _$$DescriptorChangedImplCopyWith<$Res> {
+  __$$DescriptorChangedImplCopyWithImpl(_$DescriptorChangedImpl _value,
+      $Res Function(_$DescriptorChangedImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? descriptor = null,
+  }) {
+    return _then(_$DescriptorChangedImpl(
+      null == descriptor
+          ? _value.descriptor
+          : descriptor // ignore: cast_nullable_to_non_nullable
+              as CameraDescriptor,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$DescriptorChangedImpl implements _DescriptorChanged {
+  const _$DescriptorChangedImpl(this.descriptor);
+
+  @override
+  final CameraDescriptor descriptor;
+
+  @override
+  String toString() {
+    return 'CameraUpdateEvent.descriptorChanged(descriptor: $descriptor)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$DescriptorChangedImpl &&
+            (identical(other.descriptor, descriptor) ||
+                other.descriptor == descriptor));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, descriptor);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$DescriptorChangedImplCopyWith<_$DescriptorChangedImpl> get copyWith =>
+      __$$DescriptorChangedImplCopyWithImpl<_$DescriptorChangedImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(CameraDescriptor descriptor) descriptorChanged,
+    required TResult Function(ControlPropType propType, ControlPropValue value)
+        propValueChanged,
+    required TResult Function(
+            ControlPropType propType, List<ControlPropValue> allowedValues)
+        propAllowedValuesChanged,
+    required TResult Function(bool isRecording) recordState,
+    required TResult Function(AutoFocusMode focusMode) focusMode,
+    required TResult Function(int ndValue) ndFilter,
+  }) {
+    return descriptorChanged(descriptor);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(CameraDescriptor descriptor)? descriptorChanged,
+    TResult? Function(ControlPropType propType, ControlPropValue value)?
+        propValueChanged,
+    TResult? Function(
+            ControlPropType propType, List<ControlPropValue> allowedValues)?
+        propAllowedValuesChanged,
+    TResult? Function(bool isRecording)? recordState,
+    TResult? Function(AutoFocusMode focusMode)? focusMode,
+    TResult? Function(int ndValue)? ndFilter,
+  }) {
+    return descriptorChanged?.call(descriptor);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(CameraDescriptor descriptor)? descriptorChanged,
+    TResult Function(ControlPropType propType, ControlPropValue value)?
+        propValueChanged,
+    TResult Function(
+            ControlPropType propType, List<ControlPropValue> allowedValues)?
+        propAllowedValuesChanged,
+    TResult Function(bool isRecording)? recordState,
+    TResult Function(AutoFocusMode focusMode)? focusMode,
+    TResult Function(int ndValue)? ndFilter,
+    required TResult orElse(),
+  }) {
+    if (descriptorChanged != null) {
+      return descriptorChanged(descriptor);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_DescriptorChanged value) descriptorChanged,
+    required TResult Function(_PropValueChanged value) propValueChanged,
+    required TResult Function(_PropAllowedValuesChanged value)
+        propAllowedValuesChanged,
+    required TResult Function(_RecordStateUpdate value) recordState,
+    required TResult Function(_FocusModeUpdate value) focusMode,
+    required TResult Function(_NdFilterUpdate value) ndFilter,
+  }) {
+    return descriptorChanged(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_DescriptorChanged value)? descriptorChanged,
+    TResult? Function(_PropValueChanged value)? propValueChanged,
+    TResult? Function(_PropAllowedValuesChanged value)?
+        propAllowedValuesChanged,
+    TResult? Function(_RecordStateUpdate value)? recordState,
+    TResult? Function(_FocusModeUpdate value)? focusMode,
+    TResult? Function(_NdFilterUpdate value)? ndFilter,
+  }) {
+    return descriptorChanged?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_DescriptorChanged value)? descriptorChanged,
+    TResult Function(_PropValueChanged value)? propValueChanged,
+    TResult Function(_PropAllowedValuesChanged value)? propAllowedValuesChanged,
+    TResult Function(_RecordStateUpdate value)? recordState,
+    TResult Function(_FocusModeUpdate value)? focusMode,
+    TResult Function(_NdFilterUpdate value)? ndFilter,
+    required TResult orElse(),
+  }) {
+    if (descriptorChanged != null) {
+      return descriptorChanged(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _DescriptorChanged implements CameraUpdateEvent {
+  const factory _DescriptorChanged(final CameraDescriptor descriptor) =
+      _$DescriptorChangedImpl;
+
+  CameraDescriptor get descriptor;
+  @JsonKey(ignore: true)
+  _$$DescriptorChangedImplCopyWith<_$DescriptorChangedImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -177,6 +354,7 @@ class _$PropValueChangedImpl implements _PropValueChanged {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(CameraDescriptor descriptor) descriptorChanged,
     required TResult Function(ControlPropType propType, ControlPropValue value)
         propValueChanged,
     required TResult Function(
@@ -192,6 +370,7 @@ class _$PropValueChangedImpl implements _PropValueChanged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(CameraDescriptor descriptor)? descriptorChanged,
     TResult? Function(ControlPropType propType, ControlPropValue value)?
         propValueChanged,
     TResult? Function(
@@ -207,6 +386,7 @@ class _$PropValueChangedImpl implements _PropValueChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(CameraDescriptor descriptor)? descriptorChanged,
     TResult Function(ControlPropType propType, ControlPropValue value)?
         propValueChanged,
     TResult Function(
@@ -226,6 +406,7 @@ class _$PropValueChangedImpl implements _PropValueChanged {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_DescriptorChanged value) descriptorChanged,
     required TResult Function(_PropValueChanged value) propValueChanged,
     required TResult Function(_PropAllowedValuesChanged value)
         propAllowedValuesChanged,
@@ -239,6 +420,7 @@ class _$PropValueChangedImpl implements _PropValueChanged {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_DescriptorChanged value)? descriptorChanged,
     TResult? Function(_PropValueChanged value)? propValueChanged,
     TResult? Function(_PropAllowedValuesChanged value)?
         propAllowedValuesChanged,
@@ -252,6 +434,7 @@ class _$PropValueChangedImpl implements _PropValueChanged {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_DescriptorChanged value)? descriptorChanged,
     TResult Function(_PropValueChanged value)? propValueChanged,
     TResult Function(_PropAllowedValuesChanged value)? propAllowedValuesChanged,
     TResult Function(_RecordStateUpdate value)? recordState,
@@ -364,6 +547,7 @@ class _$PropAllowedValuesChangedImpl implements _PropAllowedValuesChanged {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(CameraDescriptor descriptor) descriptorChanged,
     required TResult Function(ControlPropType propType, ControlPropValue value)
         propValueChanged,
     required TResult Function(
@@ -379,6 +563,7 @@ class _$PropAllowedValuesChangedImpl implements _PropAllowedValuesChanged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(CameraDescriptor descriptor)? descriptorChanged,
     TResult? Function(ControlPropType propType, ControlPropValue value)?
         propValueChanged,
     TResult? Function(
@@ -394,6 +579,7 @@ class _$PropAllowedValuesChangedImpl implements _PropAllowedValuesChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(CameraDescriptor descriptor)? descriptorChanged,
     TResult Function(ControlPropType propType, ControlPropValue value)?
         propValueChanged,
     TResult Function(
@@ -413,6 +599,7 @@ class _$PropAllowedValuesChangedImpl implements _PropAllowedValuesChanged {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_DescriptorChanged value) descriptorChanged,
     required TResult Function(_PropValueChanged value) propValueChanged,
     required TResult Function(_PropAllowedValuesChanged value)
         propAllowedValuesChanged,
@@ -426,6 +613,7 @@ class _$PropAllowedValuesChangedImpl implements _PropAllowedValuesChanged {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_DescriptorChanged value)? descriptorChanged,
     TResult? Function(_PropValueChanged value)? propValueChanged,
     TResult? Function(_PropAllowedValuesChanged value)?
         propAllowedValuesChanged,
@@ -439,6 +627,7 @@ class _$PropAllowedValuesChangedImpl implements _PropAllowedValuesChanged {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_DescriptorChanged value)? descriptorChanged,
     TResult Function(_PropValueChanged value)? propValueChanged,
     TResult Function(_PropAllowedValuesChanged value)? propAllowedValuesChanged,
     TResult Function(_RecordStateUpdate value)? recordState,
@@ -531,6 +720,7 @@ class _$RecordStateUpdateImpl implements _RecordStateUpdate {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(CameraDescriptor descriptor) descriptorChanged,
     required TResult Function(ControlPropType propType, ControlPropValue value)
         propValueChanged,
     required TResult Function(
@@ -546,6 +736,7 @@ class _$RecordStateUpdateImpl implements _RecordStateUpdate {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(CameraDescriptor descriptor)? descriptorChanged,
     TResult? Function(ControlPropType propType, ControlPropValue value)?
         propValueChanged,
     TResult? Function(
@@ -561,6 +752,7 @@ class _$RecordStateUpdateImpl implements _RecordStateUpdate {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(CameraDescriptor descriptor)? descriptorChanged,
     TResult Function(ControlPropType propType, ControlPropValue value)?
         propValueChanged,
     TResult Function(
@@ -580,6 +772,7 @@ class _$RecordStateUpdateImpl implements _RecordStateUpdate {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_DescriptorChanged value) descriptorChanged,
     required TResult Function(_PropValueChanged value) propValueChanged,
     required TResult Function(_PropAllowedValuesChanged value)
         propAllowedValuesChanged,
@@ -593,6 +786,7 @@ class _$RecordStateUpdateImpl implements _RecordStateUpdate {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_DescriptorChanged value)? descriptorChanged,
     TResult? Function(_PropValueChanged value)? propValueChanged,
     TResult? Function(_PropAllowedValuesChanged value)?
         propAllowedValuesChanged,
@@ -606,6 +800,7 @@ class _$RecordStateUpdateImpl implements _RecordStateUpdate {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_DescriptorChanged value)? descriptorChanged,
     TResult Function(_PropValueChanged value)? propValueChanged,
     TResult Function(_PropAllowedValuesChanged value)? propAllowedValuesChanged,
     TResult Function(_RecordStateUpdate value)? recordState,
@@ -696,6 +891,7 @@ class _$FocusModeUpdateImpl implements _FocusModeUpdate {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(CameraDescriptor descriptor) descriptorChanged,
     required TResult Function(ControlPropType propType, ControlPropValue value)
         propValueChanged,
     required TResult Function(
@@ -711,6 +907,7 @@ class _$FocusModeUpdateImpl implements _FocusModeUpdate {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(CameraDescriptor descriptor)? descriptorChanged,
     TResult? Function(ControlPropType propType, ControlPropValue value)?
         propValueChanged,
     TResult? Function(
@@ -726,6 +923,7 @@ class _$FocusModeUpdateImpl implements _FocusModeUpdate {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(CameraDescriptor descriptor)? descriptorChanged,
     TResult Function(ControlPropType propType, ControlPropValue value)?
         propValueChanged,
     TResult Function(
@@ -745,6 +943,7 @@ class _$FocusModeUpdateImpl implements _FocusModeUpdate {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_DescriptorChanged value) descriptorChanged,
     required TResult Function(_PropValueChanged value) propValueChanged,
     required TResult Function(_PropAllowedValuesChanged value)
         propAllowedValuesChanged,
@@ -758,6 +957,7 @@ class _$FocusModeUpdateImpl implements _FocusModeUpdate {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_DescriptorChanged value)? descriptorChanged,
     TResult? Function(_PropValueChanged value)? propValueChanged,
     TResult? Function(_PropAllowedValuesChanged value)?
         propAllowedValuesChanged,
@@ -771,6 +971,7 @@ class _$FocusModeUpdateImpl implements _FocusModeUpdate {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_DescriptorChanged value)? descriptorChanged,
     TResult Function(_PropValueChanged value)? propValueChanged,
     TResult Function(_PropAllowedValuesChanged value)? propAllowedValuesChanged,
     TResult Function(_RecordStateUpdate value)? recordState,
@@ -860,6 +1061,7 @@ class _$NdFilterUpdateImpl implements _NdFilterUpdate {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(CameraDescriptor descriptor) descriptorChanged,
     required TResult Function(ControlPropType propType, ControlPropValue value)
         propValueChanged,
     required TResult Function(
@@ -875,6 +1077,7 @@ class _$NdFilterUpdateImpl implements _NdFilterUpdate {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(CameraDescriptor descriptor)? descriptorChanged,
     TResult? Function(ControlPropType propType, ControlPropValue value)?
         propValueChanged,
     TResult? Function(
@@ -890,6 +1093,7 @@ class _$NdFilterUpdateImpl implements _NdFilterUpdate {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(CameraDescriptor descriptor)? descriptorChanged,
     TResult Function(ControlPropType propType, ControlPropValue value)?
         propValueChanged,
     TResult Function(
@@ -909,6 +1113,7 @@ class _$NdFilterUpdateImpl implements _NdFilterUpdate {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_DescriptorChanged value) descriptorChanged,
     required TResult Function(_PropValueChanged value) propValueChanged,
     required TResult Function(_PropAllowedValuesChanged value)
         propAllowedValuesChanged,
@@ -922,6 +1127,7 @@ class _$NdFilterUpdateImpl implements _NdFilterUpdate {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_DescriptorChanged value)? descriptorChanged,
     TResult? Function(_PropValueChanged value)? propValueChanged,
     TResult? Function(_PropAllowedValuesChanged value)?
         propAllowedValuesChanged,
@@ -935,6 +1141,7 @@ class _$NdFilterUpdateImpl implements _NdFilterUpdate {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_DescriptorChanged value)? descriptorChanged,
     TResult Function(_PropValueChanged value)? propValueChanged,
     TResult Function(_PropAllowedValuesChanged value)? propAllowedValuesChanged,
     TResult Function(_RecordStateUpdate value)? recordState,

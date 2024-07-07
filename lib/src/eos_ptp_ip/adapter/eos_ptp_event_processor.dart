@@ -20,9 +20,9 @@ class EosPtpEventProcessor {
 
   EosPtpEventProcessor(
     this._getEosEventsDelegate,
-    this._propertyCache, [
-    this._eventMapper = const PtpEventMapper(),
-  ]);
+    this._propertyCache,
+    this._eventMapper,
+  );
 
   PtpPropertyCache get propertyCache => _propertyCache;
 

@@ -1,3 +1,4 @@
+import 'package:camera_control_dart/src/eos_ptp_ip/adapter/ptp_descriptor_mapper.dart';
 import 'package:camera_control_dart/src/eos_ptp_ip/adapter/ptp_event_mapper.dart';
 import 'package:camera_control_dart/src/eos_ptp_ip/communication/events/allowed_values_changed.dart';
 import 'package:camera_control_dart/src/eos_ptp_ip/communication/events/prop_value_changed.dart';
@@ -11,11 +12,15 @@ import 'package:test/test.dart';
 
 class FakePtpEvent extends Fake implements PtpEvent {}
 
+class MockPtpDescriptorMapper extends Mock implements PtpDescriptorMapper {}
+
 void main() {
   late PtpEventMapper sut;
+  late MockPtpDescriptorMapper mockPtpDescriptorMapper;
 
   setUp(() {
-    sut = const PtpEventMapper();
+    mockPtpDescriptorMapper = MockPtpDescriptorMapper();
+    sut = PtpEventMapper(mockPtpDescriptorMapper);
   });
 
   test('returns null when source events has unknown type', () {

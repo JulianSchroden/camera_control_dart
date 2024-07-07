@@ -5,6 +5,8 @@ import '../common/models/camera_connection_handle.dart';
 import 'actions/action_factory.dart';
 import 'adapter/eos_ptp_event_processor.dart';
 import 'adapter/get_eos_events_delegate.dart';
+import 'adapter/ptp_descriptor_mapper.dart';
+import 'adapter/ptp_event_mapper.dart';
 import 'adapter/ptp_request_factory.dart';
 import 'cache/ptp_property_cache.dart';
 import 'communication/ptp_ip_channel.dart';
@@ -60,6 +62,9 @@ class EosPtpIpCameraFactory extends CameraFactory<EosPtpIpCameraPairingData> {
         _actionFactory,
       ),
       propertyCache,
+      PtpEventMapper(
+        PtpDescriptorMapper(propertyCache),
+      ),
     );
 
     logger.info('Initialization finished');
