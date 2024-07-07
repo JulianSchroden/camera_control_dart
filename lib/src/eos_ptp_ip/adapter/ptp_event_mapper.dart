@@ -8,9 +8,9 @@ class PtpEventMapper {
 
   CameraUpdateEvent? mapToCommon(PtpEvent ptpEvent) {
     switch (ptpEvent) {
-      case PropValueChanged(:var propType?, :var propValue):
+      case PropValueChanged(:final propType?, :final propValue):
         return CameraUpdateEvent.propValueChanged(propType, propValue);
-      case AllowedValuesChanged(:var propType?, :var allowedValues):
+      case AllowedValuesChanged(:final propType?, :final allowedValues):
         return CameraUpdateEvent.propAllowedValuesChanged(
             propType, allowedValues);
     }
