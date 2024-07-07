@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'dart:mirrors';
 
-import 'package:camera_control_dart/src/eos_ptp_ip/adapter/ptp_event_data_parser.dart';
 import 'package:camera_control_dart/src/eos_ptp_ip/constants/ptp_operation_code.dart';
 import 'package:camera_control_dart/src/eos_ptp_ip/extensions/dump_bytes_extensions.dart';
 import 'package:camera_control_dart/src/eos_ptp_ip/extensions/int_as_hex_string_extension.dart';
@@ -17,7 +16,7 @@ import 'pcapng/blocks/enhanced_packet_block.dart';
 import 'pcapng/parse_pcapng_blocks.dart';
 import 'ptp/map_ptp_packets.dart';
 import 'ptp/map_ptp_transaction.dart';
-import 'ptp/ptp_packet.dart';
+import 'ptp/ptp_transaction.dart';
 
 const int ptpIpPort = 15740;
 
@@ -52,9 +51,34 @@ Map<int, String> getKnownOperationCodes() {
   );
 }
 
+extension FormatToStringExtension on PtpTransaction {
+  String formatToString(
+    PtpTransaction transaction,
+    Map<int, String> knownOperations,
+  ) {
+    final operationName =
+        knownOperations[transaction.operationCode] ?? 'Unknown';
+    return '''
+Transaction(
+  id: $transactionId,
+  operationCode: ${operationCode.asHex()} ($operationName),
+  frameNumbers: $frameNumbers
+  requestPayload: ${requestPayload.dumpAsHex(indentationCount: 4)},
+  responseCode: ${responseCode.asHex()},
+  dataPayload: ${dataPayload.dumpAsHex(indentationCount: 4)})
+''';
+  }
+}
+
 void main() async {
-  final file = File('test/_test_data/Connect_Set_Aputure_To_f5.pcapng');
+  // final file = File('test/_test_data/Connect_Set_Aputure_To_f5.pcapng');
+  final file =
+      File('test/_test_data/Change_Photo_Video_Selector_on_Camera_2.pcapng');
+  // final file = File('test/_test_data/Enable_MovieMode_on_Camera.pcapng');
   final output = FileOutputWriter(fileName: 'tools/output.txt');
+  final List<int> ignoredOperationCodes = [
+    //PtpOperationCode.getLiveViewImage,
+  ];
 
   final fileData = await file.readAsBytes();
   final blocks = parsePcapngBlocks(fileData);
@@ -65,56 +89,15 @@ void main() async {
       .where((packet) => isPtpIpPacket(packet))
       .toList();
 
-  final List<int> ignoredTransactionIds = [];
-  final mappedPackets = mapPtpPackets(rawPtpIpPackets);
-
-  mappedPackets.removeWhere((frameNumber, packet) {
-    // if (packet case PtpOperationRequest(operationCode: 0x9116)) {
-    //   ignoredTransactionIds.add(packet.transactionId);
-    //   return true;
-    // }
-
-    return ignoredTransactionIds.contains(packet.transactionId);
-  });
-
-  // for (final MapEntry(key: frameNumber, value: packet)
-  //     in mappedPackets.entries) {
-  //   if (packet is PtpOperationRequest) {
-  //     output.write('');
-  //   }
-//
-  //   output.write('$frameNumber: $packet');
-  // }
-
-  final transactions = mapPtpTransactions(mappedPackets.values);
-  final initialGetEventDataTransaction = transactions.firstWhere(
-      (transaction) =>
-          transaction.operationCode == PtpOperationCode.getEventData);
-  output.write(initialGetEventDataTransaction.toString());
-
-  final parser = PtpEventDataParser();
-  final events = parser.parseEvents(initialGetEventDataTransaction.dataPayload);
-  print(events);
-
-  for (final transaction in transactions) {
-    //print(transaction);
-  }
-
-  final usedOperationCodes = mappedPackets.values
-      .whereType<PtpOperationRequest>()
-      .map((request) => (request.operationCode, request.payload))
+  final mappedPacketFrames = mapPtpPackets(rawPtpIpPackets);
+  final transactions = mapPtpTransactions(mappedPacketFrames)
+      .where((transaction) =>
+          !ignoredOperationCodes.contains(transaction.operationCode))
       .toList();
 
-  output.write('used operation codes:');
   final knownOperations = getKnownOperationCodes();
-  for (final (operationCode, payload) in usedOperationCodes) {
-    if (knownOperations.containsKey(operationCode)) {
-      output.write(
-          '${operationCode.asHex()}: ${knownOperations[operationCode]} ${payload.dumpAsHex()}');
-    } else {
-      output.write(
-          '${operationCode.asHex()}: Unknown Operation, ${payload.dumpAsHex()}');
-    }
+  for (final transaction in transactions) {
+    output.write(transaction.formatToString(transaction, knownOperations));
   }
 }
 

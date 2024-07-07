@@ -7,9 +7,16 @@ import '../data_layers/packet.dart';
 import '../pcapng/pcapng_reader.dart';
 import 'ptp_packet.dart';
 
-Map<int, PtpPacket> mapPtpPackets(List<Packet> packets) {
+class PtpPacketFrame<P extends PtpPacket> {
+  final int frameNumber;
+  final P packet;
+
+  const PtpPacketFrame({required this.frameNumber, required this.packet});
+}
+
+List<PtpPacketFrame> mapPtpPackets(List<Packet> packets) {
   final bytesBuilder = BytesBuilder();
-  final Map<int, PtpPacket> mappedPackets = {};
+  final List<PtpPacketFrame> mappedPackets = [];
   for (final packet in packets) {
     if (packet
         case Packet(
@@ -21,7 +28,12 @@ Map<int, PtpPacket> mapPtpPackets(List<Packet> packets) {
 
       final mappingResult = _mapPtpPacket(byteBuffer, frameNumber);
       if (mappingResult case _PtpMappingResponse(:final PtpPacket packet)) {
-        mappedPackets[frameNumber] = packet;
+        mappedPackets.add(
+          PtpPacketFrame(
+            frameNumber: frameNumber,
+            packet: packet,
+          ),
+        );
       }
 
       if (byteBuffer.length > mappingResult.consumedBytes) {
