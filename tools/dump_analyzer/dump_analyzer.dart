@@ -74,11 +74,11 @@ Transaction(
 }
 
 void main() async {
-  // final file = File('test/_test_data/Connect_Set_Aputure_To_f5.pcapng');
-  final file =
-      File('test/_test_data/Change_Photo_Video_Selector_on_Camera_2.pcapng');
-  // final file = File('test/_test_data/Enable_MovieMode_on_Camera.pcapng');
-  final output = FileOutputWriter(fileName: 'tools/output.txt');
+  final fileName = 'Change_Movie_Quality_to_every_Setting';
+  final file = File('tools/dump_analyzer/data//$fileName.pcapng');
+
+  final output =
+      FileOutputWriter(fileName: 'tools/dump_analyzer/data/$fileName.txt');
   final List<int> ignoredOperationCodes = [
     //PtpOperationCode.getLiveViewImage,
   ];
