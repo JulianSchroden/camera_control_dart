@@ -2,11 +2,14 @@ import 'dart:io';
 import 'dart:mirrors';
 
 import 'package:camera_control_dart/src/eos_ptp_ip/adapter/ptp_event_data_parser.dart';
+import 'package:camera_control_dart/src/eos_ptp_ip/communication/events/allowed_values_changed.dart';
 import 'package:camera_control_dart/src/eos_ptp_ip/communication/events/prop_value_changed.dart';
 import 'package:camera_control_dart/src/eos_ptp_ip/constants/ptp_operation_code.dart';
+import 'package:camera_control_dart/src/eos_ptp_ip/constants/ptp_property.dart';
 import 'package:camera_control_dart/src/eos_ptp_ip/extensions/dump_bytes_extensions.dart';
 import 'package:camera_control_dart/src/eos_ptp_ip/extensions/int_as_hex_string_extension.dart';
 
+import '../../test/eos_ptp_ip/adapter/ptp_event_data_parser_test.dart';
 import 'data_layers/application/application_layer_frame.dart';
 import 'data_layers/map_packet.dart';
 
@@ -111,6 +114,34 @@ void main() async {
     output.write(transaction.formatToString(knownOperations));
   }
 
+  final getEventTransactions = transactions.where((transaction) =>
+      transaction.operationCode == PtpOperationCode.getEventData);
+
+  final events = getEventTransactions.map((transaction) {
+    final dataParser = PtpEventDataParser();
+    return dataParser.parseEvents(transaction.dataPayload).map((event) => (
+          transactionId: transaction.transactionId,
+          event: event,
+        ));
+  }).expand((mappings) => mappings);
+
+  final allowedValuesChangedEventMappings =
+      events.where((mapping) => mapping.event is AllowedValuesChanged);
+
+  output.write('\nAllowedValuesChanged events');
+  for (final (:transactionId, :event) in allowedValuesChangedEventMappings) {
+    output.write('$transactionId: $event');
+  }
+
+  final propChangedEventMapping =
+      events.where((mapping) => mapping.event is PropValueChanged);
+
+  output.write('\nPropChanged events');
+  for (final (:transactionId, :event) in propChangedEventMapping) {
+    output.write('$transactionId: $event');
+  }
+
+  return;
   List<PropValueChanged> parsePropChangedEvents(
     List<PtpTransaction> transactions, {
     required int transactionId,
