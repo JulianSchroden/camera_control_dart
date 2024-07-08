@@ -56,11 +56,9 @@ Map<int, String> getKnownOperationCodes() {
 
 extension FormatToStringExtension on PtpTransaction {
   String formatToString(
-    PtpTransaction transaction,
     Map<int, String> knownOperations,
   ) {
-    final operationName =
-        knownOperations[transaction.operationCode] ?? 'Unknown';
+    final operationName = knownOperations[operationCode] ?? 'Unknown';
     return '''
 Transaction(
   id: $transactionId,
@@ -102,7 +100,15 @@ void main() async {
 
   final knownOperations = getKnownOperationCodes();
   for (final transaction in transactions) {
-    output.write(transaction.formatToString(transaction, knownOperations));
+    output.write(transaction.formatToString(knownOperations));
+  }
+
+  final setPropValueTransactions = transactions.where((transaction) =>
+      transaction.operationCode == PtpOperationCode.setPropValue);
+
+  output.write('\nSetPropValue Transactions');
+  for (final transaction in setPropValueTransactions) {
+    output.write(transaction.formatToString(knownOperations));
   }
 
   List<PropValueChanged> parsePropChangedEvents(
