@@ -82,6 +82,7 @@ void main() async {
   final List<int> ignoredOperationCodes = [
     //PtpOperationCode.getLiveViewImage,
   ];
+  const int startFrame = 0;
 
   final fileData = await file.readAsBytes();
   final blocks = parsePcapngBlocks(fileData);
@@ -89,7 +90,8 @@ void main() async {
   final rawPtpIpPackets = blocks
       .whereType<EnhancedPacketBlock>()
       .map((packetBlock) => packetBlock.mapPacket())
-      .where((packet) => isPtpIpPacket(packet))
+      .where(
+          (packet) => isPtpIpPacket(packet) && packet.frameNumber >= startFrame)
       .toList();
 
   final mappedPacketFrames = mapPtpPackets(rawPtpIpPackets);
