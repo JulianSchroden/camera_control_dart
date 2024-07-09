@@ -1,5 +1,7 @@
 import '../../common/extensions/list_extensions.dart';
 import '../../common/property_control/control_prop_type.dart';
+import '../../common/property_control/control_prop_value.dart';
+import '../adapter/ptp_packet_reader.dart';
 import '../extensions/int_as_hex_string_extension.dart';
 import '../models/eos_ptp_int_prop_value.dart';
 import 'properties/live_view_mode.dart';
@@ -37,6 +39,7 @@ abstract class PtpPropertyCode {
   static const int liveViewOutput = 0xd1b0;
   static const int liveViewMode = 0xd1b1;
   static const int movieRecordingStatus = 0xd1b8;
+  static const int movieRecordingFormat = 0xd20d;
 
   static const int liveViewSensorResolution = 0x91530e;
 }
@@ -60,19 +63,47 @@ int? mapPropTypeToCode(ControlPropType propType) {
       ?.key;
 }
 
-EosPtpIntPropValue mapPtpValue(int propCode, int value) {
-  if (propCode == PtpPropertyCode.whiteBalance) {
+extension PropValueMappingExtension on PtpPacketReader {
+  EosPtpIntPropValue readWhiteBalanceValue() {
+    final value = getUint32();
     return EosPtpIntPropValue('$value', value);
   }
 
-  final knownPropValues = knownPropValuesMap[propCode];
-  final fallbackValue = value.asHex(padLeft: 2);
-  final mappedValue = knownPropValues
-          ?.firstWhereOrNull((propValue) => propValue.native == value)
-          ?.common ??
-      fallbackValue;
+  EosPtpMovieRecordingFormatPropValue readMovieRecordingFormat() {
+    final _ = getUint32();
 
-  return EosPtpIntPropValue(mappedValue, value);
+    final values = <int>[];
+    while (unconsumedBytes >= 4) {
+      values.add(getUint32());
+    }
+    return EosPtpMovieRecordingFormatPropValue(values: values);
+  }
+
+  EosPtpIntPropValue readKnownEnumValue(int propCode) {
+    final value = getUint32();
+    final fallbackValue = value.asHex(padLeft: 2);
+    final mappedValue = knownPropValuesMap[propCode]
+        ?.firstWhereOrNull((propValue) => propValue.native == value)
+        ?.common;
+
+    return EosPtpIntPropValue(mappedValue ?? fallbackValue, value);
+  }
+
+  FallbackPropValue readFallbackValue() {
+    final remainingBytes = getRemainingBytes();
+    return FallbackPropValue(remainingBytes);
+  }
+}
+
+ControlPropValue mapPtpValue(int propCode, PtpPacketReader packetReader) {
+  return switch (propCode) {
+    PtpPropertyCode.whiteBalance => packetReader.readWhiteBalanceValue(),
+    PtpPropertyCode.movieRecordingFormat =>
+      packetReader.readMovieRecordingFormat(),
+    _ when knownPropValuesMap.containsKey(propCode) =>
+      packetReader.readKnownEnumValue(propCode),
+    _ => packetReader.readFallbackValue(),
+  };
 }
 
 const Map<int, List<EosValue>> knownPropValuesMap = {

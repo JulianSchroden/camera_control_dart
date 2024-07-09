@@ -1,13 +1,16 @@
 import 'dart:io';
 import 'dart:mirrors';
 
+import 'package:camera_control_dart/src/common/extensions/list_extensions.dart';
 import 'package:camera_control_dart/src/eos_ptp_ip/adapter/ptp_event_data_parser.dart';
+import 'package:camera_control_dart/src/eos_ptp_ip/adapter/ptp_packet_reader.dart';
 import 'package:camera_control_dart/src/eos_ptp_ip/communication/events/allowed_values_changed.dart';
 import 'package:camera_control_dart/src/eos_ptp_ip/communication/events/prop_value_changed.dart';
 import 'package:camera_control_dart/src/eos_ptp_ip/constants/ptp_operation_code.dart';
 import 'package:camera_control_dart/src/eos_ptp_ip/constants/ptp_property.dart';
 import 'package:camera_control_dart/src/eos_ptp_ip/extensions/dump_bytes_extensions.dart';
 import 'package:camera_control_dart/src/eos_ptp_ip/extensions/int_as_hex_string_extension.dart';
+import 'package:camera_control_dart/src/eos_ptp_ip/models/eos_ptp_int_prop_value.dart';
 
 import '../../test/eos_ptp_ip/adapter/ptp_event_data_parser_test.dart';
 import 'data_layers/application/application_layer_frame.dart';
@@ -140,6 +143,45 @@ void main() async {
   for (final (:transactionId, :event) in propChangedEventMapping) {
     output.write('$transactionId: $event');
   }
+
+  output.write('\nMovie Format analysis');
+  final setMovieFormatValues = setPropValueTransactions
+      .map((transaction) {
+        final reader = PtpPacketReader.fromBytes(transaction.dataPayload);
+        final length = reader.getUint32();
+        final propCode = reader.getUint32();
+
+        if (propCode != PtpPropertyCode.movieRecordingFormat) {
+          return null;
+        }
+
+        final movieFormatValue = reader.readMovieRecordingFormat();
+
+        return (
+          transactionId: transaction.transactionId,
+          value: movieFormatValue
+        );
+      })
+      .whereNotNull()
+      .toList();
+
+  EosPtpMovieRecordingFormatPropValue? previousValue;
+  Map<int, Set<int>> knownValues = {};
+  for (final (:transactionId, :value) in setMovieFormatValues) {
+    if (previousValue != null) {
+      final diffs = value.diff(previousValue);
+      for (final diff in diffs) {
+        output.write('\n$transactionId:\n$diff');
+        (knownValues[diff.index] ??= {})
+          ..add(diff.value)
+          ..add(diff.oldValue);
+      }
+    }
+
+    previousValue = value;
+  }
+  output.write('knownValues:');
+  output.write('$knownValues');
 
   return;
   List<PropValueChanged> parsePropChangedEvents(
