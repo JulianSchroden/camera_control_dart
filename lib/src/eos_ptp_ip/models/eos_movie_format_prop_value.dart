@@ -1,8 +1,9 @@
 import 'dart:typed_data';
 
-import 'package:camera_control_dart/src/eos_ptp_ip/constants/ptp_property.dart';
-
+import '../../common/extensions/list_extensions.dart';
 import '../adapter/ptp_packet_builder.dart';
+import '../adapter/ptp_packet_reader.dart';
+import '../constants/ptp_property.dart';
 
 class EosMovieFormatPropValue {
   const EosMovieFormatPropValue({
@@ -131,6 +132,48 @@ class EosMovieFormatPropValue {
     builder.addUInt32(sensorReadout.native);
 
     return builder.build().data;
+  }
+
+  EosMovieFormatPropValue? fromData(PtpPacketReader packetReader) {
+    final segment = packetReader.readSegment();
+    if (segment.unconsumedBytes < 36) {
+      return null;
+    }
+
+    final frameRateRaw = segment.getUint32();
+    final resolutionRaw = segment.getUint32();
+    segment.skipBytes(4); // unknown value
+    segment.skipBytes(4); // unknown value
+    final codecRaw = segment.getUint32();
+    segment.skipBytes(4); // unknown value
+    segment.skipBytes(4); // unknown value
+    segment.skipBytes(4); // unknown value
+    final sensorReadoutRaw = segment.getUint32();
+
+    final frameRate = EosFrameRate.values
+        .firstWhereOrNull((frameRate) => frameRate.native == frameRateRaw);
+    final resolution = EosResolution.values
+        .firstWhereOrNull((resolution) => resolution.native == resolutionRaw);
+    final codec =
+        EosCodec.values.firstWhereOrNull((codec) => codec.native == codecRaw);
+    final sensorReadout = EosSensorReadout.values.firstWhereOrNull(
+        (sensorReadout) => sensorReadout.native == sensorReadoutRaw);
+
+    if (frameRate == null ||
+        resolution == null ||
+        codec == null ||
+        sensorReadout == null) {
+      return null;
+    }
+
+    return EosMovieFormatPropValue(
+      resolution: resolution,
+      sensorReadout: sensorReadout,
+      frameRate: frameRate,
+      allowedFramerates: allowedFramerates,
+      codec: codec,
+      allowedCodecs: allowedCodecs,
+    );
   }
 }
 
