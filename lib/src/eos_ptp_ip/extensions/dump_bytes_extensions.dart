@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import '../../common/extensions/list_extensions.dart';
 import 'int_as_hex_string_extension.dart';
 
 extension DumpHexDataExtension on Uint8List {
@@ -24,7 +25,8 @@ extension DumpHexDataExtension on Uint8List {
     final buffer = StringBuffer(startOfDump);
 
     var counter = 1;
-    for (var value in hexValues) {
+    for (var (index, value) in hexValues.indexed) {
+      final isLastValue = index == hexValues.lastIndex;
       buffer.write(value);
       if (asValidList) {
         buffer.write(',');
@@ -39,9 +41,9 @@ extension DumpHexDataExtension on Uint8List {
 
           buffer.write(newLineStart);
         }
-      } else if (counter % 8 == 0) {
+      } else if (counter % 8 == 0 && !isLastValue) {
         buffer.write('  ');
-      } else {
+      } else if (!isLastValue) {
         buffer.write(' ');
       }
 
