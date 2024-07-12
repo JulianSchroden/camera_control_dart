@@ -70,11 +70,11 @@ extension PropValueMappingExtension on PtpPacketReader {
   }
 
   EosPtpMovieRecordingFormatPropValue readMovieRecordingFormat() {
-    final _ = getUint32();
+    final structReader = readSegment();
 
     final values = <int>[];
-    while (unconsumedBytes >= 4) {
-      values.add(getUint32());
+    while (structReader.unconsumedBytes >= 4) {
+      values.add(structReader.getUint32());
     }
     return EosPtpMovieRecordingFormatPropValue(values: values);
   }
