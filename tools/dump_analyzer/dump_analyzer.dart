@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:mirrors';
 
+import 'package:args/args.dart';
 import 'package:camera_control_dart/src/common/extensions/list_extensions.dart';
 import 'package:camera_control_dart/src/eos_ptp_ip/adapter/ptp_event_data_parser.dart';
 import 'package:camera_control_dart/src/eos_ptp_ip/adapter/ptp_packet_reader.dart';
@@ -77,16 +78,93 @@ Transaction(
   }
 }
 
-void main() async {
-  final fileName = 'Change_Movie_Quality_to_every_Setting';
-  final file = File('tools/dump_analyzer/data//$fileName.pcapng');
+enum ArgType {
+  option,
+  flag,
+}
 
-  final output =
-      FileOutputWriter(fileName: 'tools/dump_analyzer/data/$fileName.txt');
-  final List<int> ignoredOperationCodes = [
-    //PtpOperationCode.getLiveViewImage,
-  ];
-  const int startFrame = 0;
+enum Argument {
+  file(abbr: 'f', type: ArgType.option, mandatory: false),
+  transactions(abbr: 't', type: ArgType.option);
+
+  const Argument({
+    required this.abbr,
+    required this.type,
+    this.mandatory = false,
+  });
+  final String abbr;
+  final ArgType type;
+  final bool mandatory;
+}
+
+enum TransactionAnalysisMode {
+  all,
+  setProp,
+}
+
+extension RegisterArgumentsExtension on ArgParser {
+  void registerArguments() {
+    addOption(Argument.file.name,
+        abbr: Argument.file.abbr, mandatory: Argument.file.mandatory);
+    addOption(Argument.transactions.name, abbr: Argument.transactions.abbr);
+  }
+}
+
+extension ReadArgumentsExtension on ArgResults {
+  String? getArgument(Argument argument) {
+    return option(argument.name);
+  }
+
+  bool getFlag(Argument argument) {
+    return flag(argument.name);
+  }
+}
+
+class AnalyzerOptions {
+  final String inputPath;
+  final String outputPath;
+  final TransactionAnalysisMode? transactionAnalysisMode;
+  final List<int> ignoredOperationCodes;
+  final int startFrame;
+
+  const AnalyzerOptions({
+    required this.inputPath,
+    required this.outputPath,
+    required this.transactionAnalysisMode,
+    this.ignoredOperationCodes = const [],
+    this.startFrame = 0,
+  });
+}
+
+AnalyzerOptions parseArguments(List<String> args) {
+  final parser = ArgParser();
+  parser.registerArguments();
+  final result = parser.parse(args);
+
+  final inputPath = result.getArgument(Argument.file);
+  if (inputPath == null) {
+    throw ArgumentError(
+        'Please provide a path to the pcapng file using the --file argument');
+  }
+
+  final outputPath = '${inputPath.split('.')[0]}.txt';
+  final transactionAnalysisArg = result.getArgument(Argument.transactions);
+  final transactionAnalysisMode = TransactionAnalysisMode.values
+      .firstWhereOrNull((type) => type.name == transactionAnalysisArg);
+
+  return AnalyzerOptions(
+    inputPath: inputPath,
+    outputPath: outputPath,
+    transactionAnalysisMode: transactionAnalysisMode,
+  );
+}
+
+void main(List<String> args) async {
+  final options = parseArguments(args);
+
+  final file = File(options.inputPath);
+  print('Writing output to file ${options.outputPath}');
+  final output = FileOutputWriter(fileName: options.outputPath);
 
   final fileData = await file.readAsBytes();
   final blocks = parsePcapngBlocks(fileData);
@@ -94,27 +172,37 @@ void main() async {
   final rawPtpIpPackets = blocks
       .whereType<EnhancedPacketBlock>()
       .map((packetBlock) => packetBlock.mapPacket())
-      .where(
-          (packet) => isPtpIpPacket(packet) && packet.frameNumber >= startFrame)
+      .where((packet) =>
+          isPtpIpPacket(packet) && packet.frameNumber >= options.startFrame)
       .toList();
 
   final mappedPacketFrames = mapPtpPackets(rawPtpIpPackets);
   final transactions = mapPtpTransactions(mappedPacketFrames)
       .where((transaction) =>
-          !ignoredOperationCodes.contains(transaction.operationCode))
+          !options.ignoredOperationCodes.contains(transaction.operationCode))
       .toList();
 
   final knownOperations = getKnownOperationCodes();
-  for (final transaction in transactions) {
-    output.write(transaction.formatToString(knownOperations));
-  }
-
   final setPropValueTransactions = transactions.where((transaction) =>
       transaction.operationCode == PtpOperationCode.setPropValue);
 
-  output.write('\nSetPropValue Transactions');
-  for (final transaction in setPropValueTransactions) {
-    output.write(transaction.formatToString(knownOperations));
+  switch (options.transactionAnalysisMode) {
+    case TransactionAnalysisMode.all:
+      {
+        output.write('\nAll Transactions');
+        for (final transaction in transactions) {
+          output.write(transaction.formatToString(knownOperations));
+        }
+      }
+    case TransactionAnalysisMode.setProp:
+      {
+        output.write('\nSetPropValue Transactions');
+        for (final transaction in setPropValueTransactions) {
+          output.write(transaction.formatToString(knownOperations));
+        }
+      }
+    default:
+      {}
   }
 
   final getEventTransactions = transactions.where((transaction) =>
@@ -155,33 +243,28 @@ void main() async {
           return null;
         }
 
-        final movieFormatValue = reader.readMovieRecordingFormat();
-
-        return (
-          transactionId: transaction.transactionId,
-          value: movieFormatValue
-        );
+        return reader.readFallbackValue();
       })
       .whereNotNull()
       .toList();
 
-  EosPtpMovieRecordingFormatPropValue? previousValue;
   Map<int, Set<int>> knownValues = {};
-  for (final (:transactionId, :value) in setMovieFormatValues) {
-    if (previousValue != null) {
-      final diffs = value.diff(previousValue);
-      for (final diff in diffs) {
-        output.write('\n$transactionId:\n$diff');
-        (knownValues[diff.index] ??= {})
-          ..add(diff.value)
-          ..add(diff.oldValue);
-      }
-    }
+  for (final value in setMovieFormatValues) {
+    final reader = PtpPacketReader.fromBytes(value.payload);
+    int counter = 0;
+    while (reader.unconsumedBytes >= 4) {
+      final value = reader.getUint32();
+      (knownValues[counter] ??= {}).add(value);
 
-    previousValue = value;
+      counter++;
+    }
   }
+
   output.write('knownValues:');
-  output.write('$knownValues');
+  for (final entry in knownValues.entries) {
+    output.write(
+        '${entry.key}: ${entry.value.map((value) => '${value.asHex()} ($value)')}');
+  }
 
   return;
   List<PropValueChanged> parsePropChangedEvents(

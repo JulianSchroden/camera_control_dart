@@ -13,8 +13,8 @@ class SectionHeaderBlock extends PcapngBlockData {
     final mayorVersion = blockReader.getUint16();
     final minorVersion = blockReader.getUint16();
     final sectionLength = blockReader.getUint64();
-    print(
-        'type: SectionHeaderBlock, blockTotalLength: $totalLength, byteOrderMagic: ${byteOrderMagic.asHex()}, version: $mayorVersion.$minorVersion, sectionLength: $sectionLength');
+    // print(
+    //     'type: SectionHeaderBlock, blockTotalLength: $totalLength, byteOrderMagic: ${byteOrderMagic.asHex()}, version: $mayorVersion.$minorVersion, sectionLength: $sectionLength');
     return SectionHeaderBlock(totalLength);
   }
 
