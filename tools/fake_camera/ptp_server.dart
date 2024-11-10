@@ -4,6 +4,7 @@ import 'dart:typed_data';
 
 import 'package:camera_control_dart/src/eos_ptp_ip/adapter/ptp_packet_builder.dart';
 import 'package:camera_control_dart/src/eos_ptp_ip/adapter/ptp_packet_reader.dart';
+import 'package:camera_control_dart/src/eos_ptp_ip/constants/ptp_data_mode.dart';
 import 'package:camera_control_dart/src/eos_ptp_ip/constants/ptp_package_type.dart';
 import 'package:camera_control_dart/src/eos_ptp_ip/constants/ptp_response_code.dart';
 import 'package:camera_control_dart/src/eos_ptp_ip/extensions/dump_bytes_extensions.dart';
@@ -14,12 +15,13 @@ class PtpServer {
   final Socket commandSocket;
   StreamSubscription<Uint8List>? commandStreamSubscription;
   BytesBuilder bufferBuilder = BytesBuilder();
+  bool isIncomingDataMode = false;
 
   PtpServer(this.commandSocket);
 
   void listen() {
     commandStreamSubscription = commandSocket.listen((data) {
-      print('\nRecieved command of length ${data.length}');
+      print('\nRecieved data of length ${data.length}');
       print(data.dumpAsHex());
       bufferBuilder.add(data);
 
@@ -41,6 +43,16 @@ class PtpServer {
     await Future.delayed(Duration(seconds: 3));
 
     commandSocket.add(responsePacket.data);
+  }
+
+  void sendOkayResponse(int transactionId) {
+    final packetBuiler = PtpPacketBuilder();
+    packetBuiler.addUInt32(PtpPacketType.operationResponse);
+    packetBuiler.addUInt16(PtpResponseCode.okay);
+    packetBuiler.addUInt32(transactionId);
+
+    final responsePacket = packetBuiler.build();
+    sendResponse(responsePacket);
   }
 
   void handleRequest(Uint8List data) {
@@ -95,6 +107,10 @@ class PtpServer {
       case PtpPacketType.operationRequest:
         {
           final dataMode = segmentReader.getUint32();
+          if (dataMode == PtpDataMode.withData.value) {
+            isIncomingDataMode = true;
+          }
+
           final operationCode = segmentReader.getUint16();
           final transactionId = segmentReader.getUint32();
           print(
@@ -105,13 +121,26 @@ class PtpServer {
             print(requestPayload.dumpAsHex());
           }
 
-          final packetBuiler = PtpPacketBuilder();
-          packetBuiler.addUInt32(PtpPacketType.operationResponse);
-          packetBuiler.addUInt16(PtpResponseCode.okay);
-          packetBuiler.addUInt32(transactionId);
+          if (isIncomingDataMode) {
+            return;
+          }
 
-          final responsePacket = packetBuiler.build();
-          sendResponse(responsePacket);
+          sendOkayResponse(transactionId);
+        }
+      case PtpPacketType.startDataPacket:
+        {
+          final transactionId = segmentReader.getUint32();
+          final totalBytes = segmentReader.getUint64();
+          print(
+              'Received startDataPacket. transactionId: $transactionId, totalByte: $totalBytes');
+        }
+      case PtpPacketType.endDataPacket:
+        {
+          final transactionId = segmentReader.getUint32();
+          final dataPayload = segmentReader.getRemainingBytes();
+          print(
+              'Received endDataPacket. transactionId: $transactionId, payload.length = ${dataPayload.length}');
+          print(dataPayload.dumpAsHex());
         }
     }
   }
