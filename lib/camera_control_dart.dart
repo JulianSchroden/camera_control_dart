@@ -39,6 +39,7 @@ export 'src/common/models/properties/auto_focus_mode.dart';
 export 'src/common/models/properties/autofocus_position.dart';
 export 'src/common/models/properties/camera_mode.dart';
 export 'src/common/models/properties/exposure_mode.dart';
+export 'src/common/models/properties/zoom_mode.dart';
 
 // live view
 export 'src/common/live_view/live_view_data.dart';
