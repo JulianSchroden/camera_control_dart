@@ -23,7 +23,7 @@ abstract class Camera {
   Stream<CameraUpdateEvent> events();
 
   Stream<LiveViewData> liveView({
-    Duration pollInterval = const Duration(milliseconds: 200),
+    Duration pollInterval = const Duration(milliseconds: 40),//200
   });
 
   Future<void> setAutofocusPosition(AutofocusPosition autofocusPosition);
