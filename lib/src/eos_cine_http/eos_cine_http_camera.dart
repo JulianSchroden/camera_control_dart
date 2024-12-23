@@ -102,7 +102,7 @@ class EosCineHttpCamera extends Camera with PolledLiveViewAcquisition {
   @override
   Stream<CameraUpdateEvent> events() {
     _eventController ??= PolledDataStreamController<CameraUpdateEvent>(
-      pollInterval: const Duration(milliseconds: 500),
+      pollInterval: pollInterval,
       pollData: (sink) async {
         final response = await getUpdate();
         sink.addStream(Stream.fromIterable(response.cameraEvents));
@@ -151,4 +151,19 @@ class EosCineHttpCamera extends Camera with PolledLiveViewAcquisition {
   @override
   Future<void> setAutofocusPosition(
       AutofocusPosition autofocusPosition) async {}
+
+  @override
+  set pollInterval(interval){
+    if(_eventController!=null) {
+      _eventController!.pollInterval = interval;
+    }
+  }
+
+  @override
+  Duration get pollInterval{
+    if(_eventController==null){
+      return Duration(microseconds: 200);
+    }
+    return _eventController!.pollInterval;
+  }
 }

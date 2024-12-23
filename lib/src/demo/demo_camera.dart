@@ -18,6 +18,8 @@ import 'data/demo_live_view_image.dart';
 import 'models/demo_prop_value.dart';
 
 class DemoCamera extends Camera with PolledLiveViewAcquisition {
+  Duration _pollInterval=Duration(milliseconds: 200);
+
   final List<ControlProp> _dummyControlProps = [
     ControlProp(
       type: ControlPropType.iso,
@@ -101,7 +103,7 @@ class DemoCamera extends Camera with PolledLiveViewAcquisition {
 
   @override
   Future<void> triggerRecord() async {
-    await Future.delayed(const Duration(milliseconds: 200));
+    await Future.delayed(_pollInterval);
     _reordState = !_reordState;
 
     _updateStreamController.add(CameraUpdateEvent.recordState(_reordState));
@@ -121,4 +123,10 @@ class DemoCamera extends Camera with PolledLiveViewAcquisition {
   @override
   Future<void> setAutofocusPosition(
       AutofocusPosition autofocusPosition) async {}
+
+  @override
+  set pollInterval(interval)=>_pollInterval;
+
+  @override
+  Duration get pollInterval=>_pollInterval;
 }

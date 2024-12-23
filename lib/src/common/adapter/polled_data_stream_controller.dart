@@ -1,7 +1,7 @@
 import 'dart:async';
 
 class PolledDataStreamController<T> {
-  final Duration pollInterval;
+  Duration pollInterval;
   final bool broadcast;
 
   Future<void> Function(StreamSink<T>) pollData;

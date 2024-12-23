@@ -23,7 +23,7 @@ class EosPtpIpCamera extends Camera with PolledLiveViewAcquisition {
   final ActionFactory _actionFactory;
   final EosPtpEventProcessor _eventProcessor;
 
-  const EosPtpIpCamera(
+  EosPtpIpCamera(
     this._transactionQueue,
     this._actionFactory,
     this._eventProcessor,
@@ -124,5 +124,14 @@ class EosPtpIpCamera extends Camera with PolledLiveViewAcquisition {
       focusDuration,
     );
     await setAutofocusPosition.run(_transactionQueue);
+  }
+
+  @override
+  set pollInterval(interval){
+    _eventProcessor.pollInterval=interval;
+  }
+  @override
+  Duration get pollInterval{
+    return _eventProcessor.pollInterval;
   }
 }

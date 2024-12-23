@@ -7,7 +7,7 @@ import 'property_control/control_prop_type.dart';
 import 'property_control/control_prop_value.dart';
 
 abstract class Camera {
-  const Camera();
+  Camera();
 
   Future<void> close();
   Future<void> disconnect();
@@ -22,9 +22,10 @@ abstract class Camera {
 
   Stream<CameraUpdateEvent> events();
 
-  Stream<LiveViewData> liveView({
-    Duration pollInterval = const Duration(milliseconds: 40),//200
-  });
+  set pollInterval(interval);
+  Duration get pollInterval;
+
+  Stream<LiveViewData> liveView();
 
   Future<void> setAutofocusPosition(AutofocusPosition autofocusPosition);
 }

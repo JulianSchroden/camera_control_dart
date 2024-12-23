@@ -16,19 +16,21 @@ class EosPtpEventProcessor {
   final PtpEventMapper _eventMapper;
   final PtpPropertyCache _propertyCache;
 
+  final _pollInterval=const Duration(milliseconds: 200);
+
   PolledDataStreamController<PtpEvent>? _eventController;
 
   EosPtpEventProcessor(
     this._getEosEventsDelegate,
     this._propertyCache,
-    this._eventMapper,
+    this._eventMapper
   );
 
   PtpPropertyCache get propertyCache => _propertyCache;
 
   Stream<PtpEvent> get eosEvents {
     _eventController ??= PolledDataStreamController<PtpEvent>(
-      pollInterval: const Duration(milliseconds: 500),
+      pollInterval: _pollInterval,
       pollData: (sink) async {
         final events = await _getUpdate();
         _propertyCache.update(events);
@@ -78,4 +80,11 @@ class EosPtpEventProcessor {
   }
 
   Future<List<PtpEvent>> _getUpdate() => _getEosEventsDelegate.getEvents();
+
+  set pollInterval(Duration duration)=>{
+    if(_eventController!=null){
+      _eventController!.pollInterval=duration
+    }
+  };
+  Duration get pollInterval=>_pollInterval;
 }
