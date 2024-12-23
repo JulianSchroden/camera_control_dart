@@ -1,3 +1,5 @@
+import 'package:camera_control_dart/src/eos_ptp_ip/constants/ptp_property_code.dart';
+
 import '../../common/extensions/list_extensions.dart';
 import '../../common/property_control/control_prop_type.dart';
 import '../../common/property_control/control_prop_value.dart';
@@ -26,29 +28,11 @@ class EosNumberValue extends EosValue {
   const EosNumberValue(this.native, this.common);
 }
 
-abstract class PtpPropertyCode {
-  const PtpPropertyCode._();
-
-  static const int aperture = 0xd101;
-  static const int shutterSpeed = 0xd102;
-  static const int iso = 0xd103;
-  static const int exposureMode = 0xd105;
-  static const int whiteBalance = 0xd10a;
-
-  static const int captureDestination = 0xd11c;
-  static const int liveViewOutput = 0xd1b0;
-  static const int liveViewMode = 0xd1b1;
-  static const int movieRecordingStatus = 0xd1b8;
-  static const int movieRecordingFormat = 0xd20d;
-
-  static const int liveViewSensorResolution = 0x91530e;
-}
-
 const Map<int, ControlPropType> eosPropCodeToPropTypeMap = {
   PtpPropertyCode.aperture: ControlPropType.aperture,
   PtpPropertyCode.shutterSpeed: ControlPropType.shutterSpeed,
   PtpPropertyCode.iso: ControlPropType.iso,
-  PtpPropertyCode.whiteBalance: ControlPropType.whiteBalance,
+  PtpPropertyCode.colorTemperature: ControlPropType.colorTemperature,
 };
 
 ControlPropType? mapPropCodeToType(int propertyCode) {

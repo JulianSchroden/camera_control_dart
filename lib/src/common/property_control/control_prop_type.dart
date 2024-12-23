@@ -4,4 +4,6 @@ enum ControlPropType {
   shutterAngle,
   shutterSpeed,
   whiteBalance,
+
+  colorTemperature
 }

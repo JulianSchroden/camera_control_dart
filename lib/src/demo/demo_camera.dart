@@ -8,6 +8,7 @@ import '../common/models/camera_update_event.dart';
 import '../common/models/capabilities/control_prop_capability.dart';
 import '../common/models/capabilities/live_view_capability.dart';
 import '../common/models/capabilities/movie_record_capability.dart';
+import '../common/models/properties/zoom_mode.dart';
 import '../common/property_control/control_prop.dart';
 import '../common/property_control/control_prop_type.dart';
 import '../common/property_control/control_prop_value.dart';
@@ -129,4 +130,19 @@ class DemoCamera extends Camera with PolledLiveViewAcquisition {
 
   @override
   Duration get pollInterval=>_pollInterval;
+
+  @override
+  Future<void> bulbEnd() async {
+    print('bulb end');
+  }
+
+  @override
+  Future<void> bulbStart() async{
+    print('bulb start');
+  }
+
+  @override
+  Future<void> setZoom(ZoomMode zm) async{
+    print('set zoom');
+  }
 }

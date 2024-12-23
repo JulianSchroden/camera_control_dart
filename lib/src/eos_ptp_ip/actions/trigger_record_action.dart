@@ -1,6 +1,7 @@
 import '../communication/ptp_transaction_queue.dart';
 import '../constants/properties/movie_recording_status.dart';
 import '../constants/ptp_property.dart';
+import '../constants/ptp_property_code.dart';
 import '../extensions/to_byte_extensions.dart';
 import 'action.dart';
 

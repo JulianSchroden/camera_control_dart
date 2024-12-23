@@ -1,6 +1,30 @@
 abstract class PtpEventCode {
   PtpEventCode._();
-
+  static const int requestGetEvent = 0xC101;
+  static const int objectAddedEx = 0xC181;
+  static const int objectRemoved = 0xC182;
+  static const int requestGetObjectInfoEx = 0xC183;
+  static const int storageStatusChanged = 0xC184;
+  static const int storageInfoChanged = 0xC185;
+  static const int requestObjectTransfer = 0xC186;
+  static const int objectInfoChangedEx = 0xC187;
+  static const int objectContentChanged = 0xC188;
   static const int propertyChanged = 0xc189;
   static const int allowedValuesChanged = 0xc18a;
+  static const int cameraStatusChanged = 0xC18B;
+  static const int willSoonShutdown = 0xC18D;
+  static const int shutdownTimerUpdated = 0xC18E;
+  static const int requestCancelTransfer = 0xC18F;
+  static const int requestObjectTransferDT = 0xC190;
+  static const int requestCancelTransferDT = 0xC191;
+  static const int storeAdded = 0xC192;
+  static const int storeRemoved = 0xC193;
+  static const int bulbExposureTime = 0xC194;
+  static const int recordingTime = 0xC195;
+  static const int requestObjectTransferTS = 0xC1A2;
+  static const int afResult = 0xC1A3;
+  static const int cTGInfoCheckComplete = 0xC1A4;
+  static const int oLCInfoChanged = 0xC1A5;
+  static const int objectAddedEx2 = 0xC1A7;
+  static const int requestObjectTransferFTP = 0xC1F1;
 }

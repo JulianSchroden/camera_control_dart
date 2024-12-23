@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:camera_control_dart/src/common/models/properties/zoom_mode.dart';
+
 import '../common/camera.dart';
 import '../common/exceptions/camera_communication_exception.dart';
 import '../common/live_view/live_view_data.dart';
@@ -16,6 +18,7 @@ import 'adapter/ptp_descriptor_mapper.dart';
 import 'cache/ptp_property_cache_extensions.dart';
 import 'communication/ptp_transaction_queue.dart';
 import 'constants/properties/live_view_output.dart';
+import 'constants/zoom_live_view.dart';
 import 'models/eos_ptp_int_prop_value.dart';
 
 class EosPtpIpCamera extends Camera with PolledLiveViewAcquisition {
@@ -133,5 +136,30 @@ class EosPtpIpCamera extends Camera with PolledLiveViewAcquisition {
   @override
   Duration get pollInterval{
     return _eventProcessor.pollInterval;
+  }
+
+  @override
+  Future<void> setZoom(ZoomMode zm) async {
+    ZoomLiveView zoomLiveView =
+    switch(zm) {
+      ZoomMode.x1 =>ZoomLiveView.x1,
+      ZoomMode.x5 =>ZoomLiveView.x5,
+      ZoomMode.x10=>ZoomLiveView.x10,
+      _=>ZoomLiveView.x1,
+    };
+    final zoom = _actionFactory.createSetZoom(zoomLiveView);
+    await zoom.run(_transactionQueue);
+  }
+
+  @override
+  Future<void> bulbStart() async{
+    final bulbStart = _actionFactory.createBulbStart();
+    await bulbStart.run(_transactionQueue);
+  }
+
+  @override
+  Future<void> bulbEnd() async{
+    final bulbEnd = _actionFactory.createBulbEnd();
+    await bulbEnd.run(_transactionQueue);
   }
 }

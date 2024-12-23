@@ -5,6 +5,7 @@ import '../communication/events/prop_value_changed.dart';
 import '../communication/events/ptp_event.dart';
 import '../constants/properties/movie_recording_status.dart';
 import '../constants/ptp_property.dart';
+import '../constants/ptp_property_code.dart';
 import '../models/eos_ptp_int_prop_value.dart';
 import 'ptp_descriptor_mapper.dart';
 

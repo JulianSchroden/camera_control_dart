@@ -11,6 +11,7 @@ import '../common/models/capabilities/movie_record_capability.dart';
 import '../common/models/properties/autofocus_position.dart';
 import '../common/models/properties/camera_mode.dart';
 import '../common/models/properties/exposure_mode.dart';
+import '../common/models/properties/zoom_mode.dart';
 import '../common/property_control/control_prop.dart';
 import '../common/property_control/control_prop_type.dart';
 import '../common/property_control/control_prop_value.dart';
@@ -165,5 +166,22 @@ class EosCineHttpCamera extends Camera with PolledLiveViewAcquisition {
       return Duration(microseconds: 200);
     }
     return _eventController!.pollInterval;
+  }
+
+  @override
+  Future<void> setZoom(ZoomMode zm) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> bulbEnd() {
+    // TODO: implement bulbEnd
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> bulbStart() {
+    // TODO: implement bulbStart
+    throw UnimplementedError();
   }
 }

@@ -29,6 +29,8 @@ extension PtpExposureModeToCommonExtension on PtpExposureMode {
         PtpExposureMode.manual => ExposureMode.manual,
         PtpExposureMode.aperturePriority => ExposureMode.aperturePriority,
         PtpExposureMode.shutterPriority => ExposureMode.shutterPriority,
+        PtpExposureMode.bulb => ExposureMode.bulb,
+        PtpExposureMode.flexAuto => ExposureMode.flexAuto,
         _ => ExposureMode.notSupported,
       };
 }

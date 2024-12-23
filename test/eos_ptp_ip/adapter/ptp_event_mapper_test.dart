@@ -4,6 +4,7 @@ import 'package:camera_control_dart/src/eos_ptp_ip/communication/events/allowed_
 import 'package:camera_control_dart/src/eos_ptp_ip/communication/events/prop_value_changed.dart';
 import 'package:camera_control_dart/src/eos_ptp_ip/communication/events/ptp_event.dart';
 import 'package:camera_control_dart/src/eos_ptp_ip/constants/ptp_property.dart';
+import 'package:camera_control_dart/src/eos_ptp_ip/constants/ptp_property_code.dart';
 import 'package:camera_control_dart/src/eos_ptp_ip/models/eos_ptp_int_prop_value.dart';
 import 'package:camera_control_dart/src/common/models/camera_update_event.dart';
 import 'package:camera_control_dart/src/common/property_control/control_prop_type.dart';

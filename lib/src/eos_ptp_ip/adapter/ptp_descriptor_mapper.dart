@@ -8,6 +8,7 @@ import '../cache/ptp_property_cache.dart';
 import '../constants/properties/live_view_mode.dart';
 import '../constants/ptp_exposure_mode.dart';
 import '../constants/ptp_property.dart';
+import '../constants/ptp_property_code.dart';
 import '../extensions/int_as_hex_string_extension.dart';
 import '../models/eos_ptp_int_prop_value.dart';
 
