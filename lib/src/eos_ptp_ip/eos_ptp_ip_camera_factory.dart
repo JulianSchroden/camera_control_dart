@@ -65,6 +65,7 @@ class EosPtpIpCameraFactory extends CameraFactory<EosPtpIpCameraPairingData> {
       PtpEventMapper(
         PtpDescriptorMapper(propertyCache),
       ),
+
     );
 
     logger.info('Initialization finished');

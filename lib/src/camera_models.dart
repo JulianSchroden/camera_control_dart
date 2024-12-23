@@ -9,8 +9,9 @@ abstract class CameraId {
   static const canonC100II = "CanonC100II";
   static const canon70D = "Canon70D";
   static const canonR7 = "CanonR7";
+  static const canonRa = "CanonRa";
 
-  static List<String> values = [demoCamera, canonC100II, canon70D];
+  static List<String> values = [demoCamera, canonC100II, canon70D, canonRa];
 }
 
 class CameraModels {
@@ -35,11 +36,18 @@ class CameraModels {
     name: 'Canon EOS R7',
     protocol: CameraControlProtocol.eosPtpIp,
   );
+
+  static const canonRa = CameraModel(
+    identifier: CameraId.canonRa,
+    name: 'Canon EOS Ra',
+    protocol: CameraControlProtocol.eosPtpIp,
+  );
   static const List<CameraModel> values = [
     demoCamera,
     canonC100II,
     canon70D,
     canonR7,
+    canonRa,
   ];
 
   static CameraModel? findByName(String modelName) =>

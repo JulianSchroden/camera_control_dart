@@ -3,4 +3,6 @@ enum ExposureMode {
   manual,
   shutterPriority,
   aperturePriority,
+  bulb,
+  flexAuto,
 }

@@ -5,6 +5,7 @@ import '../communication/ptp_transaction_queue.dart';
 import '../constants/capture_destination.dart';
 import '../constants/event_mode.dart';
 import '../constants/ptp_property.dart';
+import '../constants/ptp_property_code.dart';
 import '../constants/remote_mode.dart';
 import '../extensions/to_byte_extensions.dart';
 import 'action.dart';

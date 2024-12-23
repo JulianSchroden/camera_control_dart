@@ -1,6 +1,7 @@
 import '../communication/events/prop_value_changed.dart';
 import '../constants/properties/movie_recording_status.dart';
 import '../constants/ptp_property.dart';
+import '../constants/ptp_property_code.dart';
 import '../models/eos_ptp_int_prop_value.dart';
 import '../models/eos_sensor_info.dart';
 import '../models/eos_sensor_info_prop_value.dart';

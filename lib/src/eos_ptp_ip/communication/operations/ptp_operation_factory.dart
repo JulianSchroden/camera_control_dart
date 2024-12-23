@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import '../../constants/capture_phase.dart';
 import '../../constants/event_mode.dart';
 import '../../constants/remote_mode.dart';
+import '../../constants/zoom_live_view.dart';
 import '../../models/eos_autofocus_position.dart';
 import 'close_session.dart';
 import 'get_device_info.dart';
@@ -15,6 +16,9 @@ import 'set_remote_mode.dart';
 import 'set_touch_af_position.dart';
 import 'start_image_capture.dart';
 import 'stop_image_capture.dart';
+import 'bulb_start.dart';
+import 'bulb_end.dart';
+import 'set_zoom_live_view.dart';
 
 class PtpOperationFactory {
   const PtpOperationFactory();
@@ -47,4 +51,12 @@ class PtpOperationFactory {
 
   SetTouchAfPosition createSetTouchAfPosition(EosAutofocusPostion position) =>
       SetTouchAfPosition(position);
+
+  BulbStart createBulbStart() =>
+      BulbStart();
+
+  BulbEnd createBulbEnd() =>
+      BulbEnd();
+
+  SetZoomLiveView setZoomLiveView(ZoomLiveView zoomLiveView) => SetZoomLiveView(zoomLiveView);
 }

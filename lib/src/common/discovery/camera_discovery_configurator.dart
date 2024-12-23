@@ -9,6 +9,8 @@ import 'wifi_info_adapter.dart';
 class CameraDiscoveryConfigurator {
   final List<CameraDiscoveryAdapter> _discoveryAdapters = [];
 
+  final int _pollIntervalMs = 200;
+
   CameraDiscoveryConfigurator withEosPtpIp([
     UpnpDiscoveryAdapter? upnpDiscoveryAdapter,
   ]) {
@@ -39,4 +41,7 @@ class CameraDiscoveryConfigurator {
   CameraDiscovery create() {
     return CameraDiscovery(_discoveryAdapters);
   }
+
+  set pollIntervalMs(ms)=>_pollIntervalMs;
+  int get pollIntervalMs=>_pollIntervalMs;
 }

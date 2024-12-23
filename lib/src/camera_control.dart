@@ -14,6 +14,7 @@ import 'eos_cine_http/eos_cine_http_camera_factory.dart';
 import 'eos_ptp_ip/eos_ptp_ip_camera_factory.dart';
 
 class CameraControl {
+
   final CameraDiscovery _cameraDiscovery;
 
   const CameraControl(this._cameraDiscovery);
@@ -63,6 +64,11 @@ class CameraControlConfigurator {
       logger: logger,
       enabledTopics: enabledTopics,
     );
+    return this;
+  }
+
+  CameraControlConfigurator withPollIntervalMs(int ms){
+    _discoveryConfigurator.pollIntervalMs = ms;
     return this;
   }
 
