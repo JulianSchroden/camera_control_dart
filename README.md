@@ -180,9 +180,11 @@ final eventStreamSubscription = camera.events().listen((cameraUpdateEvent) {
 
 ### Capturing Images
 
+For image capturing, first ensure the camera has the `ImageCaptureCapability`. Then call `captureImage()` to take a photo.
+
 ```dart
 final descriptor = await camera.getDescriptor();
-if(!descriptor.hasCapability<ControlPropCapability>()) {
+if(!descriptor.hasCapability<ImageCaptureCapability>()) {
   // the camera does not support capturing images
   return;
 }
