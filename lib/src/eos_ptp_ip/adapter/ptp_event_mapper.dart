@@ -11,7 +11,7 @@ import 'ptp_descriptor_mapper.dart';
 class PtpEventMapper {
   final PtpDescriptorMapper _ptpDescriptorMapper;
 
-  PtpEventMapper(this._ptpDescriptorMapper);
+  const PtpEventMapper(this._ptpDescriptorMapper);
 
   CameraUpdateEvent? mapToCommon(PtpEvent ptpEvent) => switch (ptpEvent) {
         PropValueChanged(
