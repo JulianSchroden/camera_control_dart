@@ -10,6 +10,8 @@ camera_control_dart allows you to remote control supported Canon EOS cameras wir
 - Live view preview
 - Demo mode
 
+</br>
+
 ## Getting started
 
 As of right now, `camera_control_dart` is not published on [pub.dev](). Therefore, you may depend on it by referencing this GitHub repository or a local copy using its relative path.
@@ -24,6 +26,8 @@ dependencies:
     # Option B: Referencing a local copy of the repository
     path: ../camera_control_dart/
 ```
+
+</br>
 
 ## Initialization
 
@@ -64,6 +68,8 @@ While reverse-engineering camera protocols, I had to rely heavily on debugging u
 - [EosPtpTransactionQueueTopic](/lib/src/eos_ptp_ip/logging/topics/transaction_queue_topics.dart#L14): PTP/IP transaction queue logs.
 - [EosPtpIpDiscoveryTopic](/lib/src/eos_ptp_ip/logging/topics/eos_ptp_ip_discovery_topic.dart#L10): UPNP alive and bye-bye advertisements logs.
 
+</br>
+
 ## Discovery
 
 Use the `discover` method to listen for [CameraDiscoveryEvent](/lib/src/common/discovery/camera_discovery_event.dart#L5). Whenever a camera is detected, a `alive` event is emitted. On the contrary, a `byebye` event is emitted when a camera disappears. Note that the Stream returned by `discover` does not filter out duplicates.
@@ -85,6 +91,9 @@ The [CameraDiscoveryEventAlive](/lib/src/common/discovery/camera_discovery_event
 ### Byebye Event
 
 The [CameraDiscoveryEventByeBye](/lib/src/common/discovery/camera_discovery_event.dart#L41) only contains the `id` property and notifies that the camera is no longer available.
+
+
+</br>
 
 ## Pairing
 
@@ -118,6 +127,8 @@ await cameraControl.pair(cameraHandle)
 
 When the `pair` method completes without throwing, the camera pairing process is successful.
 
+</br>
+
 ## Connecting to a Camera
 
 Call `connect` and provide a [CameraConnectionHandle](/lib/src/common/models/camera_connection_handle.dart#L7) to establish a connection to a camera. For camera models that do not require a pairing procedure, map the properties of a [DiscoveryHandle](/lib/src/common/discovery/discovery_handle.dart#L6) to a [CameraConnectionHandle](/lib/src/common/models/camera_connection_handle.dart#L7).
@@ -130,6 +141,8 @@ try {
 }
 ```
 When establishing a connection succeeds, the Future completes with a camera instance; otherwise, it completes with an error.
+
+</br>
 
 ## Camera Control
 
