@@ -1,6 +1,7 @@
 camera_control_dart allows you to remote control supported Canon EOS cameras wirelessly.
 
 ## Features
+
 - Camera discovery
 - Camera pairing
 - Control properties like ISO, aperture, shutter speed and white balance
@@ -44,6 +45,7 @@ final cameraControl = CameraControl.init()
 ```
 
 ### Camera Discovery Configuration
+
 Camera discovery is the process of scanning for nearby cameras. Within the configuration, you specify which camera types you want to discover.
 
 - Use `withEosPtpIp()` to enable the discovery of PTP/IP Cameras by listening for UPNP advertisements.
@@ -51,9 +53,11 @@ Camera discovery is the process of scanning for nearby cameras. Within the confi
 - Use `withDemo()` if you do not own any supported camera to play around with the library using its demo implementation.
 
 ### Logger Configuration
+
 While reverse-engineering camera protocols, I had to rely heavily on debugging using logs since breakpoints pause the execution too long, causing cameras to disconnect. Therefore, I added a configurable logging infrastructure that allows you to specify the topics you are interested in.
 
 #### Available Topics:
+
 - [UnspecifiedLoggerTopic](/lib/src/common/logging/camera_control_logger_config.dart#L10): Fallback topic to ensure logs that do not specify a `LoggerChannel` are logged.
 - [EosPtpRawEventLoggerTopic](/lib/src/eos_ptp_ip/logging/topics/eos_event_topics.dart#L14): Raw event data logs of the GetEventData (0x9116) operation.
 - [EosPtpPropertyChangedLoggerTopic](/lib/src/eos_ptp_ip/logging/topics/eos_event_topics.dart#L29): Property changed event logs.
@@ -61,6 +65,7 @@ While reverse-engineering camera protocols, I had to rely heavily on debugging u
 - [EosPtpIpDiscoveryTopic](/lib/src/eos_ptp_ip/logging/topics/eos_ptp_ip_discovery_topic.dart#L10): UPNP alive and bye-bye advertisements logs.
 
 ## Discovery
+
 Use the `discover` method to listen for [CameraDiscoveryEvent](/lib/src/common/discovery/camera_discovery_event.dart#L5). Whenever a camera is detected, a `alive` event is emitted. On the contrary, a `byebye` event is emitted when a camera disappears. Note that the Stream returned by `discover` does not filter out duplicates.
 
 ```dart
@@ -69,16 +74,20 @@ final discoveryStreamSubscription =
   // TODO: process discovery events
 });
 ```
+
 ### Alive Event
+
 The [CameraDiscoveryEventAlive](/lib/src/common/discovery/camera_discovery_event.dart#L24) contains a [DiscoveryHandle](/lib/src/common/discovery/discovery_handle.dart#L6) with the following properties:
 - `id`: Identifier to reference the specific camera.
 - `model`: A [CameraModel](/lib/src/common/models/camera_model.dart#L5) instance containing a model-specific `id`, `name`, and the underlying `protocol`.
 - `pairingData`: Optional [PairingData](/lib/src/common/models/pairing_data.dart#L3) instance. Only present when the camera model does not require the user to enter pairing data.
 
 ### Byebye Event
+
 The [CameraDiscoveryEventByeBye](/lib/src/common/discovery/camera_discovery_event.dart#L41) only contains the `id` property and notifies that the camera is no longer available.
 
 ## Pairing
+
 Pairing is only required when connecting to a Canon EOS PTP/IP camera and only when connecting for the first time.
 1. Navigate to your camera's `Wi-Fi function` menu.
 2. Choose `Remote control (EOS Utility)`.
@@ -110,6 +119,7 @@ await cameraControl.pair(cameraHandle)
 When the `pair` method completes without throwing, the camera pairing process is successful.
 
 ## Connecting to a Camera
+
 Call `connect` and provide a [CameraConnectionHandle](/lib/src/common/models/camera_connection_handle.dart#L7) to establish a connection to a camera. For camera models that do not require a pairing procedure, map the properties of a [DiscoveryHandle](/lib/src/common/discovery/discovery_handle.dart#L6) to a [CameraConnectionHandle](/lib/src/common/models/camera_connection_handle.dart#L7).
 Otherwise, look at the [Paring section](#pairing) for more info.
 ```dart
@@ -122,9 +132,11 @@ try {
 When establishing a connection succeeds, the Future completes with a camera instance; otherwise, it completes with an error.
 
 ## Camera Control
+
 With a camera connected, you can start controlling it using the methods exposed by the [Camera](/lib/src/common/camera.dart#L9) interface.
 
 ### Start and Stop Movie recordings
+
 ```dart
 final descriptor = await camera.getDescriptor();
 if(!descriptor.hasCapability<MovieRecordCapility>()) {
@@ -138,6 +150,7 @@ await camera.triggerRecord();
 ```
 
 ### Capturing Images
+
 ```dart
 final descriptor = await camera.getDescriptor();
 if(!descriptor.hasCapability<ControlPropCapability>()) {
@@ -149,6 +162,7 @@ await camera.captureImage();
 ```
 
 ### Controlling Properties
+
 ```dart
 final descriptor = await camera.getDescriptor();
 if (!descriptor.hasCapability<ControlPropCapability>()) {
