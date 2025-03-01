@@ -38,8 +38,8 @@ class PtpEventDataParser {
       case PtpEventCode.propertyChanged:
         return parsePropertyChangedEvent(segmentReader);
 
-      //case PtpEventCode.allowedValuesChanged:
-      //  return parseAllowedValuesChangedEvent(segmentReader);
+      case PtpEventCode.allowedValuesChanged:
+        return parseAllowedValuesChangedEvent(segmentReader);
 
       default:
         return null;
