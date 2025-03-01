@@ -213,7 +213,33 @@ if (apertureProp == null) {
 camera.setProp(apertureProp.type, apertureProp.allowedValues.first);
 ```
 
-## Additional information
+### Live View Image Acquisition
+
+To acquire a Stream of Live View images, use the `liveView()` method. When listening to the stream, the camera enters `LiveView` Mode, and the Stream starts to emit `LiveViewData`. Canceling the StreamSubscription stops the `LiveView` Mode.  
+
+The `LiveViewData` contains two properties:
+-  `imageBytes`: Uint8List of JPEG-encoded image
+-  `autofocusState`: represents the current autofocus state and the position of the autofocus rectangle
+
+```dart
+final liveViewStreamSubscription = camera.liveView().listen(
+    (liveViewData) {
+      const imageBytes = liveViewData.imageBytes
+      const autofocusState = liveViewData.autofocusState
+
+      // TODO: handle imageBytes and autofoucsState
+    },
+  );
+```
+
+### Set Autofocous Position in Live View
+
+When the `LiveView` mode is enabled, you can change the autofocus position using the `setAutofocusPosition()` method. The method takes a single parameter of type `AutofocusPosition` that has two members, `x` and `y`, describing the position based on a normalized range between `[0, 1]`.
+
+```dart
+  // Set the autofocus rectangle to the center
+  await camera.setAutofocusPosition(AutofocusPosition(x: 0.5, y: 0.5));
+```
 
 ### Start and Stop Movie recordings
 
