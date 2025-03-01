@@ -253,8 +253,8 @@ final liveViewStreamSubscription = camera.liveView().listen(
 When the `LiveView` mode is enabled, you can change the autofocus position using the `setAutofocusPosition()` method. The method takes a single parameter of type `AutofocusPosition` that has two members, `x` and `y`, describing the position based on a normalized range between `[0, 1]`.
 
 ```dart
-  // Set the autofocus rectangle to the center
-  await camera.setAutofocusPosition(AutofocusPosition(x: 0.5, y: 0.5));
+// Set the autofocus rectangle to the center
+await camera.setAutofocusPosition(AutofocusPosition(x: 0.5, y: 0.5));
 ```
 
 ### Start and Stop Movie recordings
