@@ -259,6 +259,8 @@ When the `LiveView` mode is enabled, you can change the autofocus position using
 
 ### Start and Stop Movie recordings
 
+When the camera supports the `MovieRecordCapility`, you can use `triggerRecord` to start/stop a movie recording. Note that the capability is only supported when the camera is in movie mode.
+
 ```dart
 final descriptor = await camera.getDescriptor();
 if(!descriptor.hasCapability<MovieRecordCapility>()) {
