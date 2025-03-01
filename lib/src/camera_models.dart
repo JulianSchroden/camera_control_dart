@@ -10,7 +10,7 @@ abstract class CameraId {
   static const canon70D = "Canon70D";
   static const canonR7 = "CanonR7";
 
-  static List<String> values = [demoCamera, canonC100II, canon70D];
+  static List<String> values = [demoCamera, canonC100II, canon70D, canonR7];
 }
 
 class CameraModels {
@@ -35,6 +35,7 @@ class CameraModels {
     name: 'Canon EOS R7',
     protocol: CameraControlProtocol.eosPtpIp,
   );
+
   static const List<CameraModel> values = [
     demoCamera,
     canonC100II,
