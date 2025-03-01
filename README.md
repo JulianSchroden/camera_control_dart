@@ -194,6 +194,13 @@ await camera.captureImage();
 
 ### Controlling Properties
 
+To control properties like aperture, ISO, and shutter speed:
+- validate that the camera has the `ControlPropCapability`
+- if yes, get the supported `ControlPropTypes` from the capability
+- with the `supportedProps`, you can request the `ControlProp` by calling `getProp`
+- the `ControlProp` contains the `propType`, `currentValue`, and `allowedValues` 
+- now you can call `setProp` using the ControlPropType and one of its allowed values. 
+
 ```dart
 final descriptor = await camera.getDescriptor();
 if (!descriptor.hasCapability<ControlPropCapability>()) {
@@ -205,14 +212,21 @@ if (!descriptor.hasCapability<ControlPropCapability>()) {
 final propCapability = descriptor.getCapability<ControlPropCapability>();
 final supportedPropTypes = propCapability.supportedProps;
 
-// Get the ControlProp by ControlpropType
-final apertureProp = await camera.getProp(ControlPropType.aperture);
-if (apertureProp == null) {
-  return;
+// Initialize a list of all supported properties including their current and allowed values
+final supportedProps = <ControlProp>[];
+for (final propType in supportedPropTypes) {
+  final controlProp = await camera.getProp(propType);
+  if (controlProp != null) {
+    supportedProps.add(controlProp);
+  }
 }
 
-// Set the aperture to one of its allowed values
-camera.setProp(apertureProp.type, apertureProp.allowedValues.first);
+// TODO: Dummy function to simulate some user interaction to pick a value for a type
+final (propType, propValue) = await pickValue(supportedProps);
+
+
+// Set the property to one of its allowed values
+await camera.setProp(propType, propValue);
 ```
 
 ### Live View Image Acquisition
