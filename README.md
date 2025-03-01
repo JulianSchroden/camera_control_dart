@@ -148,18 +148,34 @@ When establishing a connection succeeds, the Future completes with a camera inst
 
 With a camera connected, you can start controlling it using the methods exposed by the [Camera](/lib/src/common/camera.dart#L9) interface.
 
-### Start and Stop Movie recordings
+### Listening to Events
+
+To ensure property updates are handled correctly, use the `events()` method to listen to CameraUpdateEvents. Internally, the  implementation polls for events as long as you listen to the Stream and uses the event data to update its internal PropertyCache.
 
 ```dart
-final descriptor = await camera.getDescriptor();
-if(!descriptor.hasCapability<MovieRecordCapility>()) {
-  // the camera does not support recording movies
-  return;
-}
-
-await camera.triggerRecord();
-await Future.delayed(const Duration(seconds: 5));
-await camera.triggerRecord();
+final eventStreamSubscription = camera.events().listen((cameraUpdateEvent) {
+  // TODO: handle cameraUpdateEvent
+  cameraUpdateEvent.when(
+    descriptorChanged: (descriptor) {
+      // TODO: handle descriptor change
+    },
+    propValueChanged: (propType, propValue) {
+      // TODO: handle prop value change
+    },
+    propAllowedValuesChanged: (propType, allowedValues) {
+      // TODO: handle allowed values change
+    },
+    recordState: (isRecording) {
+      // TODO: handle record state change
+    },
+    focusMode: (focusMode) {
+      // TODO: handle focus mode change
+    },
+    ndFilter: (mdStops) {
+      // TODO: handle ND filter change
+    },
+  );
+})
 ```
 
 ### Capturing Images
@@ -198,4 +214,20 @@ camera.setProp(apertureProp.type, apertureProp.allowedValues.first);
 ```
 
 ## Additional information
+
+### Start and Stop Movie recordings
+
+```dart
+final descriptor = await camera.getDescriptor();
+if(!descriptor.hasCapability<MovieRecordCapility>()) {
+  // the camera does not support recording movies
+  return;
+}
+
+await camera.triggerRecord();
+await Future.delayed(const Duration(seconds: 5));
+await camera.triggerRecord();
+```
+
+
 
