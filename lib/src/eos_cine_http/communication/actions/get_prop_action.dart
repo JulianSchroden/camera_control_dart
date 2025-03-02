@@ -1,5 +1,4 @@
 import '../../../common/exceptions/unsupported_prop_exception.dart';
-
 import '../../../common/property_control/control_prop.dart';
 import '../../../common/property_control/control_prop_type.dart';
 import '../../constants/api_endpoint_path.dart';

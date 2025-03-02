@@ -16,6 +16,8 @@ abstract class PtpOperationCode {
   static const startImageCapture = 0x9128;
   static const stopImageCapture = 0x9129;
   static const startMovieMode = 0x9133;
+
   static const getLiveViewImage = 0x9153;
+  static const setLiveViewMagnification = 0x9158;
   static const setTouchAfPosition = 0x915b;
 }

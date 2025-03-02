@@ -7,6 +7,7 @@ import '../common/live_view/polled_live_view_acquisition.dart';
 import '../common/models/camera_descriptor.dart';
 import '../common/models/camera_update_event.dart';
 import '../common/models/properties/autofocus_position.dart';
+import '../common/models/properties/live_view_magnification.dart';
 import '../common/property_control/control_prop.dart';
 import '../common/property_control/control_prop_type.dart';
 import '../common/property_control/control_prop_value.dart';
@@ -74,15 +75,15 @@ class EosPtpIpCamera extends Camera with PolledLiveViewAcquisition {
   }
 
   @override
-  Future<void> startBulbCapture() {
+  Future<void> startBulbCapture() async {
     final startBulbCapture = _actionFactory.createStartBulbCapture();
-    return startBulbCapture.run(_transactionQueue);
+    await startBulbCapture.run(_transactionQueue);
   }
 
   @override
-  Future<void> stopBulbCapture() {
+  Future<void> stopBulbCapture() async {
     final stopBulbCapture = _actionFactory.createStopBulbCapture();
-    return stopBulbCapture.run(_transactionQueue);
+    await stopBulbCapture.run(_transactionQueue);
   }
 
   @override
@@ -135,6 +136,18 @@ class EosPtpIpCamera extends Camera with PolledLiveViewAcquisition {
       sensorInfo,
       focusDuration,
     );
+
     await setAutofocusPosition.run(_transactionQueue);
+  }
+
+  @override
+  Future<void> setLiveViewMagnification(
+      LiveViewMagnification liveViewMagnification) async {
+    final setLiveViewMagnification =
+        _actionFactory.createSetLiveViewMagnification(
+      liveViewMagnification,
+    );
+
+    await setLiveViewMagnification.run(_transactionQueue);
   }
 }

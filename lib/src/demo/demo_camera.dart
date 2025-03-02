@@ -9,6 +9,7 @@ import '../common/models/camera_update_event.dart';
 import '../common/models/capabilities/control_prop_capability.dart';
 import '../common/models/capabilities/live_view_capability.dart';
 import '../common/models/capabilities/movie_record_capability.dart';
+import '../common/models/properties/live_view_magnification.dart';
 import '../common/property_control/control_prop.dart';
 import '../common/property_control/control_prop_type.dart';
 import '../common/property_control/control_prop_value.dart';
@@ -129,6 +130,10 @@ class DemoCamera extends Camera with PolledLiveViewAcquisition {
   Future<LiveViewData> getLiveViewData() async {
     return LiveViewData(imageBytes: demoLiveViewImage);
   }
+
+  @override
+  Future<void> setLiveViewMagnification(
+      LiveViewMagnification liveViewMagnification) async {}
 
   @override
   Future<void> setAutofocusPosition(

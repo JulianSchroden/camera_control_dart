@@ -12,6 +12,7 @@ import '../common/models/capabilities/movie_record_capability.dart';
 import '../common/models/properties/autofocus_position.dart';
 import '../common/models/properties/camera_mode.dart';
 import '../common/models/properties/exposure_mode.dart';
+import '../common/models/properties/live_view_magnification.dart';
 import '../common/property_control/control_prop.dart';
 import '../common/property_control/control_prop_type.dart';
 import '../common/property_control/control_prop_value.dart';
@@ -156,6 +157,10 @@ class EosCineHttpCamera extends Camera with PolledLiveViewAcquisition {
         actionFactory.createGetLiveViewImageAction(httpAdapter);
     return getLiveViewImageAction();
   }
+
+  @override
+  Future<void> setLiveViewMagnification(
+      LiveViewMagnification liveViewMagnification) async {}
 
   Future<CameraInfo> getInfo() async {
     final getInfoAction = actionFactory.createGetInfoAction(httpAdapter);

@@ -1,8 +1,7 @@
-import 'package:camera_control_dart/src/common/extensions/list_extensions.dart';
-import 'package:camera_control_dart/src/eos_ptp_ip/constants/ptp_property.dart';
-
+import '../../../common/extensions/list_extensions.dart';
 import '../../../common/models/properties/camera_mode.dart';
 import '../../../common/models/properties/exposure_mode.dart';
+import '../ptp_property.dart';
 
 enum LiveViewMode implements EosValue {
   photo(0x1),
