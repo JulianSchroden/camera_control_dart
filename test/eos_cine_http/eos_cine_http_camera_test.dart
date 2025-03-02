@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:camera_control_dart/src/common/camera_config.dart';
 import 'package:camera_control_dart/src/eos_cine_http/eos_cine_http_camera.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
@@ -14,6 +15,6 @@ void main() {
 
   setUp(() {
     mockHttpAdapter = MockHttpAdapter();
-    sut = EosCineHttpCamera(mockHttpAdapter);
+    sut = EosCineHttpCamera(mockHttpAdapter, CameraConfig());
   });
 }

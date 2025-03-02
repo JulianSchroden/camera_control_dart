@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import '../common/camera.dart';
+import '../common/camera_config.dart';
 import '../common/camera_factory.dart';
 import '../common/exceptions/camera_communication_exception.dart';
 import '../common/models/camera_connection_handle.dart';
@@ -23,7 +24,8 @@ class EosCineHttpCameraFactory
   ]);
 
   @override
-  Future<Camera> connect(CameraConnectionHandle handle) async {
+  Future<Camera> connect(
+      CameraConnectionHandle handle, CameraConfig config) async {
     final pairingData = handle.pairingData as EosCineHttpCameraPairingData;
 
     final client = await clientFactory.create();
@@ -44,6 +46,6 @@ class EosCineHttpCameraFactory
       Cookie('brlang', cameraInfo.language.toString()),
     ]);
 
-    return EosCineHttpCamera(httpAdapter);
+    return EosCineHttpCamera(httpAdapter, config);
   }
 }

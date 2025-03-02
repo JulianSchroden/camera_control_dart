@@ -1,5 +1,6 @@
 import '../common/adapter/polled_data_stream_controller.dart';
 import '../common/camera.dart';
+import '../common/camera_config.dart';
 import '../common/live_view/live_view_data.dart';
 import '../common/live_view/polled_live_view_acquisition.dart';
 import '../common/models/camera_descriptor.dart';
@@ -21,12 +22,15 @@ import 'models/eos_cine_prop_value.dart';
 
 class EosCineHttpCamera extends Camera with PolledLiveViewAcquisition {
   final HttpAdapter httpAdapter;
+  final CameraConfig config;
   final ActionFactory actionFactory;
+
   PolledDataStreamController<CameraUpdateEvent>? _eventController;
   int _nextUpdateSequence = 0;
 
   EosCineHttpCamera(
-    this.httpAdapter, [
+    this.httpAdapter,
+    this.config, [
     this.actionFactory = const ActionFactory(),
   ]);
 
@@ -102,7 +106,7 @@ class EosCineHttpCamera extends Camera with PolledLiveViewAcquisition {
   @override
   Stream<CameraUpdateEvent> events() {
     _eventController ??= PolledDataStreamController<CameraUpdateEvent>(
-      pollInterval: const Duration(milliseconds: 500),
+      pollInterval: config.eventPollingInterval,
       pollData: (sink) async {
         final response = await getUpdate();
         sink.addStream(Stream.fromIterable(response.cameraEvents));

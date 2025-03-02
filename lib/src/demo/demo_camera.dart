@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import '../common/camera.dart';
+import '../common/camera_config.dart';
 import '../common/live_view/live_view_data.dart';
 import '../common/live_view/polled_live_view_acquisition.dart';
 import '../common/models/camera_descriptor.dart';
@@ -18,6 +19,10 @@ import 'data/demo_live_view_image.dart';
 import 'models/demo_prop_value.dart';
 
 class DemoCamera extends Camera with PolledLiveViewAcquisition {
+  final CameraConfig config;
+
+  DemoCamera(this.config);
+
   final List<ControlProp> _dummyControlProps = [
     ControlProp(
       type: ControlPropType.iso,
@@ -83,7 +88,8 @@ class DemoCamera extends Camera with PolledLiveViewAcquisition {
   @override
   Future<void> setProp(
       ControlPropType propType, ControlPropValue propValue) async {
-    await Future.delayed(const Duration(milliseconds: 200));
+    await Future.delayed(config.eventPollingInterval);
+
     final propIndex =
         _dummyControlProps.indexWhere((prop) => prop.type == propType);
     _dummyControlProps[propIndex] =

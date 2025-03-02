@@ -1,4 +1,5 @@
 import 'common/camera.dart';
+import 'common/camera_config.dart';
 import 'common/camera_factory.dart';
 import 'common/discovery/camera_discovery.dart';
 import 'common/discovery/camera_discovery_configurator.dart';
@@ -27,9 +28,12 @@ class CameraControl {
     await factory.pair(connectionHandle);
   }
 
-  Future<Camera> connect(CameraConnectionHandle connectionHandle) async {
+  Future<Camera> connect(
+    CameraConnectionHandle connectionHandle, [
+    CameraConfig config = const CameraConfig(),
+  ]) async {
     final factory = _provideFactory(connectionHandle.model);
-    return await factory.connect(connectionHandle);
+    return await factory.connect(connectionHandle, config);
   }
 
   CameraFactory _provideFactory(CameraModel model) {
