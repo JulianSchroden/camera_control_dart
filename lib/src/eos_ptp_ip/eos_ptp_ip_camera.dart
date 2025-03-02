@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import '../common/models/properties/live_view_magnification.dart';
 import '../common/camera.dart';
 import '../common/exceptions/camera_communication_exception.dart';
 import '../common/live_view/live_view_data.dart';
@@ -74,15 +75,15 @@ class EosPtpIpCamera extends Camera with PolledLiveViewAcquisition {
   }
 
   @override
-  Future<void> startBulbCapture() {
+  Future<void> startBulbCapture() async {
     final startBulbCapture = _actionFactory.createStartBulbCapture();
-    return startBulbCapture.run(_transactionQueue);
+    await startBulbCapture.run(_transactionQueue);
   }
 
   @override
-  Future<void> stopBulbCapture() {
+  Future<void> stopBulbCapture() async {
     final stopBulbCapture = _actionFactory.createStopBulbCapture();
-    return stopBulbCapture.run(_transactionQueue);
+    await stopBulbCapture.run(_transactionQueue);
   }
 
   @override
@@ -135,6 +136,18 @@ class EosPtpIpCamera extends Camera with PolledLiveViewAcquisition {
       sensorInfo,
       focusDuration,
     );
+
     await setAutofocusPosition.run(_transactionQueue);
+  }
+
+  @override
+  Future<void> setLiveViewMagnification(
+      LiveViewMagnification liveViewMagnification) async {
+    final setLiveViewMagnification =
+        _actionFactory.createSetLiveViewMagnification(
+      liveViewMagnification,
+    );
+
+    await setLiveViewMagnification.run(_transactionQueue);
   }
 }

@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import '../../../common/models/properties/live_view_magnification.dart';
 import '../../constants/capture_phase.dart';
 import '../../constants/event_mode.dart';
 import '../../constants/remote_mode.dart';
@@ -10,13 +11,14 @@ import 'get_event_data.dart';
 import 'get_live_view_image.dart';
 import 'open_session.dart';
 import 'set_event_mode.dart';
+import 'set_live_view_magnification.dart';
 import 'set_prop_value.dart';
 import 'set_remote_mode.dart';
 import 'set_touch_af_position.dart';
-import 'start_image_capture.dart';
-import 'stop_image_capture.dart';
 import 'start_bulb_capture.dart';
+import 'start_image_capture.dart';
 import 'stop_bulb_capture.dart';
+import 'stop_image_capture.dart';
 
 class PtpOperationFactory {
   const PtpOperationFactory();
@@ -46,6 +48,10 @@ class PtpOperationFactory {
       StopImageCapture(capturePhase);
 
   GetLiveViewImage createGetLiveViewImage() => const GetLiveViewImage();
+
+  SetLiveViewMagnification createSetLiveViewMagnification(
+          LiveViewMagnification liveViewMagnification) =>
+      SetLiveViewMagnification(liveViewMagnification);
 
   SetTouchAfPosition createSetTouchAfPosition(EosAutofocusPostion position) =>
       SetTouchAfPosition(position);
