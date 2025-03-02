@@ -74,6 +74,18 @@ class EosPtpIpCamera extends Camera with PolledLiveViewAcquisition {
   }
 
   @override
+  Future<void> startBulbCapture() {
+    final startBulbCapture = _actionFactory.createStartBulbCapture();
+    return startBulbCapture.run(_transactionQueue);
+  }
+
+  @override
+  Future<void> stopBulbCapture() {
+    final stopBulbCapture = _actionFactory.createStopBulbCapture();
+    return stopBulbCapture.run(_transactionQueue);
+  }
+
+  @override
   Future<void> triggerRecord() async {
     final isRecording = _eventProcessor.propertyCache.isRecording;
     final triggerRecord =

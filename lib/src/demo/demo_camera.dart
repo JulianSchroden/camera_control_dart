@@ -106,6 +106,12 @@ class DemoCamera extends Camera with PolledLiveViewAcquisition {
   Future<void> captureImage() async {}
 
   @override
+  Future<void> startBulbCapture() async {}
+
+  @override
+  Future<void> stopBulbCapture() async {}
+
+  @override
   Future<void> triggerRecord() async {
     await Future.delayed(const Duration(milliseconds: 200));
     _reordState = !_reordState;

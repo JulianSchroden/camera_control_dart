@@ -90,6 +90,16 @@ class EosCineHttpCamera extends Camera with PolledLiveViewAcquisition {
   Future<void> captureImage() async {}
 
   @override
+  Future<void> startBulbCapture() {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> stopBulbCapture() {
+    throw UnimplementedError();
+  }
+
+  @override
   Future<void> triggerRecord() async {
     final triggerRecordAction =
         actionFactory.createTriggerRecordAction(httpAdapter);

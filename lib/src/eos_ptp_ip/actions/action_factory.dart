@@ -7,6 +7,8 @@ import '../cache/ptp_property_cache.dart';
 import '../constants/properties/live_view_output.dart';
 import '../models/eos_ptp_int_prop_value.dart';
 import '../models/eos_sensor_info.dart';
+import 'start_bulb_capture_action.dart';
+import 'stop_bulb_capture_action.dart';
 import 'capture_image_action.dart';
 import 'deinit_session_action.dart';
 import 'get_device_info_action.dart';
@@ -38,6 +40,9 @@ class ActionFactory {
       SetPropAction(propType, propValue);
 
   CaptureImageAction createCaptureImageAction() => CaptureImageAction();
+
+  StartBulbCaptureAction createStartBulbCapture() => StartBulbCaptureAction();
+  StopBulbCaptureAction createStopBulbCapture() => StopBulbCaptureAction();
 
   SetLiveViewOutputAction createSetLiveViewOutputAction(
     EosPtpEventProcessor eventProcessor,

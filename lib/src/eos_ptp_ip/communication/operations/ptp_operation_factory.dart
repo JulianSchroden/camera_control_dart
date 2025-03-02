@@ -15,6 +15,8 @@ import 'set_remote_mode.dart';
 import 'set_touch_af_position.dart';
 import 'start_image_capture.dart';
 import 'stop_image_capture.dart';
+import 'start_bulb_capture.dart';
+import 'stop_bulb_capture.dart';
 
 class PtpOperationFactory {
   const PtpOperationFactory();
@@ -47,4 +49,7 @@ class PtpOperationFactory {
 
   SetTouchAfPosition createSetTouchAfPosition(EosAutofocusPostion position) =>
       SetTouchAfPosition(position);
+
+  StartBulbCapture createStartBulbCapture() => StartBulbCapture();
+  StopBulbCapture createStopBulbCapture() => StopBulbCapture();
 }
