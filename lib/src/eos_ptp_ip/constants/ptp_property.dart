@@ -141,6 +141,7 @@ const List<EosValue> ptpApertureValues = [
 ];
 
 const List<EosValue> ptpShutterSpeedValues = [
+  EosNumberValue(0x0c, 'Bulb'),
   EosNumberValue(0x10, '30'),
   EosNumberValue(0x13, '25'),
   EosNumberValue(0x15, '20'),
