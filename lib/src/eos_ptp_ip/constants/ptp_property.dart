@@ -223,4 +223,9 @@ const List<EosValue> ptpIsoValues = [
   EosNumberValue(0x7b, '8000'),
   EosNumberValue(0x7d, '10000'),
   EosNumberValue(0x80, '12800'),
+  EosNumberValue(0x83, '16000'),
+  EosNumberValue(0x85, '20000'),
+  EosNumberValue(0x88, '25600'),
+  EosNumberValue(0x8b, '32000'),
+  EosNumberValue(0x90, '51200'),
 ];
