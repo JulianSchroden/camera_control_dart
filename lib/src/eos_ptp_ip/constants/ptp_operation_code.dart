@@ -10,9 +10,6 @@ abstract class PtpOperationCode {
   static const setEventMode = 0x9115;
   static const getEventData = 0x9116;
 
-  static const startBulbCapture = 0x9125;
-  static const stopBulbCapture = 0x9126;
-
   static const startImageCapture = 0x9128;
   static const stopImageCapture = 0x9129;
   static const startMovieMode = 0x9133;

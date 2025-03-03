@@ -1,4 +1,6 @@
 import '../communication/ptp_transaction_queue.dart';
+import '../constants/capture_autofocus_mode.dart';
+import '../constants/capture_phase.dart';
 import 'action.dart';
 
 class StartBulbCaptureAction extends Action<void> {
@@ -6,9 +8,15 @@ class StartBulbCaptureAction extends Action<void> {
 
   @override
   Future<void> run(PtpTransactionQueue transactionQueue) async {
-    final startBulbCapture = operationFactory.createStartBulbCapture();
-    final response = await transactionQueue.handle(startBulbCapture);
+    final startBulbFocus = operationFactory.createStartImageCapture(
+        CapturePhase.focus, CaptureAutofocusMode.noAutofocus);
+    final startFocusResponse = await transactionQueue.handle(startBulbFocus);
+    verifyOperationResponse(startFocusResponse, 'startBulbFocus');
 
-    verifyOperationResponse(response, 'startBulbCapture');
+    final startBulbRelease = operationFactory.createStartImageCapture(
+        CapturePhase.release, CaptureAutofocusMode.noAutofocus);
+    final startReleaseResponse =
+        await transactionQueue.handle(startBulbRelease);
+    verifyOperationResponse(startReleaseResponse, 'startBulbRelease');
   }
 }
